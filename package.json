@@ -1,6 +1,6 @@
 {
   "name": "node-3d-ready-raub",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Just grab this to start enjoying WebGL-flavored three.js-empowered real-time 3D rendering for node.js",
   "main": "index.js",
   "author": "Luis Blanco <raubtierxxx@gmail.com>",
@@ -24,7 +24,7 @@
     "url": "https://github.com/raub/node-3d-ready.git"
   },
   "dependencies": {
-    "node-threejs-raub": "^0.84.0",
-    "node-webgl-raub": "^0.5.7"
+    "node-threejs-raub": "^0.84.1",
+    "node-webgl-raub": "^0.6.1"
   }
 }
