@@ -9,23 +9,28 @@ camera.position.z = 500;
 const scene = new node3d.three.Scene();
 
 const geometry = new node3d.three.IcosahedronGeometry(200, 1);
-const material =  new node3d.three.MeshBasicMaterial({
-	color             : 0xfff999fff,
+const material =  new node3d.three.MeshLambertMaterial({
+	color: 0xffffff,
 });
 const mesh = new node3d.three.Mesh(geometry, material);
 scene.add( mesh );
 
+const pointLight = new node3d.three.PointLight(0xFFFFFF, 1, 100000);
+scene.add( pointLight );
+pointLight.position.x = 200;
+pointLight.position.y = 2000;
+pointLight.position.z = 500;
+
+
 function animation() {
 	
-	node3d.frame( animation );
-	
 	mesh.rotation.x = Date.now() * 0.00005;
-	mesh.rotation.y = Date.now() * 0.0001; 
-	mesh.position.y += 0.0005;
-	mesh.position.z += 0.05;  
+	mesh.rotation.y = Date.now() * 0.0001;
 	
 	node3d.renderer.render( scene, camera);
 	
 }
 
-animation();
+while (1){
+	node3d.frame(animation);
+}
