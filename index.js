@@ -38,7 +38,6 @@ gl.enable(gl.DEPTH_TEST);
 
 global.document = doc;
 global.window   = doc;
-
 global.cwrap    = null;
 
 const three = require('node-threejs-raub');
@@ -52,7 +51,7 @@ const renderer = new three.WebGLRenderer({
 	precision: 'lowp',
 	
 	premultipliedAlpha    : true,
-	preserveDrawingBuffe  : true,
+	preserveDrawingBuffer : true,
 	logarithmicDepthBuffer: true,
 	
 });
@@ -67,9 +66,12 @@ doc.on('resize', () => {
 module.exports = {
 	webgl,
 	doc,
+	document: doc,
 	canvas,
 	gl,
+	context: gl,
 	three,
 	renderer,
 	frame: doc.requestAnimationFrame,
+	requestAnimationFrame: doc.requestAnimationFrame,
 };
