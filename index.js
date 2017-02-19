@@ -1,7 +1,8 @@
 'use strict';
 
-const webgl  = require('node-webgl-raub');
-const doc    = webgl.document();
+const webgl = require('node-webgl-raub');
+const doc   = webgl.document();
+doc.body    = doc; // web-libs compatibility issues
 
 const canvas = doc.createElement('canvas', 800, 600, false);
 Object.defineProperty(canvas, 'clientWidth' , { get () { return this.width;  } });
