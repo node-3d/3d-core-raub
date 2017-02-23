@@ -64,6 +64,16 @@ doc.on('resize', () => {
 	renderer.setSize(canvas.width, canvas.height) ;
 });
 
+const loadTexture = (url, onLoad, onProgress, onError) => {
+	const cb = tex => {
+		tex.format = three.RGBAFormat;
+		if (onLoad) {
+			onLoad(tex);
+		}
+	};
+	return (new three.TextureLoader()).load(url, cb, onProgress, onError);
+};
+
 module.exports = {
 	webgl,
 	doc,
@@ -72,6 +82,7 @@ module.exports = {
 	gl,
 	context: gl,
 	three,
+	loadTexture,
 	renderer,
 	frame: doc.requestAnimationFrame,
 	requestAnimationFrame: doc.requestAnimationFrame,
