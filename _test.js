@@ -27,10 +27,10 @@ function animation() {
 	mesh.rotation.x = Date.now() * 0.00005;
 	mesh.rotation.y = Date.now() * 0.0001;
 	
-	node3d.renderer.render( scene, camera);
+	node3d.renderer.render(scene, camera);
+	
+	node3d.frame(animation);
 	
 }
 
-while (1){
-	node3d.frame(animation);
-}
+node3d.frame(animation);

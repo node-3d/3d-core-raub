@@ -5,8 +5,6 @@ const doc   = webgl.document();
 doc.body    = doc; // web-libs compatibility issues
 
 const canvas = doc.createElement('canvas', 800, 600, false);
-Object.defineProperty(canvas, 'clientWidth' , { get () { return this.width;  } });
-Object.defineProperty(canvas, 'clientHeight', { get () { return this.height; } });
 
 const gl = canvas.getContext('webgl');
 if ( ! gl ) {
@@ -59,9 +57,12 @@ const renderer = new three.WebGLRenderer({
 renderer.setSize(canvas.width, canvas.height, false);
 
 doc.on('resize', () => {
+	
 	gl.viewportWidth = canvas.width;
 	gl.viewportHeight = canvas.height;
+	
 	renderer.setSize(canvas.width, canvas.height) ;
+	
 });
 
 const loadTexture = (url, onLoad, onProgress, onError) => {
