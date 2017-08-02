@@ -11,21 +11,12 @@ if ( ! gl ) {
 	throw new Error("Could not initialise WebGL, sorry :-(");
 }
 
-// Hack for three.js, force precision
-gl.getShaderPrecisionFormat = function() {
-	return { precision: 'mediump' };
-};
-
 // Hack for three.js, remove precision from shader
 var parentShaderSource = gl.shaderSource;
 gl.shaderSource = function( shader, string ) {
-	string = string.split('\n').filter(function(line){
-		return ! line.startsWith("precision");
-	}).join('\n');
-	
-	string = string.replace(/highp\s/g, '');
-	string = '#version 120\n' + string.replace(/^.*?\#version.*?$/m, '');
-	
+	if ( ! /^.*?\#version.*?$/m.test(string) ) {
+		string = '#version 100\n' + string;
+	}
 	return parentShaderSource(shader, string);
 };
 
@@ -47,7 +38,6 @@ const renderer = new three.WebGLRenderer({
 	antialias: true,
 	canvas   : canvas,
 	alpha    : true,
-	precision: 'lowp',
 	
 	premultipliedAlpha    : true,
 	preserveDrawingBuffer : true,

@@ -1,6 +1,6 @@
 {
   "name": "node-3d-ready-raub",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Just grab this to start enjoying WebGL-flavored three.js-empowered real-time 3D rendering for node.js",
   "main": "index.js",
   "author": "Luis Blanco <raubtierxxx@gmail.com>",
