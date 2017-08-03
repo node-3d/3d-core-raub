@@ -1,6 +1,6 @@
 'use strict';
 
-const node3d  = require('./index');
+const node3d  = require('../index');
 
 
 const camera = new node3d.three.PerspectiveCamera( 75, node3d.canvas.width / node3d.canvas.height, 1, 1000 );
