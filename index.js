@@ -66,7 +66,7 @@ const loadTexture = (url, onLoad, onProgress, onError) => {
 };
 
 module.exports = {
-	webgl,
+	Image: webgl.Image,
 	doc,
 	document: doc,
 	canvas,
@@ -76,5 +76,4 @@ module.exports = {
 	loadTexture,
 	renderer,
 	frame: doc.requestAnimationFrame,
-	requestAnimationFrame: doc.requestAnimationFrame,
 };
