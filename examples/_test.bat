@@ -1,3 +1,0 @@
-node _test
-
-pause
