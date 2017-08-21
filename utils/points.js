@@ -8,8 +8,6 @@ class Points extends Cloud {
 	
 	constructor(opts) {
 		
-		opts.attrs = Object.assign({ size: 'size' }, opts.attrs || {});
-		
 		super(opts);
 		
 	}
@@ -17,7 +15,7 @@ class Points extends Cloud {
 	
 	buildVert(opts) {
 		return opts.vert || `
-			${this._attrs['size'] ? 'attribute float size' : 'float size = 3.0'};
+			${opts.attrs.size ? 'attribute float size' : 'float size = 3.0'};
 			attribute vec3  color;
 			varying   vec3  varColor;
 			varying   vec2  varTcoord;

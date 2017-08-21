@@ -22,7 +22,27 @@ const rgb = node3d.gl.createBuffer();
 node3d.gl.bindBuffer(node3d.gl.ARRAY_BUFFER, rgb);
 node3d.gl.bufferData(node3d.gl.ARRAY_BUFFER, new Float32Array(colors), node3d.gl.STATIC_DRAW);
 
-const points = new node3d.Points({ screen, attrs: { position: pos, rgb } });
+const points = new node3d.Points({
+	
+	screen,
+	
+	count: VBO_SIZE,
+	
+	attrs: {
+		
+		position: {
+			vbo: pos,
+			items: 3,
+		},
+		
+		color: {
+			vbo: rgb,
+			items: 3,
+		},
+		
+	},
+	
+});
 
 
 function animation() {

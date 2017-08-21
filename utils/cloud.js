@@ -27,27 +27,26 @@ class Cloud extends Drawable {
 	set color(v) { v = v; }
 	
 	
-	buildAttr(arr) {
-		const ba = new this.screen.three.BufferAttribute(Cloud._dummyArray, arr.size);
-		ba.count = this._el.max * arr.size;
+	buildAttr(attr, count) {
+		const ba = new this.screen.three.BufferAttribute(Cloud._dummyArray, attr.items);
+		ba.count = count;
+		ba.onCreateCallback = () => attr.vbo;
 		return ba;
 	}
 	
 	
-	_geo() {
+	_geo(opts) {
 		
 		const geo = new this.screen.three.BufferGeometry();
-		geo.computeBoundingSphere = (() => {
+		geo.computeBoundingSphere = () => {
 			geo.boundingSphere = new this.screen.three.Sphere(undefined, Infinity);
-		});
+		};
 		geo.computeBoundingSphere();
-		geo.setDrawRange( 0, 0 );
+		geo.setDrawRange(0, opts.count);
 		
-		Object.keys(this._attrs).forEach(key => {
-			geo.addAttribute(key, this.buildAttr(this._el.arrs[this._attrs[key]]));
+		Object.keys(opts.attrs).forEach(key => {
+			geo.addAttribute(key, this.buildAttr(opts.attrs[key]));
 		});
-		
-		this.unregVbo = this._unregVbo0;
 		
 		return geo;
 		
