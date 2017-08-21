@@ -20,24 +20,6 @@ class Cloud extends Drawable {
 		
 		super(opts);
 		
-		
-		
-		this._el = opts.data.el;
-		
-		this._attrs = Object.assign({
-			position: 'pos' ,
-			color   : 'rgb' ,
-		}, opts.attrs || {});
-		
-		Object.keys(this._attrs).forEach(key => {
-			if ( ! this._el.arrs[this._attrs[key]] ) {
-				delete this._attrs[key];
-			}
-		});
-		
-		this._arrs = Object.keys(this._attrs).map(key => this._el.arrs[this._attrs[key]]);
-		
-		
 	}
 	
 	
@@ -46,7 +28,7 @@ class Cloud extends Drawable {
 	
 	
 	buildAttr(arr) {
-		const ba = new this._screen.three.BufferAttribute(Cloud._dummyArray, arr.size);
+		const ba = new this.screen.three.BufferAttribute(Cloud._dummyArray, arr.size);
 		ba.count = this._el.max * arr.size;
 		return ba;
 	}
@@ -54,9 +36,9 @@ class Cloud extends Drawable {
 	
 	_geo() {
 		
-		const geo = new this._screen.three.BufferGeometry();
+		const geo = new this.screen.three.BufferGeometry();
 		geo.computeBoundingSphere = (() => {
-			geo.boundingSphere = new this._screen.three.Sphere(undefined, Infinity);
+			geo.boundingSphere = new this.screen.three.Sphere(undefined, Infinity);
 		});
 		geo.computeBoundingSphere();
 		geo.setDrawRange( 0, 0 );
@@ -79,7 +61,7 @@ class Cloud extends Drawable {
 		});
 		this._screen.on('resize', wh => uniforms.winh.value = wh.h);
 		
-		return new this._screen.three.ShaderMaterial({
+		return new this.screen.three.ShaderMaterial({
 			
 			blending   : 'additive',
 			depthTest  : false,
