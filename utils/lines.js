@@ -34,10 +34,9 @@ class Lines extends Cloud {
 	}
 	
 	
-	buildMesh() {
-		return new this._screen.three.Line(this._geo, this._mat);
+	_build(opts) {
+		return new this.three.Line(this._geo(opts), this._mat(opts));
 	}
-	
 	
 }
 

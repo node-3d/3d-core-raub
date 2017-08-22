@@ -30,8 +30,7 @@ class Cloud extends Drawable {
 	buildAttr(attr, count) {
 		const ba = new this.screen.three.BufferAttribute(Cloud._dummyArray, attr.items);
 		ba.count = count;
-		console.log('BUILD', attr, count);
-		ba.onCreateCallback = () => {console.log('CREATE');return attr.vbo;};
+		ba.onCreateCallback = () => attr.vbo;
 		return ba;
 	}
 	
