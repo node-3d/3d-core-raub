@@ -30,7 +30,8 @@ class Cloud extends Drawable {
 	buildAttr(attr, count) {
 		const ba = new this.screen.three.BufferAttribute(Cloud._dummyArray, attr.items);
 		ba.count = count;
-		ba.onCreateCallback = () => attr.vbo;
+		console.log('BUILD', attr, count);
+		ba.onCreateCallback = () => {console.log('CREATE');return attr.vbo;};
 		return ba;
 	}
 	
@@ -45,7 +46,7 @@ class Cloud extends Drawable {
 		geo.setDrawRange(0, opts.count);
 		
 		Object.keys(opts.attrs).forEach(key => {
-			geo.addAttribute(key, this.buildAttr(opts.attrs[key]));
+			geo.addAttribute(key, this.buildAttr(opts.attrs[key], opts.count));
 		});
 		
 		return geo;
@@ -56,9 +57,9 @@ class Cloud extends Drawable {
 	_mat(opts) {
 		
 		const uniforms = (opts.uniforms || {}, {
-			winh: { type: 'f' , value: this._screen.height },
+			winh: { type: 'f' , value: this.screen.height },
 		});
-		this._screen.on('resize', wh => uniforms.winh.value = wh.h);
+		this.screen.on('resize', wh => uniforms.winh.value = wh.h);
 		
 		return new this.screen.three.ShaderMaterial({
 			
@@ -117,7 +118,7 @@ class Cloud extends Drawable {
 	
 	
 	_build(opts) {
-		return new this.three.Mesh(this._geo(opts), this._mat(opts));
+		return new this.three.Points(this._geo(opts), this._mat(opts));
 	}
 	
 }

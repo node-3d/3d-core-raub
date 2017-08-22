@@ -45,6 +45,30 @@ const points = new node3d.Points({
 });
 
 
+let isMoving = false;
+let mouse = { x: 0, y: 0 };
+
+document.on('mousedown', e => isMoving = true);
+document.on('mouseup', e => isMoving = false);
+
+document.on('mousemove', e => {
+	
+	const dx = mouse.x - e.x;
+	const dy = mouse.y - e.y;
+	
+	mouse.x = e.x;
+	mouse.y = e.y;
+	
+	if ( ! isMoving ) {
+		return;
+	}
+	
+	points.mesh.rotation.y += dx * 0.001;
+	points.mesh.rotation.x += dy * 0.001;
+	
+});
+
+
 function animation() {
 	
 	screen.draw();
