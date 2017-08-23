@@ -25,6 +25,6 @@
   },
   "dependencies": {
     "node-threejs-raub": "0.87.2",
-    "node-webgl-raub": "0.7.3"
+    "node-webgl-raub": "0.7.4"
   }
 }
