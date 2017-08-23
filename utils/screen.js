@@ -45,10 +45,10 @@ class Screen extends EventEmitter {
 		const pathMatch2 = process.mainModule.filename.replace(/\\/g, '/').match(/(\/(.*))*\/(.*?)\/[^\/]*$/);
 		const appDir = opts.dir || (pathMatch2 ? pathMatch2[pathMatch2.length - 1] : '');
 		
-		this._title = opts.title || appDir;
+		this.title = opts.title || appDir;
 		
 		if ( ! opts.camera ) {
-			this._camera = new this.three.PerspectiveCamera(27, this.width / this.height, 5, 100000000);
+			this._camera = new this.three.PerspectiveCamera(45, this.width / this.height, 5, 100000000);
 			this._camera.position.z = 1000;
 		} else {
 			this._camera = opts.camera;

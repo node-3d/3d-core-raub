@@ -3,19 +3,17 @@
 
 module.exports = {
 	
-	// TODO: clean up
-	Overlay : require('./overlay'),
-	Overlay2: require('./overlay2'),
-	OverlayCorrect: require('./overlay_correct'),
-	OverlayCc: require('./overlaycc'),
-	Surface: require('./surface'),
+	Screen   : require('./screen'),
 	
-	Brush  : require('./brush'),
-	Rect   : require('./rect'),
-	Cloud  : require('./cloud'),
-	Tris   : require('./tris'),
-	Lines  : require('./lines'),
-	Points : require('./points'),
-	Screen : require('./screen'),
+	Drawable : require('./drawable'),
+	
+	Cloud    : require('./cloud'),
+	Points   : require('./points'),
+	Lines    : require('./lines'),
+	Tris     : require('./tris'),
+	
+	Rect     : require('./rect'),
+	Brush    : require('./brush'),
+	Surface  : require('./surface'),
 	
 };

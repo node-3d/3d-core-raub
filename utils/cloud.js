@@ -107,7 +107,8 @@ class Cloud extends Drawable {
 				
 				${opts.inject && opts.inject.frag && opts.inject.frag.before ? opts.inject.frag.before : ''}
 				
-				gl_FragColor = vec4(varColor, 1.0);
+				// gl_FragColor = vec4(varColor, 1.0);
+				gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 				
 				${opts.inject && opts.inject.frag && opts.inject.frag.after ? opts.inject.frag.after : ''}
 				

@@ -18,7 +18,7 @@ class Drawable {
 		
 		this._mesh = this._build(opts);
 		
-		this._screen.scene.add(this._mesh);
+		this.screen.scene.add(this._mesh);
 		
 		if (opts.color) {
 			if (opts.color instanceof Color) {
@@ -40,7 +40,7 @@ class Drawable {
 	
 	
 	get screen() { return this._screen; }
-	set screen(v) { v=v } // dummy setter, for convinience of passing Drawable as opts
+	set screen(v) { v = v; } // dummy setter, for convinience of passing Drawable as opts
 	
 	
 	get mat() { return this._mesh.material; }
