@@ -24,7 +24,7 @@
     "url": "https://github.com/raub/node-3d-ready.git"
   },
   "dependencies": {
-    "node-threejs-raub": "0.86.2",
-    "node-webgl-raub": "0.7.2"
+    "node-threejs-raub": "0.87.2",
+    "node-webgl-raub": "0.7.3"
   }
 }
