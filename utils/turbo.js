@@ -148,8 +148,33 @@ module.exports = {
 		gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
 		gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+		
+		
 		gl.readPixels(0, 0, size, size, gl.RGBA, gl.FLOAT, ipt.data);
 		//                                 ^ 4 x 32 bit ^
+		
+		gl.bindBuffer(gl.ARRAY_BUFFER, ipt.read);
+		gl.bufferData(gl.ARRAY_BUFFER, ipt.data, gl.STATIC_DRAW);
+		
+		
+		// gl.bindBuffer(gl.PIXEL_PACK_BUFFER, ipt.read);
+		// console.log('STATIC_COPY', gl.STATIC_COPY);
+		// // gl.bufferData(gl.PIXEL_PACK_BUFFER, size * size * 4, gl.STATIC_DRAW);
+		// gl.bufferData(gl.PIXEL_PACK_BUFFER, size * size * 4, 0x88E6/*gl.STATIC_COPY*/);
+		// gl.readPixels(0, 0, size, size, gl.RGBA, gl.FLOAT, null);
+		// gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
+		// gl.bindBuffer(gl.ARRAY_BUFFER, ipt.read);
+		
+		
+		
+		
+		
+		gl.useProgram(null);
+		gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+		gl.bindTexture(gl.TEXTURE_2D, null);
+		gl.bindBuffer(gl.ARRAY_BUFFER, null);
+		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+		
 		
 		return ipt.data.subarray(0, ipt.length);
 		
@@ -165,7 +190,11 @@ module.exports = {
 		}
 		
 		var ns = Math.pow(Math.pow(2, Math.ceil(Math.log(sz) / 1.386) - 1), 2);
+		
+		const readBuffer = gl.createBuffer();
+		
 		return {
+			read   : readBuffer,
 			data   : new Float32Array(ns * 16),
 			length : sz,
 		};
