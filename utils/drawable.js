@@ -27,7 +27,7 @@ class Drawable {
 				this.color = new Color(opts.color);
 			}
 		} else {
-			this.color = new Color(0xFF0000);
+			this.color = new Color(0xFFFFFF);
 		}
 		
 		this.pos = opts.pos || new Vec2();

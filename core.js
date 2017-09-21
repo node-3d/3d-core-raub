@@ -81,6 +81,28 @@ const loadTexture = (url, onLoad, onProgress, onError) => {
 };
 
 
+const textureFromId = (id, renderer) => {
+	
+	const rawTexture = gl.createTexture();
+	rawTexture._ = id;
+	
+	const texture = new three.Texture();
+	
+	let properties = null;
+	if ( ! renderer.properties ) {
+		properties = texture;
+	} else {
+		properties = renderer.properties.get(texture); // !!!!
+	}
+	
+	properties.__webglTexture = rawTexture;
+	properties.__webglInit    = true;
+	
+	return texture;
+	
+};
+
+
 module.exports = {
 	
 	Image: webgl.Image,
@@ -93,6 +115,7 @@ module.exports = {
 	
 	three,
 	loadTexture,
+	textureFromId,
 	
 	get renderer() { return fetchRenderer(); },
 	

@@ -115,12 +115,18 @@ class Surface extends Rect {
 	}
 	
 	
+	get texture() {
+		return this._target.texture;
+	}
+	
+	
 	reset() {
 		this._target = this._newTarget();
 		this.draw();
-		// this.mesh.material.map = this._target.texture;
-		// this.mesh.material.map.needsUpdate = true;
+		
 		this.mesh.material.uniforms.t.value = this._target.texture;
+		
+		this._events.emit('reset', this._target.texture);
 	}
 	
 	

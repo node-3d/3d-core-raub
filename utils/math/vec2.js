@@ -91,14 +91,14 @@ class Vec2 extends Array {
 	 * @return {Vec}
 	 */
 	get xy() { return new Vec2(this); }
-	set xy(_xy) { this[0] = _xy.x; this[1] = _xy.y; }
+	set xy(_xy) { this[0] = _xy[0]; this[1] = _xy[1]; }
 	
 	/**
 	 * The **new** vector, constructed as `Vec2(this.y, this.x)`
 	 * @return {Vec}
 	 */
 	get yx() { return new Vec2([this[1], this[0]]); }
-	set yx(_yx) { this[0] = _yx.y; this[1] = _yx.x; }
+	set yx(_yx) { this[0] = _yx[1]; this[1] = _yx[0]; }
 	
 	
 	/**

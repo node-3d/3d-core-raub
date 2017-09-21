@@ -9,10 +9,13 @@ class Rect extends Drawable {
 	
 	constructor(opts) {
 		
+		opts.size   = new Vec2(opts.size)
+		opts.radius = opts.radius || 0;
+		
 		super(opts);
 		
-		this._size   = opts.size || new Vec2(100, 100);
-		this._radius = opts.radius || 0;
+		this._size   = opts.size;
+		this._radius = opts.radius;
 		
 	}
 	
@@ -60,6 +63,15 @@ class Rect extends Drawable {
 	set radius(v) {
 		this._radius = v;
 		this.updateGeo();
+	}
+	
+	
+	get texture() {
+		return this._mesh.material.map;
+	}
+	set texture(tex) {
+		this._mesh.material.map = tex;
+		this._mesh.material.needsUpdate = true;
 	}
 	
 	
