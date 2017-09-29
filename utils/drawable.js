@@ -11,7 +11,7 @@ class Drawable {
 		this._screen = opts.screen;
 		this._three  = this._screen.three;
 		
-		this._pos = new Vec2();
+		this._pos = new Vec2(opts.pos || [0, 0]);
 		this._z   = 0;
 		
 		this._visible = true;
@@ -30,7 +30,7 @@ class Drawable {
 			this.color = new Color(0xFFFFFF);
 		}
 		
-		this.pos = opts.pos || new Vec2();
+		this.pos = this._pos;
 		this.z   = opts.z   || 0;
 		
 	}

@@ -9,7 +9,7 @@ class Rect extends Drawable {
 	
 	constructor(opts) {
 		
-		opts.size   = new Vec2(opts.size)
+		opts.size   = new Vec2(opts.size || [100, 100]);
 		opts.radius = opts.radius || 0;
 		
 		super(opts);
