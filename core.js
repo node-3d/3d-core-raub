@@ -13,14 +13,16 @@ if ( ! gl ) {
 	throw new Error('Could not initialise WebGL, sorry :-(');
 }
 
+
 // Hack for three.js, remove precision from shader
-var parentShaderSource = gl.shaderSource;
-gl.shaderSource = function( shader, string ) {
+const parentShaderSource = gl.shaderSource;
+gl.shaderSource = (shader, string) => {
 	if ( ! /^\s*?\#version.*?$/m.test(string) ) {
 		string = '#version 100\n' + string;
 	}
 	return parentShaderSource(shader, string);
 };
+
 
 gl.viewportWidth = canvas.width;
 gl.viewportHeight = canvas.height;
@@ -103,6 +105,20 @@ const textureFromId = (id, renderer) => {
 };
 
 
+const loop = screen => {
+	
+	const animation = () => {
+		
+		screen.draw();
+		doc.requestAnimationFrame(animation);
+		
+	};
+	
+	doc.requestAnimationFrame(animation);
+	
+};
+
+
 module.exports = {
 	
 	Image: webgl.Image,
@@ -120,5 +136,6 @@ module.exports = {
 	get renderer() { return fetchRenderer(); },
 	
 	frame: doc.requestAnimationFrame,
+	loop,
 	
 };
