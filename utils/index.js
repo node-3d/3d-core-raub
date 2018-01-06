@@ -16,6 +16,4 @@ module.exports = {
 	Brush    : require('./brush'),
 	Surface  : require('./surface'),
 	
-	turbo    : require('./turbo'),
-	
 };

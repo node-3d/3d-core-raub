@@ -1,14 +1,13 @@
 'use strict';
 
-const webgl = require('node-webgl-raub');
+const { Image, Document } = require('node-webgl-raub');
 
 
-const doc = webgl.document();
-doc.body  = doc; // web-libs compatibility issues
+const doc = new Document();
 
-const canvas = doc.createElement('canvas', 800, 600, false);
+const canvas = doc;
 
-const gl = canvas.getContext('webgl');
+const gl = canvas.getContext();
 if ( ! gl ) {
 	throw new Error('Could not initialise WebGL, sorry :-(');
 }
@@ -121,7 +120,7 @@ const loop = screen => {
 
 module.exports = {
 	
-	Image: webgl.Image,
+	Image: Image,
 	
 	doc,
 	document: doc,
