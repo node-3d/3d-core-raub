@@ -16,7 +16,14 @@ if ( ! gl ) {
 // Hack for three.js, remove precision from shader
 const _shaderSource = gl.shaderSource;
 gl.shaderSource = (shader, string) => _shaderSource(
-	shader, string.replace(/^\s*?precision.*?$/gm, '').replace(/\bhighp\b/g, '')
+	shader,
+	string.replace(
+		/^\s*?(\#version|precision).*?$/gm, ''
+	).replace(
+		/^/, '#version 120\n'
+	).replace(
+		/\bhighp\b/g, ''
+	)
 );
 
 
