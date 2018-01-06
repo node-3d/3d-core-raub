@@ -7,7 +7,10 @@ const Vec2     = require('./math/vec2');
 class Rect extends Drawable {
 	
 	
-	constructor(opts) {
+	constructor(opts = {}) {
+		
+		opts.pos  = opts.pos || new Vec2(-300, -300);
+		opts.size = opts.size || new Vec2(600, 600);
 		
 		opts.size   = new Vec2(opts.size)
 		opts.radius = opts.radius || 0;

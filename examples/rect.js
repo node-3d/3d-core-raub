@@ -1,14 +1,24 @@
 'use strict';
 
 const node3d  = require('../index');
+const THREE  = node3d.three;
 
 
 const screen = new node3d.Screen();
 const rect = new node3d.Rect({ screen });
+const scene = screen.scene;
 
+const mouse = { x: screen.w / 2, y: screen.h / 2 };
+
+const paint = () => {
+	const r = mouse.x / screen.w;
+	const g = mouse.y / screen.h;
+	const b = 1 - r * g;
+	rect.mat.color = [r, g, b];
+};
+paint();
 
 let isMoving = false;
-let mouse = { x: 0, y: 0 };
 
 document.on('mousedown', e => isMoving = true);
 document.on('mouseup', e => isMoving = false);
@@ -20,6 +30,8 @@ document.on('mousemove', e => {
 	
 	mouse.x = e.x;
 	mouse.y = e.y;
+	
+	paint();
 	
 	if ( ! isMoving ) {
 		return;
