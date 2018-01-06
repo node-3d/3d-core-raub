@@ -14,13 +14,10 @@ if ( ! gl ) {
 
 
 // Hack for three.js, remove precision from shader
-const parentShaderSource = gl.shaderSource;
-gl.shaderSource = (shader, string) => {
-	if ( ! /^\s*?\#version.*?$/m.test(string) ) {
-		string = '#version 100\n' + string;
-	}
-	return parentShaderSource(shader, string);
-};
+const _shaderSource = gl.shaderSource;
+gl.shaderSource = (shader, string) => _shaderSource(
+	shader, string.replace(/^\s*?precision.*?$/gm, '').replace(/\bhighp\b/g, '')
+);
 
 
 gl.viewportWidth = canvas.width;
