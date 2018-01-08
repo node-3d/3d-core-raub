@@ -129,7 +129,8 @@ const loop = screen => {
 
 module.exports = {
 	
-	Image: Image,
+	Image,
+	Document,
 	
 	doc,
 	document: doc,

@@ -1,6 +1,6 @@
 {
   "name": "node-3d-ready-raub",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Launch node.js in WebGL three.js mode.",
   "main": "index.js",
   "author": "Luis Blanco <raubtierxxx@gmail.com>",
