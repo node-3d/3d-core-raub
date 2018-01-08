@@ -1,17 +1,18 @@
 'use strict';
 
-const { Image, Document } = require('node-webgl-raub');
+const { Image, Document, webgl } = require('node-webgl-raub');
 
 
 const doc = new Document();
-
 const canvas = doc;
+const gl = webgl;
 
-const gl = canvas.getContext();
-if ( ! gl ) {
-	throw new Error('Could not initialise WebGL, sorry :-(');
-}
+global.document = doc;
+global.window = doc;
+global.cwrap = null;
+global.requestAnimationFrame = doc.requestAnimationFrame;
 
+doc.appendChild = () => {};
 
 // Hack for three.js, remove precision from shader
 const _shaderSource = gl.shaderSource;
@@ -27,19 +28,40 @@ gl.shaderSource = (shader, string) => _shaderSource(
 );
 
 
-gl.viewportWidth = canvas.width;
-gl.viewportHeight = canvas.height;
-
 gl.clearColor(0.0, 0.0, 0.0, 1.0);
 gl.enable(gl.DEPTH_TEST);
 
-global.document = doc;
-global.window   = doc;
-global.cwrap    = null;
 
-
-// Require THREE after GL is prepaired
+// Require THREE after Document and GL are ready
 const three = require('node-threejs-raub');
+global.THREE = three;
+
+
+three.FileLoader.prototype.load = ( url, onLoad, onProgress, onError ) => {
+	require('fs').readFile(url, (err, data) => {
+		if (err) {
+			return onError(err);
+		}
+		onLoad(data);
+	});
+};
+
+Image.prototype.addEventListener = function (cb) {
+	this.on('load', cb.bind(this));
+};
+
+const _load = three.TextureLoader.prototype.load;
+three.TextureLoader.prototype.load = function (url, onLoad, onProgress, onError) {
+	const cb = tex => {
+		tex.format = three.RGBAFormat;
+		if (onLoad) {
+			onLoad(tex);
+		}
+	};
+	return _load.call(this, url, cb, onProgress, onError);
+};
+
+
 
 let renderer = null;
 
@@ -66,23 +88,6 @@ const fetchRenderer = () => {
 	
 	return renderer;
 	
-};
-
-
-doc.on('resize', () => {
-	gl.viewportWidth = canvas.width;
-	gl.viewportHeight = canvas.height;
-});
-
-
-const loadTexture = (url, onLoad, onProgress, onError) => {
-	const cb = tex => {
-		tex.format = three.RGBAFormat;
-		if (onLoad) {
-			onLoad(tex);
-		}
-	};
-	return (new three.TextureLoader()).load(url, cb, onProgress, onError);
 };
 
 
@@ -133,11 +138,12 @@ module.exports = {
 	context: gl,
 	
 	three,
-	loadTexture,
+	THREE: three,
 	textureFromId,
 	
 	get renderer() { return fetchRenderer(); },
 	
+	requestAnimationFrame: doc.requestAnimationFrame,
 	frame: doc.requestAnimationFrame,
 	loop,
 	
