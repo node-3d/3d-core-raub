@@ -1,7 +1,7 @@
 {
   "name": "node-3d-ready-raub",
-  "version": "0.2.7",
-  "description": "Launch node.js in WebGL mode. Shipped together with three.js for convenience.",
+  "version": "0.3.2",
+  "description": "Launch node.js in WebGL three.js mode.",
   "main": "index.js",
   "author": "Luis Blanco <raubtierxxx@gmail.com>",
   "keywords": [
@@ -24,7 +24,7 @@
     "url": "https://github.com/raub/node-3d-ready.git"
   },
   "dependencies": {
-    "node-threejs-raub": "0.87.2",
-    "node-webgl-raub": "0.7.4"
+    "node-threejs-raub": "0.89.0",
+    "node-webgl-raub": "0.8.2"
   }
 }
