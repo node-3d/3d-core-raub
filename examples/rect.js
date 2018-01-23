@@ -1,11 +1,12 @@
 'use strict';
 
-const node3d  = require('../index');
-const THREE  = node3d.three;
+const { Screen, Rect, loop }  = require('../index');
 
 
-const screen = new node3d.Screen();
-const rect = new node3d.Rect({ screen });
+const screen = new Screen();
+loop(() => screen.draw());
+
+const rect = new Rect({ screen });
 const scene = screen.scene;
 
 const mouse = { x: screen.w / 2, y: screen.h / 2 };
@@ -40,13 +41,3 @@ document.on('mousemove', e => {
 	rect.pos = rect.pos.plused([-dx, dy]);
 	
 });
-
-
-function animation() {
-	
-	screen.draw();
-	node3d.frame(animation);
-	
-}
-
-node3d.frame(animation);

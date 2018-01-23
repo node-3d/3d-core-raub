@@ -55,13 +55,9 @@ class Points extends Cloud {
 				
 				${opts.inject && opts.inject.frag && opts.inject.frag.before ? opts.inject.frag.before : ''}
 				
-				float dist = max(0.0, 0.99 - 2.0 * length(gl_PointCoord.xy - vec2(0.5, 0.5)));
-				float dist2 = abs(0.3-dist);
-				dist = dist*dist;
-				dist = max(0.0, min(1.0, dist*100.0) - min(0.3, 0.3-dist2));
+				float dist = min(1.0, 1.0 - 2.0 * length(gl_PointCoord.xy - vec2(0.5, 0.5))) * 0.2 * varSize;
+				dist = pow(dist, 5);
 				gl_FragColor = vec4(varColor, dist);
-				
-				// gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 				
 				${opts.inject && opts.inject.frag && opts.inject.frag.after ? opts.inject.frag.after : ''}
 				

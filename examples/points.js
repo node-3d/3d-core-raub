@@ -1,11 +1,12 @@
 'use strict';
 
-const node3d  = require('../index');
+const { Screen, loop, gl, Points } = require('../index');
 
+
+const screen = new Screen();
+loop(() => screen.draw());
 
 const VBO_SIZE = 10000;
-
-const screen = new node3d.Screen();
 
 const vertices = [];
 const colors = [];
@@ -14,15 +15,15 @@ for (let i = VBO_SIZE * 3; i > 0; i--) {
 	colors.push( Math.random() );
 }
 
-const pos = node3d.gl.createBuffer();
-node3d.gl.bindBuffer(node3d.gl.ARRAY_BUFFER, pos);
-node3d.gl.bufferData(node3d.gl.ARRAY_BUFFER, new Float32Array(vertices), node3d.gl.STATIC_DRAW);
+const pos = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, pos);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 
-const rgb = node3d.gl.createBuffer();
-node3d.gl.bindBuffer(node3d.gl.ARRAY_BUFFER, rgb);
-node3d.gl.bufferData(node3d.gl.ARRAY_BUFFER, new Float32Array(colors), node3d.gl.STATIC_DRAW);
+const rgb = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, rgb);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
 
-const points = new node3d.Points({
+const points = new Points({
 	
 	screen,
 	
@@ -67,13 +68,3 @@ document.on('mousemove', e => {
 	points.mesh.rotation.x += dy * 0.001;
 	
 });
-
-
-function animation() {
-	
-	screen.draw();
-	node3d.frame(animation);
-	
-}
-
-node3d.frame(animation);

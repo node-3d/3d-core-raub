@@ -90,11 +90,13 @@ three.Texture.fromId = (id, renderer) => {
 };
 
 
-const loop = screen => {
+const loop = cb => {
+	
+	let i = 0;
 	
 	const animation = () => {
 		
-		screen.draw();
+		cb(i++);
 		doc.requestAnimationFrame(animation);
 		
 	};

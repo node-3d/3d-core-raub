@@ -1,11 +1,13 @@
 'use strict';
 
-const node3d  = require('../index');
+const { gl, Screen, Lines, loop } = require('../index');
 
 
 const VBO_SIZE = 10000;
 
-const screen = new node3d.Screen();
+const screen = new Screen();
+loop(() => screen.draw());
+
 
 const vertices = [];
 const colors = [];
@@ -14,15 +16,17 @@ for (let i = VBO_SIZE * 3; i > 0; i--) {
 	colors.push( Math.random() );
 }
 
-const pos = node3d.gl.createBuffer();
-node3d.gl.bindBuffer(node3d.gl.ARRAY_BUFFER, pos);
-node3d.gl.bufferData(node3d.gl.ARRAY_BUFFER, new Float32Array(vertices), node3d.gl.STATIC_DRAW);
 
-const rgb = node3d.gl.createBuffer();
-node3d.gl.bindBuffer(node3d.gl.ARRAY_BUFFER, rgb);
-node3d.gl.bufferData(node3d.gl.ARRAY_BUFFER, new Float32Array(colors), node3d.gl.STATIC_DRAW);
+const pos = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, pos);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 
-const lines = new node3d.Lines({
+const rgb = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, rgb);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+
+
+const lines = new Lines({
 	
 	screen,
 	
@@ -48,10 +52,10 @@ const lines = new node3d.Lines({
 let isMoving = false;
 let mouse = { x: 0, y: 0 };
 
-document.on('mousedown', e => isMoving = true);
-document.on('mouseup', e => isMoving = false);
+screen.on('mousedown', e => isMoving = true);
+screen.on('mouseup', e => isMoving = false);
 
-document.on('mousemove', e => {
+screen.on('mousemove', e => {
 	
 	const dx = mouse.x - e.x;
 	const dy = mouse.y - e.y;
@@ -67,13 +71,3 @@ document.on('mousemove', e => {
 	lines.mesh.rotation.x += dy * 0.001;
 	
 });
-
-
-function animation() {
-	
-	screen.draw();
-	node3d.frame(animation);
-	
-}
-
-node3d.frame(animation);
