@@ -3,9 +3,9 @@
 .cproject
 .project
 .lock-wscript
-build*
 .DS_Store
 Debug
 node_modules
-bin_*
+examples
+package-lock.json
 *.log

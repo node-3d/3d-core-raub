@@ -1,7 +1,7 @@
 {
-  "name": "node-3d-ready-raub",
-  "version": "0.3.2",
-  "description": "Launch node.js in WebGL three.js mode.",
+  "name": "node-3d-core-raub",
+  "version": "0.0.1",
+  "description": "An extensible Node.js 3D core for desktop applications",
   "main": "index.js",
   "author": "Luis Blanco <raubtierxxx@gmail.com>",
   "keywords": [
@@ -25,6 +25,8 @@
   },
   "dependencies": {
     "node-threejs-raub": "0.89.0",
-    "node-webgl-raub": "0.8.2"
+    "node-image-raub": "0.0.5",
+    "node-glfw-raub": "0.7.8",
+    "node-webgl-raub": "0.9.3"
   }
 }

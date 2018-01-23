@@ -1,7 +1,13 @@
 'use strict';
 
-const { Image, Document, webgl } = require('node-webgl-raub');
+const webgl = require('node-webgl-raub');
+const Image = require('node-image-raub');
 
+const { Document } = require('node-glfw-raub');
+
+
+Document.setWebgl(webgl);
+Document.setImage(Image);
 
 const doc = new Document();
 const canvas = doc;
@@ -14,7 +20,7 @@ global.requestAnimationFrame = doc.requestAnimationFrame;
 
 doc.appendChild = () => {};
 
-// Hack for three.js, remove precision from shader
+// Hack for three.js, remove precision from shaders
 const _shaderSource = gl.shaderSource;
 gl.shaderSource = (shader, string) => _shaderSource(
 	shader,
@@ -62,36 +68,7 @@ three.TextureLoader.prototype.load = function (url, onLoad, onProgress, onError)
 };
 
 
-
-let renderer = null;
-
-const fetchRenderer = () => {
-	
-	if ( renderer ) {
-		return renderer;
-	}
-	
-	renderer = new three.WebGLRenderer({
-		
-		antialias : true,
-		canvas    : canvas,
-		alpha     : true,
-		
-		premultipliedAlpha     : true,
-		preserveDrawingBuffer  : true,
-		logarithmicDepthBuffer : true,
-		
-	});
-	renderer.setSize(canvas.width, canvas.height, false);
-	
-	doc.on('resize', () => renderer.setSize(canvas.width, canvas.height));
-	
-	return renderer;
-	
-};
-
-
-const textureFromId = (id, renderer) => {
+three.Texture.fromId = (id, renderer) => {
 	
 	const rawTexture = gl.createTexture();
 	rawTexture._ = id;
@@ -132,17 +109,16 @@ module.exports = {
 	Image,
 	Document,
 	
+	gl,
+	webgl,
+	context: gl,
+	
 	doc,
 	document: doc,
 	canvas,
-	gl,
-	context: gl,
 	
 	three,
 	THREE: three,
-	textureFromId,
-	
-	get renderer() { return fetchRenderer(); },
 	
 	requestAnimationFrame: doc.requestAnimationFrame,
 	frame: doc.requestAnimationFrame,
