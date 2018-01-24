@@ -1,6 +1,6 @@
 {
-  "name": "node-3d-core-raub",
-  "version": "0.0.1",
+  "name": "3d-core-raub",
+  "version": "0.0.2",
   "description": "An extensible Node.js 3D core for desktop applications",
   "main": "index.js",
   "author": "Luis Blanco <raubtierxxx@gmail.com>",

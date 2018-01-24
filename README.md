@@ -8,14 +8,14 @@ Multiple windows are supported. Image loading uses
 Window icons are supported and both JS- and Image-friendly.
 
 
-* IMPORTANT: the former NPM name for this package was `node-3d-ready`. It
+* IMPORTANT: the former NPM name for this package was `node-3d-ready-raub`. It
 has been changed to reflect the new architectural direction of the project.
 
 
 ## Install
 
 ```
-npm i -s node-3d-core-raub
+npm i -s 3d-core-raub
 ```
 
 NOTE: The module depends on multiple compiled addons. It requires compilation-tools
