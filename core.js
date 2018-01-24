@@ -3,7 +3,8 @@
 const webgl = require('node-webgl-raub');
 const Image = require('node-image-raub');
 
-const { Document } = require('node-glfw-raub');
+const glfw = require('node-glfw-raub');
+const { Document, Window } = glfw;
 
 
 Document.setWebgl(webgl);
@@ -110,10 +111,13 @@ module.exports = {
 	
 	Image,
 	Document,
+	Window,
 	
 	gl,
 	webgl,
 	context: gl,
+	
+	glfw,
 	
 	doc,
 	document: doc,
