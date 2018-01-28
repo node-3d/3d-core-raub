@@ -1,4 +1,4 @@
-# node-3d-core
+# Node.js 3D Core
 
 
 Launch Node.js in WebGL mode.
