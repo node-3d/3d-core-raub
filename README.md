@@ -87,3 +87,48 @@ frame. The function is **BOUND** to the default document instance.
 A convenience shortcut to induce `requestAnimationFrame`-driven render loop.
 Function `cb` is called, whenever the default document is ready to produce a new
 frame. The function is **BOUND** to the default document instance.
+
+
+### class Brush
+
+Creates a screen-sized overlay, where a circle is drawn around the specified position.
+
+
+### class Cloud
+
+Base class for custom-VBO based geometries.
+
+
+### class Drawable
+
+Base class for all drawable classes exported by this module.
+
+
+### class Points
+
+A custom-VBO based point-cloud.
+
+
+### class Lines
+
+A custom-VBO based line-cloud.
+
+
+### class Tris
+
+A custom-VBO based triangle-cloud.
+
+
+### class Rect
+
+A single rectangle. Probably supports corner-radius
+
+
+### class Screen
+
+A further abstraction of Document, encapsulating some three.js-specific logics.
+
+
+### class Surface
+
+A Rect that mimics a Screen for drawable objects.
