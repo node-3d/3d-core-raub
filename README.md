@@ -1,15 +1,13 @@
 # node-3d-core
 
 
-Launch Node.js in WebGL mode. Shipped together with
-[three.js](https://github.com/mrdoob/three.js) for convenience.
-Multiple windows are supported. Image loading uses
-[FreeImage](http://freeimage.sourceforge.net/) encoder/decoder.
-Window icons are supported and both JS- and Image-friendly.
+Launch Node.js in WebGL mode.
 
-
-* IMPORTANT: the former NPM name for this package was `node-3d-ready-raub`. It
-has been changed to reflect the new architectural direction of the project.
+* Shipped together with [three.js](https://github.com/mrdoob/three.js) for convenience.
+* Multiple windows are supported, with help of [GLFW](http://www.glfw.org/).
+* WebGL implementation is also using [GLEW](http://glew.sourceforge.net/).
+* Image loading uses [FreeImage](http://freeimage.sourceforge.net/) encoder/decoder.
+* Window icons are supported and both JS- and Image-friendly.
 
 
 ## Install
@@ -18,7 +16,7 @@ has been changed to reflect the new architectural direction of the project.
 npm i -s 3d-core-raub
 ```
 
-NOTE: The module depends on multiple compiled addons. It requires compilation-tools
+NOTE: The module depends on multiple compiled addons. It requires compilation tools
 on your system. E.g. MSVS13 for Windows, where **ADMIN PRIVELEGED**
 `npm i -g windows-build-tools` most likely helps. On Unix systems this is
 usually not a problem at all.

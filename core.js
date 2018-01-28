@@ -1,9 +1,9 @@
 'use strict';
 
-const webgl = require('node-webgl-raub');
-const Image = require('node-image-raub');
+const webgl = require('webgl-raub');
+const Image = require('image-raub');
 
-const glfw = require('node-glfw-raub');
+const glfw = require('glfw-raub');
 const { Document, Window } = glfw;
 
 
