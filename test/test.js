@@ -4,6 +4,8 @@ const { expect } = require('chai');
 
 const node3d = require('3d-core-raub');
 
+const { gl } = node3d;
+
 
 const classes = {
 	
@@ -33,23 +35,35 @@ const classes = {
 	
 	Brush: {
 		create() {
-			return new node3d.Brush();
-		},
-		props: ['gravity'],
-		methods: ['update', 'hit', 'trace', 'destroy'],
-	},
-	
-	Cloud: {
-		create() {
-			return new node3d.Cloud();
+			const screen = new node3d.Screen();
+			return new node3d.Brush({ screen });
 		},
 		props: ['size', 'pos', 'visible', 'color'],
 		methods: [],
 	},
 	
+	Cloud: {
+		create() {
+			const screen = new node3d.Screen();
+			
+			const vertices = [];
+			for (let i = 30; i > 0; i--) {
+				vertices.push( Math.random() * 2000 - 1000 );
+			}
+			const pos = gl.createBuffer();
+			gl.bindBuffer(gl.ARRAY_BUFFER, pos);
+			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+			
+			return new node3d.Cloud({ screen, count: 10, attrs: { position: { vbo: pos, items: 3 } } });
+		},
+		props: ['three', 'screen', 'mat', 'geo', 'mesh', 'visible'],
+		methods: [],
+	},
+	
 	Drawable: {
 		create() {
-			return new node3d.Drawable();
+			const screen = new node3d.Screen();
+			return new node3d.Drawable({ screen });
 		},
 		props: ['three', 'screen', 'mat', 'geo', 'mesh', 'z', 'visible', 'pos', 'color'],
 		methods: [],
@@ -57,34 +71,65 @@ const classes = {
 	
 	Points: {
 		create() {
-			return new node3d.Points();
+			const screen = new node3d.Screen();
+			
+			const vertices = [];
+			for (let i = 30; i > 0; i--) {
+				vertices.push( Math.random() * 2000 - 1000 );
+			}
+			const pos = gl.createBuffer();
+			gl.bindBuffer(gl.ARRAY_BUFFER, pos);
+			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+			
+			return new node3d.Points({ screen, count: 10, attrs: { position: { vbo: pos, items: 3 } } });
 		},
-		props: ['gravity'],
-		methods: ['three', 'screen', 'mat', 'geo', 'mesh', 'visible'],
+		props: ['three', 'screen', 'mat', 'geo', 'mesh', 'visible'],
+		methods: [],
 	},
 	
 	Lines: {
 		create() {
-			return new node3d.Lines();
+			const screen = new node3d.Screen();
+			
+			const vertices = [];
+			for (let i = 30; i > 0; i--) {
+				vertices.push( Math.random() * 2000 - 1000 );
+			}
+			const pos = gl.createBuffer();
+			gl.bindBuffer(gl.ARRAY_BUFFER, pos);
+			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+			
+			return new node3d.Lines({ screen, count: 10, attrs: { position: { vbo: pos, items: 3 } } });
 		},
-		props: ['gravity'],
-		methods: ['three', 'screen', 'mat', 'geo', 'mesh', 'visible'],
+		props: ['three', 'screen', 'mat', 'geo', 'mesh', 'visible'],
+		methods: [],
 	},
 	
 	Tris: {
 		create() {
-			return new node3d.Tris();
+			const screen = new node3d.Screen();
+			
+			const vertices = [];
+			for (let i = 30; i > 0; i--) {
+				vertices.push( Math.random() * 2000 - 1000 );
+			}
+			const pos = gl.createBuffer();
+			gl.bindBuffer(gl.ARRAY_BUFFER, pos);
+			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+			
+			return new node3d.Tris({ screen, count: 10, attrs: { position: { vbo: pos, items: 3 } } });
 		},
-		props: ['gravity'],
-		methods: ['three', 'screen', 'mat', 'geo', 'mesh', 'visible'],
+		props: ['three', 'screen', 'mat', 'geo', 'mesh', 'visible'],
+		methods: [],
 	},
 	
 	Rect: {
 		create() {
-			return new node3d.Rect();
+			const screen = new node3d.Screen();
+			return new node3d.Rect({ screen });
 		},
-		props: ['gravity'],
-		methods: ['three', 'screen', 'mat', 'geo', 'mesh', 'visible'],
+		props: ['three', 'screen', 'mat', 'geo', 'mesh', 'visible'],
+		methods: [],
 	},
 	
 	Screen: {
@@ -100,7 +145,8 @@ const classes = {
 	
 	Surface: {
 		create() {
-			return new node3d.Surface();
+			const screen = new node3d.Screen();
+			return new node3d.Surface({ screen });
 		},
 		props: [
 			'canvas', 'camera', 'scene', 'renderer', 'context',
