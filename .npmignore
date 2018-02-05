@@ -1,5 +1,4 @@
 .idea
-.cproject,.project
 .cproject
 .project
 .lock-wscript
@@ -9,3 +8,4 @@ node_modules
 examples
 package-lock.json
 *.log
+test

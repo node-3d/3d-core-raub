@@ -91,9 +91,7 @@ class Surface extends Rect {
 	
 	get canvas()   { return this.screen.canvas;   }
 	get camera()   { return this._camera;         }
-	// get camera()   { return this.screen.camera;   }
 	get scene()    { return this._scene;          }
-	// get scene()    { return this.screen.scene;    }
 	get renderer() { return this.screen.renderer; }
 	get context()  { return this.screen.context;  }
 	get document() { return this.screen.document; }

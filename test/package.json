@@ -1,9 +1,13 @@
 {
-  "name": "3d-core-raub",
-  "version": "0.0.5",
-  "description": "An extensible Node.js 3D core for desktop applications",
-  "main": "index.js",
+  "name": "TEST",
   "author": "Luis Blanco <raubtierxxx@gmail.com>",
+  "description": "TEST",
+  "version": "0.0.1",
+  "main": "mocha",
+  "scripts": {
+    "test": "mocha",
+    "start": "mocha"
+  },
   "keywords": [
     "opengl",
     "3d",
@@ -21,12 +25,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/raub/node-3d-ready.git"
+    "url": "https://github.com/raub/node-3d-core.git"
   },
   "dependencies": {
-    "node-threejs-raub": "0.89.0",
-    "image-raub": "0.0.3",
-    "glfw-raub": "0.0.2",
-    "webgl-raub": "0.0.2"
+    "3d-core-raub": "file:../",
+    "chai": "^4.1.2",
+    "mocha": "^5.0.0",
+    "sinon": "^4.2.2"
   }
 }
