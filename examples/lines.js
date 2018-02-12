@@ -3,47 +3,95 @@
 const { gl, Screen, Lines, loop } = require('../index');
 
 
-const VBO_SIZE = 10000;
+const VBO_SIZE = 10;
 
 const screen = new Screen();
 loop(() => screen.draw());
 
+screen.camera.position.z = 3000;
 
-const vertices = [];
-const colors = [];
-for (let i = VBO_SIZE * 3; i > 0; i--) {
-	vertices.push( Math.random() * 2000 - 1000 );
-	colors.push( Math.random() );
+
+const vertices1 = [];
+const colors1 = [];
+for (let i = VBO_SIZE; i > 0; i--) {
+	vertices1.push( Math.random() * 2000 - 1000, Math.random() * 700 - 1200, Math.random() * 2000 - 1000 );
+	colors1.push( Math.random(), Math.random(), Math.random() );
 }
 
+const pos1 = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, pos1);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices1), gl.STATIC_DRAW);
 
-const pos = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, pos);
-gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+const rgb1 = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, rgb1);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors1), gl.STATIC_DRAW);
 
-const rgb = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, rgb);
-gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
-
-
-const lines = new Lines({
+const lines1 = new Lines({
 	
 	screen,
 	
-	count: VBO_SIZE,
+	count : VBO_SIZE,
+	attrs : {
+		position : { vbo: pos1, items: 3 },
+		color    : { vbo: rgb1, items: 3 },
+	},
 	
-	attrs: {
-		
-		position: {
-			vbo: pos,
-			items: 3,
-		},
-		
-		color: {
-			vbo: rgb,
-			items: 3,
-		},
-		
+});
+
+
+const vertices2 = [];
+const colors2 = [];
+for (let i = VBO_SIZE; i > 0; i--) {
+	vertices2.push( Math.random() * 2000 - 1000, Math.random() * 700 - 500, Math.random() * 2000 - 1000 );
+	colors2.push( Math.random(), Math.random(), Math.random() );
+}
+
+const pos2 = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, pos2);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices2), gl.STATIC_DRAW);
+
+const rgb2 = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, rgb2);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors2), gl.STATIC_DRAW);
+
+const lines2 = new Lines({
+	
+	screen,
+	
+	mode  : 'segments',
+	count : VBO_SIZE,
+	attrs : {
+		position : { vbo: pos2, items: 3 },
+		color    : { vbo: rgb2, items: 3 },
+	},
+	
+});
+
+
+const vertices3 = [];
+const colors3 = [];
+for (let i = VBO_SIZE; i > 0; i--) {
+	vertices3.push( Math.random() * 2000 - 1000, Math.random() * 700 + 300, Math.random() * 2000 - 1000 );
+	colors3.push( Math.random(), Math.random(), Math.random() );
+}
+
+const pos3 = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, pos3);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices3), gl.STATIC_DRAW);
+
+const rgb3 = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, rgb3);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors3), gl.STATIC_DRAW);
+
+const lines3 = new Lines({
+	
+	screen,
+	
+	mode  : 'loop',
+	count : VBO_SIZE,
+	attrs : {
+		position : { vbo: pos3, items: 3 },
+		color    : { vbo: rgb3, items: 3 },
 	},
 	
 });
@@ -67,7 +115,13 @@ screen.on('mousemove', e => {
 		return;
 	}
 	
-	lines.mesh.rotation.y += dx * 0.001;
-	lines.mesh.rotation.x += dy * 0.001;
+	lines1.mesh.rotation.y += dx * 0.001;
+	lines1.mesh.rotation.x += dy * 0.001;
+	
+	lines2.mesh.rotation.y += dx * 0.001;
+	lines2.mesh.rotation.x += dy * 0.001;
+	
+	lines3.mesh.rotation.y += dx * 0.001;
+	lines3.mesh.rotation.x += dy * 0.001;
 	
 });

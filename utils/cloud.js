@@ -62,8 +62,8 @@ class Cloud extends Drawable {
 		
 		return new this.screen.three.ShaderMaterial({
 			
-			blending   : 'additive',
-			depthTest  : false,
+			blending   : this.screen.three.NormalBlending,
+			depthTest  : opts.depthTest === true,
 			transparent: true,
 			uniforms,
 			

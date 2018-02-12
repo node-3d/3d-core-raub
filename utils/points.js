@@ -15,7 +15,7 @@ class Points extends Cloud {
 	
 	buildVert(opts) {
 		return opts.vert || `
-			${opts.attrs.size ? 'attribute float size' : 'float size = 10.0'};
+			${opts.attrs.size ? 'attribute float size' : `float size = ${opts.size ? opts.size : '10.0'}`};
 			attribute vec3  color;
 			varying   vec3  varColor;
 			varying   vec2  varTcoord;
@@ -55,7 +55,8 @@ class Points extends Cloud {
 				
 				${opts.inject && opts.inject.frag && opts.inject.frag.before ? opts.inject.frag.before : ''}
 				
-				float dist = min(1.0, 1.0 - 2.0 * length(gl_PointCoord.xy - vec2(0.5, 0.5))) * 0.2 * varSize;
+				float offs = length(gl_PointCoord.xy - vec2(0.5, 0.5));
+				float dist = clamp(1.0 - 2.0 * offs, 0.0, 1.0) * 0.2 * varSize;
 				dist = pow(dist, 5);
 				gl_FragColor = vec4(varColor, dist);
 				

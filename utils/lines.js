@@ -35,7 +35,14 @@ class Lines extends Cloud {
 	
 	
 	_build(opts) {
-		return new this.three.Line(this._geo(opts), this._mat(opts));
+		const Ctor = (() => {
+			switch (opts.mode) {
+				case 'segments' : return this.three.LineSegments;
+				case 'loop' : return this.three.LineLoop;
+				default : return this.three.Line;
+			}
+		})();
+		return new Ctor(this._geo(opts), this._mat(opts));
 	}
 	
 }
