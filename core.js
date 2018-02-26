@@ -115,19 +115,20 @@ module.exports = {
 	
 	gl,
 	webgl,
-	context: gl,
+	context : gl,
 	
 	glfw,
 	
 	doc,
-	document: doc,
 	canvas,
+	document : doc,
+	window   : doc,
 	
 	three,
-	THREE: three,
+	THREE : three,
 	
-	requestAnimationFrame: doc.requestAnimationFrame,
-	frame: doc.requestAnimationFrame,
 	loop,
+	requestAnimationFrame : doc.requestAnimationFrame,
+	frame                 : doc.requestAnimationFrame,
 	
 };
