@@ -19,6 +19,7 @@ global.window = doc;
 global.cwrap = null;
 global.requestAnimationFrame = doc.requestAnimationFrame;
 
+// TODO: move to glfw doc impl
 doc.appendChild = () => {};
 
 // Hack for three.js, remove precision from shaders
@@ -47,7 +48,12 @@ global.THREE = three;
 three.FileLoader.prototype.load = ( url, onLoad, onProgress, onError ) => {
 	require('fs').readFile(url, (err, data) => {
 		if (err) {
-			return onError(err);
+			if (typeof onError === 'function') {
+				onError(err);
+			} else {
+				console.error(err);
+			}
+			return;
 		}
 		onLoad(data);
 	});
