@@ -19,8 +19,6 @@ global.window = doc;
 global.cwrap = null;
 global.requestAnimationFrame = doc.requestAnimationFrame;
 
-// TODO: move to glfw doc impl
-doc.appendChild = () => {};
 
 // Hack for three.js, remove precision from shaders
 const _shaderSource = gl.shaderSource;
@@ -45,7 +43,7 @@ const three = require('node-threejs-raub');
 global.THREE = three;
 
 
-three.FileLoader.prototype.load = ( url, onLoad, onProgress, onError ) => {
+three.FileLoader.prototype.load = (url, onLoad, onProgress, onError) => {
 	require('fs').readFile(url, (err, data) => {
 		if (err) {
 			if (typeof onError === 'function') {
@@ -59,9 +57,6 @@ three.FileLoader.prototype.load = ( url, onLoad, onProgress, onError ) => {
 	});
 };
 
-Image.prototype.addEventListener = function (cb) {
-	this.on('load', cb.bind(this));
-};
 
 const _load = three.TextureLoader.prototype.load;
 three.TextureLoader.prototype.load = function (url, onLoad, onProgress, onError) {

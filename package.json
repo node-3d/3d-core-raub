@@ -1,6 +1,6 @@
 {
   "name": "3d-core-raub",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "An extensible Node.js 3D core for desktop applications",
   "main": "index.js",
   "author": "Luis Blanco <raubtierxxx@gmail.com>",
@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "node-threejs-raub": "0.89.0",
-    "image-raub": "0.0.3",
-    "glfw-raub": "0.0.2",
+    "image-raub": "0.0.4",
+    "glfw-raub": "0.0.4",
     "webgl-raub": "0.0.2"
   }
 }
