@@ -1,32 +1,36 @@
 {
-  "name": "3d-core-raub",
-  "version": "0.0.8",
-  "description": "An extensible Node.js 3D core for desktop applications",
-  "main": "index.js",
-  "author": "Luis Blanco <raubtierxxx@gmail.com>",
-  "keywords": [
-    "opengl",
-    "3d",
-    "graphics",
-    "three",
-    "threejs"
-  ],
-  "maintainers": [
-    {
-      "name": "Luis Blanco",
-      "email": "raubtierxxx@gmail.com",
-      "skype": "rauber666"
-    }
-  ],
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/raub/node-3d-ready.git"
-  },
-  "dependencies": {
-    "node-threejs-raub": "0.89.0",
-    "image-raub": "0.0.4",
-    "glfw-raub": "0.0.6",
-    "webgl-raub": "0.0.3"
-  }
+	"author": "Luis Blanco <luisblanco1337@gmail.com>",
+	"name": "3d-core-raub",
+	"version": "0.0.9",
+	"description": "An extensible Node3D core for desktop applications",
+	"license": "MIT",
+	"main": "index.js",
+	"keywords": [
+		"plugin",
+		"3d",
+		"node3d",
+		"opengl",
+		"graphics"
+	],
+	"engines": {
+		"node": ">=8.11.1",
+		"npm": ">=5.6.0"
+	},
+	"maintainers": [
+		{
+			"name": "Luis Blanco",
+			"email": "luisblanco1337@gmail.com",
+			"skype": "rauber666"
+		}
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/node-3d/3d-core-raub.git"
+	},
+	"dependencies": {
+		"node-threejs-raub": "0.89.0",
+		"image-raub": "0.0.5",
+		"glfw-raub": "0.0.7",
+		"webgl-raub": "0.0.4"
+	}
 }
