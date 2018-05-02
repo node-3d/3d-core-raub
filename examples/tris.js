@@ -3,8 +3,25 @@
 const { Screen, Tris, loop, gl } = require('../index');
 
 
+const F_KEY = 70;
+
 const screen = new Screen();
 loop(() => screen.draw());
+
+
+screen.on('keydown', e => {
+	
+	if (e.keyCode === F_KEY && e.ctrlKey && e.shiftKey) {
+		screen.mode = 'windowed';
+	} else if (e.keyCode === F_KEY && e.ctrlKey && e.altKey) {
+		screen.mode = 'fullscreen';
+	} else if (e.keyCode === F_KEY && e.ctrlKey) {
+		screen.mode = 'borderless';
+	} else {
+		return;
+	}
+	
+});
 
 
 const VBO_SIZE = 3000;

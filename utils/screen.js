@@ -2,45 +2,69 @@
 
 const EventEmitter = require('events');
 
-const core = require('../core');
+const { three, gl, doc } = require('../core');
 
 
 class Screen extends EventEmitter {
 	
-	get three()    { return core.three;     }
-	get canvas()   { return core.canvas;    }
-	get camera()   { return this._camera;   }
-	get scene()    { return this._scene;    }
+	get context()  { return gl; }
+	get three()    { return three; }
+	
 	get renderer() { return this._renderer; }
-	get context()  { return core.gl;  }
-	get document() { return core.doc; }
+	get scene()    { return this._scene; }
+	get camera()   { return this._camera; }
 	
+	get document() { return this._doc; }
+	get canvas()   { return this._doc; }
 	
-	get width()  { return core.canvas.width;  }
-	get height() { return core.canvas.height; }
+	get width()  { return this._doc.width;  }
+	get height() { return this._doc.height; }
 	get w()      { return this.width;  }
 	get h()      { return this.height; }
-	get size()   { return new this.three.Vector2(this.width, this.height); }
+	get size()   { return new three.Vector2(this.width, this.height); }
 	
 	
-	get title()  { return this._title; }
+	get title()  { return this._doc._title; }
 	set title(v) {
-		this._title = v || 'Untitled';
-		this.document.title = this._title;
+		this._doc._title = v || 'Untitled';
 	}
 	
-	get fov()  { return this.camera.fov; }
+	get fov()  { return this._camera.fov; }
 	set fov(v) {
-		this.camera.fov = v;
-		this.camera.updateProjectionMatrix();
+		this._camera.fov = v;
+		this._camera.updateProjectionMatrix();
+	}
+	
+	get mode() { return this._doc._mode; }
+	set mode(v) {
+		
+		if (this._doc.mode === v) {
+			return;
+		}
+		
+		this._doc.mode = v;
+		
+		this._renderer = new three.WebGLRenderer({
+			
+			context   : gl,
+			antialias : true,
+			canvas    : this._doc,
+			alpha     : true,
+			
+			premultipliedAlpha     : true,
+			preserveDrawingBuffer  : true,
+			logarithmicDepthBuffer : true,
+			
+		});
+		
 	}
 	
 	
-	constructor(opts) {
-		
-		opts = opts || {};
+	constructor(opts = {}) {
 		
 		super();
+		
+		this._doc = opts.doc || doc;
 		
 		const pathMatch2 = process.mainModule.filename.replace(/\\/g, '/').match(/(\/(.*))*\/(.*?)\/[^\/]*$/);
 		const appDir = opts.dir || (pathMatch2 ? pathMatch2[pathMatch2.length - 1] : '');
@@ -78,20 +102,20 @@ class Screen extends EventEmitter {
 			this._renderer = opts.renderer;
 		}
 		
-		this.renderer.setSize(this.width, this.height, false);
+		this.renderer.setSize(this._doc.width, this._doc.height, false);
 		this.renderer.gammaInput  = true;
 		
-		this.document.on('resize', () => {
+		this.document.on('resize', ({ width, height }) => {
 			
-			this.camera.aspect = this.width / this.height;
+			this.camera.aspect = width / height;
 			this.camera.updateProjectionMatrix();
-			this.renderer.setSize(this.width, this.height, false);
+			this.renderer.setSize(width, height, false);
 			
-			this.emit('resize', { w: this.width, h: this.height });
+			this.emit('resize', { width, height });
 			
 		});
 		
-		['mousedown', 'mouseup', 'mousemove'].forEach(
+		['keydown', 'keyup', 'mousedown', 'mouseup', 'mousemove'].forEach(
 			type => this.document.on(type, e => this.emit(type, e))
 		);
 		
