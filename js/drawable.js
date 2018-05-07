@@ -9,10 +9,10 @@ class Drawable {
 	constructor(opts) {
 		
 		this._screen = opts.screen;
-		this._three  = this._screen.three;
+		this._three = this._screen.three;
 		
 		this._pos = new Vec2(opts.pos || [0, 0]);
-		this._z   = 0;
+		this._z = 0;
 		
 		this._visible = true;
 		
@@ -31,7 +31,7 @@ class Drawable {
 		}
 		
 		this.pos = this._pos;
-		this.z   = opts.z   || 0;
+		this.z = opts.z || 0;
 		
 	}
 	
@@ -40,7 +40,7 @@ class Drawable {
 	
 	
 	get screen() { return this._screen; }
-	set screen(v) { v = v; } // dummy setter, for convinience of passing Drawable as opts
+	set screen(v) { v = null; } // dummy setter, for convinience of passing Drawable as opts
 	
 	
 	get mat() { return this._mesh.material; }

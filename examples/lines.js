@@ -100,8 +100,8 @@ const lines3 = new Lines({
 let isMoving = false;
 let mouse = { x: 0, y: 0 };
 
-screen.on('mousedown', e => isMoving = true);
-screen.on('mouseup', e => isMoving = false);
+screen.on('mousedown', () => isMoving = true);
+screen.on('mouseup', () => isMoving = false);
 
 screen.on('mousemove', e => {
 	

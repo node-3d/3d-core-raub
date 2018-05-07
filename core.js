@@ -25,7 +25,7 @@ const _shaderSource = gl.shaderSource;
 gl.shaderSource = (shader, string) => _shaderSource(
 	shader,
 	string.replace(
-		/^\s*?(\#version|precision).*?$/gm, ''
+		/^\s*?(#version|precision).*?$/gm, ''
 	).replace(
 		/^/, '#version 120\n'
 	).replace(
@@ -85,7 +85,7 @@ three.Texture.fromId = (id, renderer) => {
 	}
 	
 	properties.__webglTexture = rawTexture;
-	properties.__webglInit    = true;
+	properties.__webglInit = true;
 	
 	return texture;
 	

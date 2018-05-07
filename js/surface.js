@@ -10,7 +10,7 @@ class Surface extends Rect {
 	
 	constructor(opts) {
 		
-		opts.pos  = opts.pos || new Vec2(-300, -300);
+		opts.pos = opts.pos || new Vec2(-300, -300);
 		opts.size = opts.size || new Vec2(600, 600);
 		
 		super(opts);
@@ -89,20 +89,20 @@ class Surface extends Rect {
 	}
 	
 	
-	get canvas()   { return this.screen.canvas;   }
-	get camera()   { return this._camera;         }
-	get scene()    { return this._scene;          }
+	get canvas() { return this.screen.canvas; }
+	get camera() { return this._camera; }
+	get scene() { return this._scene; }
 	get renderer() { return this.screen.renderer; }
-	get context()  { return this.screen.context;  }
+	get context() { return this.screen.context; }
 	get document() { return this.screen.document; }
 	
 	
-	get title()  { return this.screen.title; }
-	set title(v) { this.screen.title = v;    }
+	get title() { return this.screen.title; }
+	set title(v) { this.screen.title = v; }
 	
 	
-	get fov()  { return this.screen.fov; }
-	set fov(v) { this.screen.fov = v;    }
+	get fov() { return this.screen.fov; }
+	set fov(v) { this.screen.fov = v; }
 	
 	
 	get size() { return super.size; }

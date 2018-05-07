@@ -1,7 +1,11 @@
 # Node.js 3D Core
 
+This is a part of [Node3D](https://github.com/node-3d) project.
 
-Launch Node.js in WebGL mode.
+
+## Synopsis
+
+Launch **Node.js** in **WebGL** mode.
 
 * Shipped together with [three.js](https://github.com/mrdoob/three.js) for convenience.
 * Multiple windows are supported, with help of [GLFW](http://www.glfw.org/).
@@ -16,10 +20,10 @@ Launch Node.js in WebGL mode.
 npm i -s 3d-core-raub
 ```
 
-NOTE: The module depends on multiple compiled addons. It requires compilation tools
-on your system. E.g. MSVS13 for Windows, where **ADMIN PRIVELEGED**
-`npm i -g windows-build-tools` most likely helps. On Unix systems this is
-usually not a problem at all.
+> Note: compilation tools must be in place on your system.
+For Windows, use **ADMIN PRIVELEGED** command line:
+\`npm i -g windows-build-tools\`.
+Also **Windows** needs **vcredist 2013** to be installed.
 
 
 ## Exports

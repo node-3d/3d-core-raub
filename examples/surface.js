@@ -49,14 +49,13 @@ const points = new Points({
 });
 
 
-let isMoving = false;
 let isRotating = false;
 let mouse = { x: 0, y: 0 };
 
-document.on('mousedown', e => isRotating = true);
-document.on('mouseup', e => isRotating = false);
+screen.on('mousedown', () => isRotating = true);
+screen.on('mouseup', () => isRotating = false);
 
-document.on('mousemove', e => {
+screen.on('mousemove', e => {
 	
 	const dx = mouse.x - e.x;
 	const dy = mouse.y - e.y;

@@ -24,7 +24,7 @@ class Cloud extends Drawable {
 	
 	
 	get color() { return null; }
-	set color(v) { v = v; }
+	set color(v) { v = null; }
 	
 	
 	buildAttr(attr, count) {

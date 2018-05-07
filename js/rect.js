@@ -9,15 +9,15 @@ class Rect extends Drawable {
 	
 	constructor(opts = {}) {
 		
-		opts.pos  = opts.pos || new Vec2(-300, -300);
+		opts.pos = opts.pos || new Vec2(-300, -300);
 		opts.size = opts.size || new Vec2(600, 600);
 		
-		opts.size   = new Vec2(opts.size || [100, 100]);
+		opts.size = new Vec2(opts.size || [100, 100]);
 		opts.radius = opts.radius || 0;
 		
 		super(opts);
 		
-		this._size   = opts.size;
+		this._size = opts.size;
 		this._radius = opts.radius;
 		
 	}
@@ -32,10 +32,10 @@ class Rect extends Drawable {
 		
 		const matName = opts.wire ? 'LineBasicMaterial' : 'MeshBasicMaterial';
 		const matOpts = {
-			transparent: true,
-			side       : this.three.DoubleSide,
-			depthWrite : false,
-			depthTest  : false,
+			transparent : true,
+			side        : this.three.DoubleSide,
+			depthWrite  : false,
+			depthTest   : false,
 		};
 		
 		if (opts.wire) {
@@ -54,11 +54,11 @@ class Rect extends Drawable {
 	}
 	
 	
-	get width()  { return this._size.x; }
+	get width() { return this._size.x; }
 	get height() { return this._size.y; }
 	
 	
-	get w()  { return this._size.x; }
+	get w() { return this._size.x; }
 	get h() { return this._size.y; }
 	
 	
@@ -79,7 +79,7 @@ class Rect extends Drawable {
 	
 	
 	_geo(opts) {
-		var geometry = null;
+		let geometry = null;
 		
 		const size = opts.size || new Vec2(100, 100);
 		
@@ -106,7 +106,7 @@ class Rect extends Drawable {
 			shape.lineTo( r, 0 );
 			shape.quadraticCurveTo( 0, 0, 0, r );
 			
-			geometry =  new this.three.ShapeGeometry(shape);
+			geometry = new this.three.ShapeGeometry(shape);
 			
 			geometry.translate(-w * 0.5, -h * 0.5, 0);
 			geometry.rotateX(Math.PI);

@@ -1,19 +1,19 @@
 'use strict';
 
-const { Screen, loop } = require('../index');
+const { Screen, loop, three } = require('../index');
 
 
 const screen = new Screen();
 
-const geometry = new THREE.IcosahedronGeometry(200, 1);
-const material =  new THREE.MeshLambertMaterial({
+const geometry = new three.IcosahedronGeometry(200, 1);
+const material =  new three.MeshLambertMaterial({
 	color: 0xFFFFFF,
 });
 
-const mesh = new THREE.Mesh(geometry, material);
+const mesh = new three.Mesh(geometry, material);
 screen.scene.add( mesh );
 
-const pointLight = new THREE.PointLight(0xFFFFFF, 1, 100000);
+const pointLight = new three.PointLight(0xFFFFFF, 1, 100000);
 screen.scene.add( pointLight );
 pointLight.position.x = 200;
 pointLight.position.y = 2000;

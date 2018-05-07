@@ -161,7 +161,7 @@ const classes = {
 
 describe('Node.js 3D Core', () => {
 	
-	it(`exports an object`, () => {
+	it('exports an object', () => {
 		expect(node3d).to.be.an('object');
 	});
 	
@@ -178,7 +178,7 @@ describe('Node.js 3D Core', () => {
 		
 		const current = classes[c];
 		
-		it(`can be created`, () => {
+		it('can be created', () => {
 			expect(current.create()).to.be.an('object');
 		});
 		

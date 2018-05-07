@@ -240,7 +240,12 @@ class Vec2 extends Array {
 	 * @arg {Vec} other
 	 * @return {Vec} this
 	 */
-	maxed(other) { this[0] = Math.max(this[0], other[0]); this[1] = Math.max(this[1], other[1]); return this; }
+	maxed(other) {
+		this[0] = Math.max(this[0], other[0]);
+		this[1] = Math.max(this[1], other[1]);
+		return this;
+	}
+	
 	/**
 	 * Stores in `this.clone` per-component maximum between `other` and `this.clone`, and then chains self
 	 * @arg {Vec} other
@@ -253,7 +258,12 @@ class Vec2 extends Array {
 	 * @arg {Vec} other
 	 * @return {Vec} this
 	 */
-	mined(other) { this[0] = Math.min(this[0], other[0]); this[1] = Math.min(this[1], other[1]); return this; }
+	mined(other) {
+		this[0] = Math.min(this[0], other[0]);
+		this[1] = Math.min(this[1], other[1]);
+		return this;
+	}
+	
 	/**
 	 * Stores in `this.clone` per-component minimum between `other` and `this.clone`, and then chains self
 	 * @arg {Vec} other
@@ -356,7 +366,7 @@ class Vec2 extends Array {
 	 * @arg {Vec} other
 	 * @return {Number} dot product
 	 */
-	dot(other) { return this[0]*other[0] + this[1]*other[1]; }
+	dot(other) { return this[0] * other[0] + this[1] * other[1]; }
 	
 	
 	/**
@@ -498,14 +508,14 @@ class Vec2 extends Array {
 	 * @return {Vec} this
 	 */
 	rotated(angle) {
-		if(angle === 0) {
+		if (angle === 0) {
 			return this;
 		}
 		
 		const c = Math.cos(angle);
 		const s = Math.sin(angle);
-		this[0] = c*this[0] - s*this[1];
-		this[1] = s*this[0] + c*this[1];
+		this[0] = c * this[0] - s * this[1];
+		this[1] = s * this[0] + c * this[1];
 		return this;
 	}
 	/**
@@ -523,7 +533,7 @@ class Vec2 extends Array {
 	 * @arg {Vec} c
 	 * @return {Vec} this.clone
 	 */
-	centroid(b, c) { return this.clone.plused(b).plused(c).scaled(1/3); }
+	centroid(b, c) { return this.clone.plused(b).plused(c).scaled(1 / 3); }
 	
 	
 	/**
@@ -596,7 +606,7 @@ class Vec2 extends Array {
 		
 		var t = Vec2.getLineSegmentsIntersectionFraction(p0, p1, p2, p3);
 		
-		if(t < 0){
+		if (t < 0) {
 			return null;
 		}
 		
@@ -614,13 +624,13 @@ class Vec2 extends Array {
 	 * @return {Number} A number between 0 and 1 if there was an intersection, otherwise -1
 	 */
 	getLineSegmentsIntersectionFraction(p0, p1, p2, p3) {
-		var s1_x = p1[0] - p0[0];
-		var s1_y = p1[1] - p0[1];
-		var s2_x = p3[0] - p2[0];
-		var s2_y = p3[1] - p2[1];
+		const s1X = p1[0] - p0[0];
+		const s1Y = p1[1] - p0[1];
+		const s2X = p3[0] - p2[0];
+		const s2Y = p3[1] - p2[1];
 		
-		const s = (-s1_y * (p0[0] - p2[0]) + s1_x * (p0[1] - p2[1])) / (-s2_x * s1_y + s1_x * s2_y);
-		const t = ( s2_x * (p0[1] - p2[1]) - s2_y * (p0[0] - p2[0])) / (-s2_x * s1_y + s1_x * s2_y);
+		const s = (-s1Y * (p0[0] - p2[0]) + s1X * (p0[1] - p2[1])) / (-s2X * s1Y + s1X * s2Y);
+		const t = ( s2X * (p0[1] - p2[1]) - s2Y * (p0[0] - p2[0])) / (-s2X * s1Y + s1X * s2Y);
 		
 		if (s >= 0 && s <= 1 && t >= 0 && t <= 1) {
 			return t; // Collision detected

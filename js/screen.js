@@ -7,29 +7,29 @@ const { three, gl, doc } = require('../core');
 
 class Screen extends EventEmitter {
 	
-	get context()  { return gl; }
-	get three()    { return three; }
+	get context() { return gl; }
+	get three() { return three; }
 	
 	get renderer() { return this._renderer; }
-	get scene()    { return this._scene; }
-	get camera()   { return this._camera; }
+	get scene() { return this._scene; }
+	get camera() { return this._camera; }
 	
 	get document() { return this._doc; }
-	get canvas()   { return this._doc; }
+	get canvas() { return this._doc; }
 	
-	get width()  { return this._doc.width;  }
+	get width() { return this._doc.width; }
 	get height() { return this._doc.height; }
-	get w()      { return this.width;  }
-	get h()      { return this.height; }
-	get size()   { return new three.Vector2(this.width, this.height); }
+	get w() { return this.width; }
+	get h() { return this.height; }
+	get size() { return new three.Vector2(this.width, this.height); }
 	
 	
-	get title()  { return this._doc._title; }
+	get title() { return this._doc._title; }
 	set title(v) {
 		this._doc._title = v || 'Untitled';
 	}
 	
-	get fov()  { return this._camera.fov; }
+	get fov() { return this._camera.fov; }
 	set fov(v) {
 		this._camera.fov = v;
 		this._camera.updateProjectionMatrix();
@@ -66,7 +66,7 @@ class Screen extends EventEmitter {
 		
 		this._doc = opts.doc || doc;
 		
-		const pathMatch2 = process.mainModule.filename.replace(/\\/g, '/').match(/(\/(.*))*\/(.*?)\/[^\/]*$/);
+		const pathMatch2 = process.mainModule.filename.replace(/\\/g, '/').match(/(\/(.*))*\/(.*?)\/[^/]*$/);
 		const appDir = opts.dir || (pathMatch2 ? pathMatch2[pathMatch2.length - 1] : '');
 		
 		this.title = opts.title || appDir;
@@ -103,7 +103,7 @@ class Screen extends EventEmitter {
 		}
 		
 		this.renderer.setSize(this._doc.width, this._doc.height, false);
-		this.renderer.gammaInput  = true;
+		this.renderer.gammaInput = true;
 		
 		this.document.on('resize', ({ width, height }) => {
 			

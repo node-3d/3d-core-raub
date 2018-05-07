@@ -7,7 +7,6 @@ const screen = new Screen();
 loop(() => screen.draw());
 
 const rect = new Rect({ screen });
-const scene = screen.scene;
 
 const mouse = { x: screen.w / 2, y: screen.h / 2 };
 
@@ -21,10 +20,10 @@ paint();
 
 let isMoving = false;
 
-document.on('mousedown', e => isMoving = true);
-document.on('mouseup', e => isMoving = false);
+screen.on('mousedown', () => isMoving = true);
+screen.on('mouseup', () => isMoving = false);
 
-document.on('mousemove', e => {
+screen.on('mousemove', e => {
 	
 	const dx = mouse.x - e.x;
 	const dy = mouse.y - e.y;

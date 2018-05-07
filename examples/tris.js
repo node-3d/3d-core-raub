@@ -68,10 +68,10 @@ const tris = new Tris({
 let isMoving = false;
 let mouse = { x: 0, y: 0 };
 
-document.on('mousedown', e => isMoving = true);
-document.on('mouseup', e => isMoving = false);
+screen.on('mousedown', () => isMoving = true);
+screen.on('mouseup', () => isMoving = false);
 
-document.on('mousemove', e => {
+screen.on('mousemove', e => {
 	
 	const dx = mouse.x - e.x;
 	const dy = mouse.y - e.y;

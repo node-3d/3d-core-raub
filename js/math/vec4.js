@@ -48,7 +48,11 @@ class Vec4 extends Vec3 {
 			} else if (args[0].constructor === Vec3) {
 				this.w = args[1];
 			} else if (args[0].constructor === Vec2) {
-				if (args[0].constructor === Array || args[1].constructor === Vec2 || args[1].constructor === Vec3) {
+				if (
+					args[0].constructor === Array ||
+					args[1].constructor === Vec2 ||
+					args[1].constructor === Vec3
+				) {
 					this.w = args[1][1];
 				} else if (typeof args[1] === 'number') {
 					this.w = args[1];
@@ -151,7 +155,7 @@ class Vec4 extends Vec3 {
 	
 	
 	/** @override */
-	dot(other) { return super.dot(other) + this[3]*other[3]; }
+	dot(other) { return super.dot(other) + this[3] * other[3]; }
 	
 	
 	/** @override */
