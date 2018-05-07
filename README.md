@@ -8,7 +8,7 @@ This is a part of [Node3D](https://github.com/node-3d) project.
 Launch **Node.js** in **WebGL** mode.
 
 * Shipped together with [three.js](https://github.com/mrdoob/three.js) for convenience.
-* Multiple windows are supported, with help of [GLFW](http://www.glfw.org/).
+* Multiple windows are supported, with the help of [GLFW](http://www.glfw.org/).
 * WebGL implementation is also using [GLEW](http://glew.sourceforge.net/).
 * Image loading uses [FreeImage](http://freeimage.sourceforge.net/) encoder/decoder.
 * Window icons are supported and both JS- and Image-friendly.
@@ -31,24 +31,24 @@ Also **Windows** needs **vcredist 2013** to be installed.
 
 ### class Image
 
-Almost the same as Image in browser. This constructor can be used to create one.
+Almost the same as `Image` in a browser. This constructor can be used to create one.
 Also `document.createElement('img')` does the same thing as `new Image()`.
 For more info see
-[the respective docs of node-image](https://github.com/raub/node-image#image-for-nodejs).
+[the respective docs of image-raub](https://github.com/node-3d/image-raub#image-for-nodejs).
 
 
 ### class Window
 
 This constructor spawns a new platform window.
 For more info see
-[the respective docs of node-glfw](https://github.com/raub/node-glfw#class-window).
+[the respective docs of glfw-raub](https://github.com/node-3d/glfw-raub#class-window).
 
 
 ### class Document extends Window
 
 This constructor spawns a new platform window **with a web-document like interface**.
 For more info see
-[the respective docs of node-glfw](https://github.com/raub/node-glfw#class-document).
+[the respective docs of glfw-raub](https://github.com/node-3d/glfw-raub#class-document).
 
 
 ### doc, document, canvas
@@ -61,16 +61,16 @@ results in a new platform window being immediately created.
 ### gl, webgl, context
 
 A WebGL context instance. This is almost the same as real WebGL stuff.
-Actually we seem to use OpenGL 2.1, GLSL 1.20. If you use pure-WebGL-specific
-shaders, that is WebGL 1.0 GLSL 1.0, you might hit a trouble because of sintax shift in
-GLSL 1.2 (`#version 120`). For more info see
-[the respective docs of node-webgl](https://github.com/raub/node-webgl#webgl-for-nodejs).
+Actually we seem to use **OpenGL 2.1**, **GLSL 1.20**. If you use pure-WebGL-specific
+shaders, that is **WebGL 1.0 GLSL 1.0**, you might hit a trouble because of sintax shift in
+**GLSL 1.2** (`#version 120`). For more info see
+[the respective docs of webgl-raub](https://github.com/node-3d/webgl-raub#webgl-for-nodejs).
 
 
 ### glfw
 
 Low level GLFW interface. For more info see
-[the respective docs of node-glfw](https://github.com/raub/node-glfw#glfw-for-nodejs).
+[the respective docs of glfw-raub](https://github.com/node-3d/glfw-raub#glfw-for-nodejs).
 
 
 ### three, THREE
