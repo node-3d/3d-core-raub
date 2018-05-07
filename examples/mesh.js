@@ -7,7 +7,8 @@ const screen = new Screen();
 
 const geometry = new three.IcosahedronGeometry(200, 1);
 const material =  new three.MeshLambertMaterial({
-	color: 0xFFFFFF,
+	color: 0x888888 + Math.round((0xFFFFFF - 0x888888) * Math.random()),
+	emissive: 0x333333,
 });
 
 const mesh = new three.Mesh(geometry, material);

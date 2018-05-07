@@ -46,11 +46,9 @@ function init() {
 	}
 	renderer = screen.renderer;
 	
-	screen.addEventListener( 'mousemove', onDocumentMouseMove, false );
-	screen.addEventListener( 'touchstart', onDocumentTouchStart, false );
-	screen.addEventListener( 'touchmove', onDocumentTouchMove, false );
+	screen.on('mousemove', onDocumentMouseMove);
 	//
-	screen.addEventListener( 'resize', onWindowResize, false );
+	screen.on('resize', onWindowResize);
 }
 function onWindowResize() {
 	windowHalfX = screen.width / 2;
@@ -62,20 +60,7 @@ function onDocumentMouseMove( event ) {
 	mouseX = event.clientX - windowHalfX;
 	mouseY = event.clientY - windowHalfY;
 }
-function onDocumentTouchStart( event ) {
-	if ( event.touches.length === 1 ) {
-		event.preventDefault();
-		mouseX = event.touches[ 0 ].pageX - windowHalfX;
-		mouseY = event.touches[ 0 ].pageY - windowHalfY;
-	}
-}
-function onDocumentTouchMove( event ) {
-	if ( event.touches.length === 1 ) {
-		event.preventDefault();
-		mouseX = event.touches[ 0 ].pageX - windowHalfX;
-		mouseY = event.touches[ 0 ].pageY - windowHalfY;
-	}
-}
+
 
 function render() {
 	var time = Date.now() * 0.00005;
