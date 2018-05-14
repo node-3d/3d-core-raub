@@ -29,7 +29,7 @@
 	},
 	"dependencies": {
 		"node-threejs-raub": "0.89.0",
-		"image-raub": "0.1.2",
+		"image-raub": "https://github.com/node-3d/image-raub.git",
 		"glfw-raub": "0.0.9",
 		"webgl-raub": "0.0.5"
 	}
