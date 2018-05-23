@@ -58,7 +58,7 @@ class Cloud extends Drawable {
 		const uniforms = (opts.uniforms || {}, {
 			winh: { type: 'f' , value: this.screen.height },
 		});
-		this.screen.on('resize', wh => uniforms.winh.value = wh.h);
+		this.screen.on('resize', ({height}) => uniforms.winh.value = height);
 		
 		return new this.screen.three.ShaderMaterial({
 			
