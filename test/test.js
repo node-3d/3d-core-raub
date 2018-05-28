@@ -177,21 +177,22 @@ describe('Node.js 3D Core', () => {
 	Object.keys(classes).forEach(c => describe(c, () => {
 		
 		const current = classes[c];
+		const instance = current.create();
 		
 		it('can be created', () => {
-			expect(current.create()).to.be.an('object');
+			expect(instance).to.be.an.instanceOf(node3d[c]);
 		});
 		
 		
 		current.props.forEach(prop => {
 			it(`#${prop} property exposed`, () => {
-				expect(current.create()).to.have.property(prop);
+				expect(instance).to.have.property(prop);
 			});
 		});
 		
 		current.methods.forEach(method => {
 			it(`#${method}() method exposed`, () => {
-				expect(current.create()).to.respondTo(method);
+				expect(instance).to.respondTo(method);
 			});
 		});
 		
