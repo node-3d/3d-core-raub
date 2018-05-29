@@ -44,6 +44,11 @@ class Screen extends EventEmitter {
 		
 		this._doc.mode = v;
 		
+		if (this._autoRenderer) {
+			this._renderer.dispose();
+		}
+		
+		this._autoRenderer = true;
 		this._renderer = new three.WebGLRenderer({
 			
 			context   : gl,
@@ -86,6 +91,7 @@ class Screen extends EventEmitter {
 		
 		
 		if ( ! opts.renderer ) {
+			this._autoRenderer = true;
 			this._renderer = new this.three.WebGLRenderer({
 				
 				context   : this.context,
@@ -99,6 +105,7 @@ class Screen extends EventEmitter {
 				
 			});
 		} else {
+			this._autoRenderer = false;
 			this._renderer = opts.renderer;
 		}
 		
@@ -106,6 +113,9 @@ class Screen extends EventEmitter {
 		this.renderer.gammaInput = true;
 		
 		this.document.on('resize', ({ width, height }) => {
+			
+			width = width || 1;
+			height = height || 1;
 			
 			this.camera.aspect = width / height;
 			this.camera.updateProjectionMatrix();

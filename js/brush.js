@@ -11,7 +11,7 @@ class Brush extends Drawable {
 		super({ screen: opts.screen, color: opts.color });
 		
 		this._size = opts.size || 100;
-		this._pos  = opts.pos  || new Vec2();
+		this._pos = opts.pos || new Vec2();
 		
 		if (opts.visible !== undefined && ! opts.visible) {
 			this.visible = false;
@@ -19,7 +19,7 @@ class Brush extends Drawable {
 		
 		this.screen.on('resize', () => {
 			this._mesh.material.uniforms.aspect.value = this.screen.w / this.screen.h;
-			this._mesh.material.uniforms.size.value   = this._size / this.screen.h;
+			this._mesh.material.uniforms.size.value = this._size / this.screen.h;
 		});
 		
 	}
@@ -38,8 +38,10 @@ class Brush extends Drawable {
 	set pos(v) {
 		this._pos.copy(v);
 		if (this.visible) {
-			this._mesh.material.uniforms.pos.value =
-				new this.three.Vector2((this._pos.x / this.screen.w - 0.5) * 2, (-this._pos.y / this.screen.h + 0.5) * 2);
+			this._mesh.material.uniforms.pos.value = new this.three.Vector2(
+				(this._pos.x / this.screen.w - 0.5) * 2,
+				(-this._pos.y / this.screen.h + 0.5) * 2
+			);
 		}
 	}
 	
@@ -88,14 +90,14 @@ class Brush extends Drawable {
 	}
 	
 	
-	_mat(opts) {
+	_mat() {
 		return new this.three.ShaderMaterial({
 			
 			side: this.three.DoubleSide,
 			
 			uniforms: {
-				aspect : { type: 'f',  value: this.screen.w / this.screen.h },
-				size   : { type: 'f',  value: 100 / this.screen.h },
+				aspect : { type: 'f', value: this.screen.w / this.screen.h },
+				size   : { type: 'f', value: 100 / this.screen.h },
 				pos    : { type: 'v2', value: new this.three.Vector2(0, 0) },
 				color  : { type: 'v3', value: new this.three.Vector3(0, 1, 1) },
 			},
