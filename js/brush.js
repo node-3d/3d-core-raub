@@ -130,7 +130,7 @@ class Brush extends Drawable {
 				}
 			`,
 			
-			blending   : 'additive',
+			blending   : this.three.AdditiveBlending,
 			depthTest  : false,
 			transparent: true,
 			

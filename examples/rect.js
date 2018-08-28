@@ -6,6 +6,22 @@ const { Screen, Rect, loop }  = require('../index');
 const screen = new Screen();
 loop(() => screen.draw());
 
+const F_KEY = 70;
+
+screen.on('keydown', e => {
+	
+	if (e.keyCode === F_KEY && e.ctrlKey && e.shiftKey) {
+		screen.mode = 'windowed';
+	} else if (e.keyCode === F_KEY && e.ctrlKey && e.altKey) {
+		screen.mode = 'fullscreen';
+	} else if (e.keyCode === F_KEY && e.ctrlKey) {
+		screen.mode = 'borderless';
+	} else {
+		return;
+	}
+	
+});
+
 const rect = new Rect({ screen });
 
 const mouse = { x: screen.w / 2, y: screen.h / 2 };
