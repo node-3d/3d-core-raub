@@ -42,6 +42,10 @@ script:
   - ls
   - cd node_modules
   - ls
-  - cd ..
+  - cd image-raub
+  - ls
+  - cd node_modules
+  - ls
+  - cd ../../..
   - cd test && npm test
   - cd ..
