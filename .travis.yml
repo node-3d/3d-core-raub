@@ -4,7 +4,7 @@ dist: trusty
 language: node_js
 
 node_js:
-  - "8.11.2"
+  - "8.11.4"
 
 
 addons:
@@ -39,5 +39,8 @@ before_script:
 
 
 script:
+  - cd node_modules/deps-freeimage-raub/bin-linux64
+  - ls
+  - cd ../../..
   - cd test && npm test
   - cd ..
