@@ -40,8 +40,8 @@ before_script:
 
 script:
   - ls
-  - cd node_modules/image-raub/node_modules/deps-freeimage-raub
+  - cd node_modules/image-raub/node_modules/deps-freeimage-raub/bin-linux64
   - ls
-  - cd ../../../..
+  - cd ../../../../..
   - cd test && npm test
   - cd ..
