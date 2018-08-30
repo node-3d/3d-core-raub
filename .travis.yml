@@ -39,8 +39,5 @@ before_script:
 
 
 script:
-  - cd node_modules
-  - ls
-  - cd ..
   - cd test && npm test
   - cd ..
