@@ -198,4 +198,15 @@ describe('Node.js 3D Core', () => {
 		
 	}));
 	
+	it('converts a non-pow2 texture', () => {
+		const screen = new node3d.Screen();
+		const texture = new node3d.three.TextureLoader().load( __dirname + '/freeimage.jpg' );
+		const geometry = new node3d.three.BoxBufferGeometry(200, 200, 200);
+		const material = new node3d.three.MeshBasicMaterial({ map: texture });
+		const mesh = new node3d.three.Mesh(geometry, material);
+		screen.scene.add(mesh);
+		screen.draw();
+		expect(mesh).to.be.an('object');
+	});
+	
 });
