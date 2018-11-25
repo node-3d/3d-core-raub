@@ -1,20 +1,24 @@
 {
 	"author": "Luis Blanco <luisblanco1337@gmail.com>",
 	"name": "3d-core-raub",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"description": "An extensible Node3D core for desktop applications",
 	"license": "MIT",
 	"main": "index.js",
 	"keywords": [
-		"plugin",
+		"core",
 		"3d",
 		"node3d",
 		"opengl",
-		"graphics"
+		"webgl",
+		"glfw",
+		"graphics",
+		"gl",
+		"image"
 	],
 	"engines": {
-		"node": ">=8.11.4",
-		"npm": ">=5.6.0"
+		"node": ">=10.13.0",
+		"npm": ">=6.4.1"
 	},
 	"maintainers": [
 		{
@@ -30,7 +34,7 @@
 	"dependencies": {
 		"node-threejs-raub": "0.89.0",
 		"image-raub": "https://github.com/node-3d/image-raub.git",
-		"glfw-raub": "1.0.0",
+		"glfw-raub": "https://github.com/node-3d/glfw-raub.git",
 		"webgl-raub": "https://github.com/node-3d/webgl-raub.git"
 	}
 }
