@@ -125,7 +125,7 @@ class Screen extends EventEmitter {
 			
 		});
 		
-		['keydown', 'keyup', 'mousedown', 'mouseup', 'mousemove'].forEach(
+		['keydown', 'keyup', 'mousedown', 'mouseup', 'mousemove','mousewheel'].forEach(
 			type => this.document.on(type, e => this.emit(type, e))
 		);
 		
