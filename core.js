@@ -38,8 +38,71 @@ gl.clearColor(0.0, 0.0, 0.0, 1.0);
 gl.enable(gl.DEPTH_TEST);
 
 
+global.navigator = {
+	appCodeName: 'Mozilla',
+	appName: 'Netscape',
+	appVersion: 'Node3D',
+	bluetooth: {},
+	clipboard: {},
+	connection: {
+		onchange: null, effectiveType: '4g', rtt: 50, downlink: 3.3, saveData: false
+	},
+	cookieEnabled: false,
+	credentials: {},
+	deviceMemory: 8,
+	doNotTrack: null,
+	geolocation: {},
+	hardwareConcurrency: 4,
+	keyboard: {},
+	language: 'en',
+	languages: ['en', 'en-US'],
+	locks: {},
+	maxTouchPoints: 0,
+	mediaCapabilities: {},
+	mediaDevices: { ondevicechange: null },
+	mimeTypes: { length: 0 },
+	onLine: false,
+	permissions: {},
+	platform: 'Any',
+	plugins: { length: 0 },
+	presentation: { defaultRequest: null, receiver: null },
+	product: 'Node3D',
+	productSub: '1',
+	serviceWorker: {
+		ready: Promise.resolve(false),
+		controller: null,
+		oncontrollerchange: null,
+		onmessage: null
+	},
+	storage: {},
+	usb: { onconnect: null, ondisconnect: null },
+	userAgent: 'Mozilla/Node3D',
+	vendor: 'Node3D',
+	vendorSub: '',
+	webkitPersistentStorage: {},
+	webkitTemporaryStorage: {},
+};
+
+class WebVRManager {
+	
+	get enabled() { return false; }
+	
+	constructor() {}
+	
+	isPresenting() { return false; }
+	dispose() {}
+	setAnimationLoop() {}
+	getCamera() { return {}; }
+	submitFrame() {}
+	isPresenting() { return false; }
+	
+}
+
+global.WebVRManager = WebVRManager;
+
+
 // Require THREE after Document and GL are ready
-const three = require('node-threejs-raub');
+const three = require('threejs-raub');
 global.THREE = three;
 
 
