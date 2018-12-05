@@ -32,7 +32,7 @@
 		"url": "https://github.com/node-3d/3d-core-raub.git"
 	},
 	"dependencies": {
-		"node-threejs-raub": "0.89.0",
+		"threejs-raub": "https://github.com/node-3d/threejs-raub.git",
 		"image-raub": "https://github.com/node-3d/image-raub.git",
 		"glfw-raub": "https://github.com/node-3d/glfw-raub.git",
 		"webgl-raub": "https://github.com/node-3d/webgl-raub.git"
