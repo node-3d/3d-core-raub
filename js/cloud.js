@@ -27,22 +27,20 @@ class Cloud extends Drawable {
 	set color(v) { v = null; }
 	
 	
-	buildAttr(attr, count) {
-		const ba = new this.screen.three.BufferAttribute(Cloud._dummyArray, attr.items);
-		ba.count = count;
-		ba.onCreateCallback = () => attr.vbo;
-		return ba;
+	buildAttr(source, count) {
+		return new THREE.GLBufferAttribute(
+			this.screen.context,
+			source.vbo,
+			this.screen.context.FLOAT,
+			source.items,
+			count
+		);
 	}
 	
 	
 	_geo(opts) {
 		
 		const geo = new this.screen.three.BufferGeometry();
-		geo.computeBoundingSphere = () => {
-			geo.boundingSphere = new this.screen.three.Sphere(undefined, Infinity);
-		};
-		geo.computeBoundingSphere();
-		geo.setDrawRange(0, opts.count);
 		
 		Object.keys(opts.attrs).forEach(key => {
 			geo.addAttribute(key, this.buildAttr(opts.attrs[key], opts.count));
@@ -118,11 +116,12 @@ class Cloud extends Drawable {
 	
 	
 	_build(opts) {
-		return new this.three.Points(this._geo(opts), this._mat(opts));
+		const points = new this.three.Points(this._geo(opts), this._mat(opts));
+		points.frustumCulled = false;
+		return points;
 	}
 	
 }
 
-Cloud._dummyArray = new Float32Array(10);
 
 module.exports = Cloud;
