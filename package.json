@@ -1,7 +1,7 @@
 {
 	"author": "Luis Blanco <luisblanco1337@gmail.com>",
 	"name": "3d-core-raub",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "An extensible Node3D core for desktop applications",
 	"license": "MIT",
 	"main": "index.js",
@@ -34,7 +34,7 @@
 	"dependencies": {
 		"threejs-raub": "0.99.0",
 		"image-raub": "2.0.0",
-		"glfw-raub": "2.0.0",
+		"glfw-raub": "2.0.1",
 		"webgl-raub": "1.0.0"
 	}
 }
