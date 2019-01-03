@@ -1,28 +1,9 @@
 'use strict';
 
-const { writeFile } = require('fs');
-
 const { Screen, loop, three, Image } = require('../index');
 
 
 const screen = new Screen();
-
-const F_KEY = 70;
-
-screen.on('keydown', e => {
-	
-	if (e.keyCode === F_KEY && e.ctrlKey && e.shiftKey) {
-		screen.mode = 'windowed';
-	} else if (e.keyCode === F_KEY && e.ctrlKey && e.altKey) {
-		screen.mode = 'fullscreen';
-	} else if (e.keyCode === F_KEY && e.ctrlKey) {
-		screen.mode = 'borderless';
-	} else {
-		return;
-	}
-	
-});
-
 
 const geometry = new three.IcosahedronGeometry(200, 1);
 const material =  new three.MeshLambertMaterial({
@@ -48,11 +29,11 @@ loop(() => {
 });
 
 
-setTimeout(() => {
+const makeSnapshot = () => {
 	
 	// ====== GRAB PIXELS
 	
-	const memSize = screen.w * screen.h * 4; // bytes
+	const memSize = screen.w * screen.h * 4; // estimated number of bytes
 	const storage = {
 		data: Buffer.allocUnsafeSlow(memSize),
 	};
@@ -133,4 +114,7 @@ setTimeout(() => {
 	
 	img.save(`${Date.now()}.jpg`);
 	
-}, 1000);
+};
+
+
+setTimeout(makeSnapshot, 1000);
