@@ -2,6 +2,12 @@
 
 This is a part of [Node3D](https://github.com/node-3d) project.
 
+![NPM](https://nodei.co/npm/3d-core-raub.png?compact=true)
+
+![Build Status](https://api.travis-ci.com/node-3d/3d-core-raub.svg?branch=master)
+
+> npm i -s 3d-core-raub
+
 
 ## Synopsis
 
@@ -12,13 +18,6 @@ Launch **Node.js** in **WebGL** mode.
 * WebGL implementation is also using [GLEW](http://glew.sourceforge.net/).
 * Image loading uses [FreeImage](http://freeimage.sourceforge.net/) encoder/decoder.
 * Window icons are supported and both JS- and Image-friendly.
-
-
-## Install
-
-```
-npm i -s 3d-core-raub
-```
 
 > Note: compilation tools must be in place on your system.
 For Windows, use **ADMIN PRIVELEGED** command line:
