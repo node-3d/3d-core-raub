@@ -13,6 +13,8 @@ This is a part of [Node3D](https://github.com/node-3d) project.
 
 Launch **Node.js** in **WebGL** mode.
 
+![Example](examples/screenshot.png)
+
 * Shipped together with [three.js](https://github.com/mrdoob/three.js) for convenience.
 * Multiple windows are supported, with the help of [GLFW](http://www.glfw.org/).
 * WebGL implementation is also using [GLEW](http://glew.sourceforge.net/).
