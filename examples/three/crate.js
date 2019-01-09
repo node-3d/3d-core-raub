@@ -1,4 +1,6 @@
-const { THREE, window } = require('../../index');
+const {
+	THREE, window, document, requestAnimationFrame
+} = require('../../index');
 
 var camera, scene, renderer;
 var mesh;
@@ -8,7 +10,7 @@ function init() {
 	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
 	camera.position.z = 400;
 	scene = new THREE.Scene();
-	var texture = new THREE.TextureLoader().load( __dirname+'/textures/crate.gif' );
+	var texture = new THREE.TextureLoader().load( __dirname + '/textures/crate.gif' );
 	var geometry = new THREE.BoxBufferGeometry( 200, 200, 200 );
 	var material = new THREE.MeshBasicMaterial( { map: texture } );
 	mesh = new THREE.Mesh( geometry, material );

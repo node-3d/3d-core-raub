@@ -36,7 +36,7 @@ class Vec4 extends Vec3 {
 		
 		if (typeof args[0] === 'object') {
 			
-			this.w = wFromObject(args);
+			this.w = Vec4.wFromObject(args);
 			
 		} else if (typeof args[0] === 'number') {
 			
