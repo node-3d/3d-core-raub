@@ -1,6 +1,6 @@
 'use strict';
 
-const { Screen, loop, three } = require('../index');
+const { Screen, loop, three, Image } = require('../index');
 
 
 const screen = new Screen();
@@ -20,6 +20,13 @@ screen.on('keydown', e => {
 	}
 	
 });
+
+
+const icon = new Image();
+icon.src = __dirname + '/crate.jpg';
+icon.on('load', () => screen.icon = icon);
+
+screen.title = 'Mesh';
 
 
 const geometry = new three.IcosahedronGeometry(200, 1);

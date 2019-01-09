@@ -29,6 +29,11 @@ class Screen extends EventEmitter {
 		this._doc.title = v || 'Untitled';
 	}
 	
+	get icon() { return this._doc.icon; }
+	set icon(v) {
+		this._doc.icon = v || null;
+	}
+	
 	get fov() { return this._camera.fov; }
 	set fov(v) {
 		this._camera.fov = v;
