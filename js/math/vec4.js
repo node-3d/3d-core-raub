@@ -26,7 +26,7 @@ class Vec4 extends Vec3 {
 		
 		const args = arguments;
 		
-		super(x, y, z, w);
+		super(x, y, z);
 		
 		this.w = 1;
 		
@@ -49,7 +49,7 @@ class Vec4 extends Vec3 {
 				this.w = args[1];
 			} else if (args[0].constructor === Vec2) {
 				if (
-					args[0].constructor === Array ||
+					args[1].constructor === Array ||
 					args[1].constructor === Vec2 ||
 					args[1].constructor === Vec3
 				) {

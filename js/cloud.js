@@ -53,20 +53,22 @@ class Cloud extends Drawable {
 	
 	_mat(opts) {
 		
-		const uniforms = (opts.uniforms || {}, {
-			winh: { type: 'f' , value: this.screen.height },
-		});
+		const uniforms = {
+			...(opts.uniforms || null),
+			winh : { type: 'f' , value: this.screen.height },
+		};
+		
 		this.screen.on('resize', ({height}) => uniforms.winh.value = height);
 		
 		return new this.screen.three.ShaderMaterial({
 			
-			blending   : this.screen.three.NormalBlending,
-			depthTest  : opts.depthTest === true,
-			transparent: true,
+			blending    : this.screen.three.NormalBlending,
+			depthTest   : opts.depthTest === true,
+			transparent : true,
 			uniforms,
 			
-			vertexShader  : this.buildVert(opts),
-			fragmentShader: this.buildFrag(opts),
+			vertexShader   : this.buildVert(opts),
+			fragmentShader : this.buildFrag(opts),
 			
 		});
 		

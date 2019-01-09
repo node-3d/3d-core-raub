@@ -24,9 +24,9 @@ class Screen extends EventEmitter {
 	get size() { return new three.Vector2(this.width, this.height); }
 	
 	
-	get title() { return this._doc._title; }
+	get title() { return this._doc.title; }
 	set title(v) {
-		this._doc._title = v || 'Untitled';
+		this._doc.title = v || 'Untitled';
 	}
 	
 	get fov() { return this._camera.fov; }
@@ -71,10 +71,9 @@ class Screen extends EventEmitter {
 		
 		this._doc = opts.doc || doc;
 		
-		const pathMatch2 = process.mainModule.filename.replace(/\\/g, '/').match(/(\/(.*))*\/(.*?)\/[^/]*$/);
-		const appDir = opts.dir || (pathMatch2 ? pathMatch2[pathMatch2.length - 1] : '');
-		
-		this.title = opts.title || appDir;
+		if (opts.title) {
+			this.title = opts.title;
+		}
 		
 		if ( ! opts.camera ) {
 			this._camera = new this.three.PerspectiveCamera(45, this.width / this.height, 5, 100000000);

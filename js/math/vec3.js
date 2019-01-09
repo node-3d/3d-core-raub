@@ -44,9 +44,7 @@ class Vec3 extends Vec2 {
 			} else if (typeof args[0].z === 'number') {
 				this.z = args[0].z;
 			} else if (args[0].constructor === Vec2) {
-				this.z = args[1];
-			} else if (args[0].constructor === Vec2) {
-				if (args[0].constructor === Array || args[1].constructor === Vec2) {
+				if (args[1].constructor === Array || args[1].constructor === Vec2) {
 					this.z = args[1][0];
 				} else if (typeof args[1] === 'number') {
 					this.z = args[1];
