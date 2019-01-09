@@ -143,8 +143,7 @@ class Color extends Vec4 {
 		}
 		
 		if (isNaN(rest)) {
-			super(r, g, b, a);
-			return;
+			return { r, g, b, a };
 		}
 		
 		if (args[0] > 256 * 256 * 256) {
