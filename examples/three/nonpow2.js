@@ -1,5 +1,5 @@
 const {
-	THREE, window, document
+	THREE, window, document, requestAnimationFrame
 } = require('../../index');
 
 var camera, scene, renderer;
