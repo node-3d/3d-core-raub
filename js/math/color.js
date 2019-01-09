@@ -51,7 +51,7 @@ class Color extends Vec4 {
 	}
 	
 	
-	static rgbaFromEmpty(obj) {
+	static rgbaFromEmpty() {
 		let r = 0, g = 0, b = 0, a = 1;
 		return { r, g, b, a };
 	}
