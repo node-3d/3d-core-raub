@@ -28,7 +28,7 @@ class Cloud extends Drawable {
 	
 	
 	buildAttr(source, count) {
-		return new THREE.GLBufferAttribute(
+		return new this.screen.three.GLBufferAttribute(
 			this.screen.context,
 			source.vbo,
 			this.screen.context.FLOAT,

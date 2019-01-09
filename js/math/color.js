@@ -24,92 +24,144 @@ class Color extends Vec4 {
 	 * @arg {Number} [w=0]
 	 */
 	constructor() {
-		var r = 0, g = 0, b = 0, a = 1;
+		
+		let r = 0, g = 0, b = 0, a = 1;
 		
 		const args = arguments;
 		
-		if ( ! args.length ) {
+		let method = 'rgbaFromEmpty';
+		
+		if (args.length) {
+			if (typeof args[0] === 'object') {
+				method = 'rgbaFromObject';
+			} else if (typeof args[0] === 'number' && args[0] < 256) {
+				method = 'rgbaFromFloats';
+			} else if (typeof args[0] === 'number' || typeof args[0] === 'string') {
+				method = 'rgbaFromString';
+			}
+		}
+		
+		const { r, g, b, a } = Color[method](args);
+		
+		super(r, g, b, a);
+		
+	}
+	
+	
+	static clampTo1(x) {
+		return x > 1 ? x / 255 : x;
+	}
+	
+	
+	static rgbaFromEmpty(obj) {
+		let r = 0, g = 0, b = 0, a = 1;
+		return { r, g, b, a };
+	}
+	
+	
+	static rgbaFromObject(args) {
+		
+		let r = 0, g = 0, b = 0, a = 1;
+		
+		if (args[0] === null) {
+			return { r, g, b, a };
+		}
+		
+		// [] or {} or Vec2
+		if (args[0].constructor === Array || args[0].constructor === Color) {
+			r = args[0][0];
+			g = args[0][1];
+			b = args[0][2];
+			a = typeof args[0][3] === 'number' ? args[0][3] : 1;
+		} else if (
+				typeof args[0].r === 'number' && typeof args[0].g === 'number' &&
+				typeof args[0].b === 'number'
+			) {
+			r = args[0].r;
+			g = args[0].g;
+			b = args[0].b;
+			a = typeof args[0].a === 'number' ? args[0].a : 1;
+		} else if (args[0].constructor === Vec3) {
+			r = args[0].x;
+			g = args[0].y;
+			b = args[0].z;
+			a = typeof args[1] === 'number' ? args[1] : 1;
+		}
+		
+		r = clampTo1(r);
+		g = clampTo1(g);
+		b = clampTo1(b);
+		a = clampTo1(a);
+		
+		return { r, g, b, a };
+		
+	}
+	
+	
+	static rgbaFromFloats(args) {
+		
+		let r = 0, g = 0, b = 0, a = 1;
+		
+		if (isNaN(args[0])) {
+			return { r, g, b, a };
+		}
+		
+		r = args[0];
+		g = (typeof args[1] === 'number' && typeof args[2] === 'number') ? args[1] : args[0];
+		b = (typeof args[2] === 'number') ? args[2] : args[0];
+		
+		if (typeof args[3] === 'number') {
+			a = args[3];
+		} else if (typeof args[2] === 'number') {
+			a = 1;
+		} else if (typeof args[1] === 'number') {
+			a = args[1];
+		} else {
+			a = 1;
+		}
+		
+		r = clampTo1(r);
+		g = clampTo1(g);
+		b = clampTo1(b);
+		a = clampTo1(a);
+		
+		return { r, g, b, a };
+		
+	}
+	
+	
+	static rgbaFromString(args) {
+		
+		let r = 0, g = 0, b = 0, a = 1;
+		
+		let rest = 0;
+		
+		if (typeof args[0] === 'string') {
+			rest = parseInt(args[0], 16);
+		} else {
+			rest = args[0];
+		}
+		
+		if (isNaN(rest)) {
+			super(r, g, b, a);
 			return;
 		}
 		
-		if (typeof args[0] === 'object') {
-			
-			if (args[0] === null) {
-				return;
-			}
-			
-			// [] or {} or Vec2
-			if (args[0].constructor === Array || args[0].constructor === Color) {
-				r = args[0][0];
-				g = args[0][1];
-				b = args[0][2];
-				a = typeof args[0][3] === 'number' ? args[0][3] : 1;
-			} else if (
-					typeof args[0].r === 'number' && typeof args[0].g === 'number' &&
-					typeof args[0].b === 'number'
-				) {
-				r = args[0].r;
-				g = args[0].g;
-				b = args[0].b;
-				a = typeof args[0].a === 'number' ? args[0].a : 1;
-			} else if (args[0].constructor === Vec3) {
-				r = args[0].x;
-				g = args[0].y;
-				b = args[0].z;
-				a = typeof args[1] === 'number' ? args[1] : 1;
-			}
-			
-		} else if (typeof args[0] === 'number' && args[0] < 256) {
-			
-			if (isNaN(args[0])) {
-				return;
-			}
-			
-			r = args[0];
-			g = (typeof args[1] === 'number' && typeof args[2] === 'number') ? args[1] : args[0];
-			b = (typeof args[2] === 'number') ? args[2] : args[0];
-			
-			if (typeof args[3] === 'number') {
-				a = args[3];
-			} else if (typeof args[2] === 'number') {
-				a = 1;
-			} else if (typeof args[1] === 'number') {
-				a = args[1];
-			} else {
-				a = 1;
-			}
-			
-		} else if (typeof args[0] === 'number' || typeof args[0] === 'string') {
-			
-			var rest = 0;
-			
-			if (typeof args[0] === 'string') {
-				rest = parseInt(args[0], 16);
-			} else {
-				rest = args[0];
-			}
-			
-			if (isNaN(rest)) {
-				return;
-			}
-			
-			if (args[0] > 256*256*256) {
-				a = rest % 256;
-				rest = Math.floor(rest / 256);
-			}
-			
-			b = rest % 256; rest = Math.floor(rest / 256);
-			g = rest % 256; rest = Math.floor(rest / 256);
-			r = rest % 256;
-			
+		if (args[0] > 256 * 256 * 256) {
+			a = rest % 256;
+			rest = Math.floor(rest / 256);
 		}
 		
-		r = r > 1 ? r / 255 : r;
-		g = g > 1 ? g / 255 : g;
-		b = b > 1 ? b / 255 : b;
-		a = a > 1 ? a / 255 : a;
+		b = rest % 256; rest = Math.floor(rest / 256);
+		g = rest % 256; rest = Math.floor(rest / 256);
+		r = rest % 256;
 		
-		super(r, g, b, a);
+		r = clampTo1(r);
+		g = clampTo1(g);
+		b = clampTo1(b);
+		a = clampTo1(a);
+		
+		return { r, g, b, a };
 		
 	}
 	
@@ -175,7 +227,7 @@ class Color extends Vec4 {
 	 */
 	get hex() {
 		const scaled = this.scale(255).rounded;
-		return scaled.b + 256 * scaled.g + 256*256 * scaled.r;
+		return scaled.b + 256 * scaled.g + 256 * 256 * scaled.r;
 	}
 	
 	/**
@@ -191,7 +243,7 @@ class Color extends Vec4 {
 	 * @return {Number} color
 	 */
 	get hexA() {
-		return Math.round(255*this.a) + 256 * this.toHex;
+		return Math.round(255 * this.a) + 256 * this.toHex;
 	}
 	
 	/**
@@ -208,7 +260,7 @@ class Color extends Vec4 {
 	 * @return {String} color
 	 */
 	toString() {
-		const r = Math.round(255*this.r);
+		const r = Math.round(255 * this.r);
 		return (r > 15 ? '' : '0') + this.hex;
 	}
 	
@@ -217,7 +269,7 @@ class Color extends Vec4 {
 	 * @return {String} color
 	 */
 	toStringA() {
-		const r = Math.round(255*this.r);
+		const r = Math.round(255 * this.r);
 		return (r > 15 ? '' : '0') + this.hexA;
 	}
 	

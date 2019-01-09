@@ -98,7 +98,6 @@ class WebVRManager {
 	setAnimationLoop() {}
 	getCamera() { return {}; }
 	submitFrame() {}
-	isPresenting() { return false; }
 	
 }
 
