@@ -1,4 +1,4 @@
-require('../../index');
+const { THREE, window } = require('../../index');
 
 var camera, scene, renderer;
 var mesh;

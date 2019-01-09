@@ -143,7 +143,7 @@ class Vec3 extends Vec2 {
 	
 	
 	/** @override */
-	dot(other) { return super.dot(other) + this[2]*other[2]; }
+	dot(other) { return super.dot(other) + this[2] * other[2]; }
 	
 	
 	/** @override */
