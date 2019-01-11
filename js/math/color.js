@@ -25,8 +25,6 @@ class Color extends Vec4 {
 	 */
 	constructor() {
 		
-		let r = 0, g = 0, b = 0, a = 1;
-		
 		const args = arguments;
 		
 		let method = 'rgbaFromEmpty';
@@ -53,7 +51,7 @@ class Color extends Vec4 {
 	}
 	
 	
-	static rgbaFromEmpty(obj) {
+	static rgbaFromEmpty() {
 		let r = 0, g = 0, b = 0, a = 1;
 		return { r, g, b, a };
 	}
@@ -88,10 +86,10 @@ class Color extends Vec4 {
 			a = typeof args[1] === 'number' ? args[1] : 1;
 		}
 		
-		r = clampTo1(r);
-		g = clampTo1(g);
-		b = clampTo1(b);
-		a = clampTo1(a);
+		r = Color.clampTo1(r);
+		g = Color.clampTo1(g);
+		b = Color.clampTo1(b);
+		a = Color.clampTo1(a);
 		
 		return { r, g, b, a };
 		
@@ -120,10 +118,10 @@ class Color extends Vec4 {
 			a = 1;
 		}
 		
-		r = clampTo1(r);
-		g = clampTo1(g);
-		b = clampTo1(b);
-		a = clampTo1(a);
+		r = Color.clampTo1(r);
+		g = Color.clampTo1(g);
+		b = Color.clampTo1(b);
+		a = Color.clampTo1(a);
 		
 		return { r, g, b, a };
 		
@@ -155,10 +153,10 @@ class Color extends Vec4 {
 		g = rest % 256; rest = Math.floor(rest / 256);
 		r = rest % 256;
 		
-		r = clampTo1(r);
-		g = clampTo1(g);
-		b = clampTo1(b);
-		a = clampTo1(a);
+		r = Color.clampTo1(r);
+		g = Color.clampTo1(g);
+		b = Color.clampTo1(b);
+		a = Color.clampTo1(a);
 		
 		return { r, g, b, a };
 		
