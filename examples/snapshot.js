@@ -1,6 +1,6 @@
 'use strict';
 
-const { Screen, loop, three, Image } = require('3d-core-raub');
+const { Screen, loop, three, Image } = require('../index');
 
 
 const screen = new Screen();
