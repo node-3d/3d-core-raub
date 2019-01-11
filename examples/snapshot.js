@@ -1,6 +1,6 @@
 'use strict';
 
-const { Screen, loop, three, Image } = require('../index');
+const { Screen, loop, three, Image } = require('3d-core-raub');
 
 
 const screen = new Screen();
@@ -31,12 +31,8 @@ loop(() => {
 
 const makeSnapshot = () => {
 	
-	// ====== GRAB PIXELS
-	
 	const memSize = screen.w * screen.h * 4; // estimated number of bytes
-	const storage = {
-		data: Buffer.allocUnsafeSlow(memSize),
-	};
+	const storage = { data: Buffer.allocUnsafeSlow(memSize) };
 	
 	screen.context.readPixels(
 		0, 0,
@@ -46,71 +42,7 @@ const makeSnapshot = () => {
 		storage
 	);
 	
-	// ====== MIMIC BMP
-	
-	// see https://en.wikipedia.org/wiki/BMP_file_format
-	const dibSize = 40;
-	const headerSize = 14 + dibSize;
-	const bmpSize = headerSize + memSize;
-	const fakeBmp = Buffer.allocUnsafeSlow(bmpSize);
-	let pos = 0;
-	
-	// ---------- BMP header
-	
-	fakeBmp.write('BM', pos, 2, 'ascii');
-	pos += 2;
-	
-	fakeBmp.writeUInt32LE(bmpSize, pos);
-	pos += 4;
-	
-	pos += 4; // skip unused
-	
-	fakeBmp.writeUInt32LE(headerSize, pos);
-	pos += 4;
-	
-	// ---------- DIB header
-	
-	fakeBmp.writeUInt32LE(dibSize, pos);
-	pos += 4;
-	
-	fakeBmp.writeInt32LE(screen.w, pos);
-	pos += 4;
-	
-	fakeBmp.writeInt32LE(screen.h, pos);
-	pos += 4;
-	
-	fakeBmp.writeUInt16LE(1, pos);
-	pos += 2;
-	
-	fakeBmp.writeUInt16LE(32, pos);
-	pos += 2;
-	
-	fakeBmp.writeUInt32LE(0, pos);
-	pos += 4;
-	
-	fakeBmp.writeUInt32LE(memSize, pos);
-	pos += 4;
-	
-	fakeBmp.writeUInt32LE(0x0ec4, pos);
-	pos += 4;
-	
-	fakeBmp.writeUInt32LE(0x0ec4, pos);
-	pos += 4;
-	
-	fakeBmp.writeUInt32LE(0, pos);
-	pos += 4;
-	
-	fakeBmp.writeUInt32LE(0, pos);
-	pos += 4;
-	
-	// ---------- PIXELS
-	
-	storage.data.copy(fakeBmp, pos);
-	
-	// ====== STORE JPEG
-	
-	const img = new Image();
-	img._load(fakeBmp);
+	const img = Image.fromPixels(screen.w, screen.h, 32, storage.data);
 	
 	img.save(`${Date.now()}.jpg`);
 	
