@@ -95,26 +95,18 @@ function addCloud() {
 	geo.computeBoundingSphere();
 	geo.setDrawRange( 0, 0 );
 	
-	const ba = new three.BufferAttribute(_dummyArray, 3);
-	ba.count = REAL_SIZE * 3; // max * sizeof
-	
-	ba.onCreateCallback = function () {
-		const vertices = [];
-		// const vertices = new Float32Array(10);
-		for ( i = 0; i < REAL_SIZE; i++ ) {
-			vertices.push( Math.random() * 2000 - 1000 );
-			vertices.push( Math.random() * 2000 - 1000 );
-			vertices.push( Math.random() * 2000 - 1000 );
-		}
-		const vbo = gl.createBuffer();
-		gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
-		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-		
-		geo.setDrawRange( 0, REAL_SIZE );
-		return vbo;
-	};
-	
-	geo.addAttribute('position', ba);
+	const vertices = [];
+	for ( i = 0; i < REAL_SIZE; i++ ) {
+		vertices.push( Math.random() * 2000 - 1000 );
+		vertices.push( Math.random() * 2000 - 1000 );
+		vertices.push( Math.random() * 2000 - 1000 );
+	}
+	const vbo = gl.createBuffer();
+	gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+	const posAttr = new three.GLBufferAttribute( gl, vbo, gl.FLOAT, 3, REAL_SIZE );
+	geo.addAttribute( 'position', posAttr );
+	geo.setDrawRange( 0, REAL_SIZE );
 	
 	color = [1, 1, 0.5];
 	size = 5;
