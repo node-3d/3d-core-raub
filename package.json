@@ -35,6 +35,6 @@
 		"threejs-raub": "0.100.0",
 		"image-raub": "2.1.0",
 		"glfw-raub": "2.1.0",
-		"webgl-raub": "1.1.0"
+		"webgl-raub": "1.2.0"
 	}
 }
