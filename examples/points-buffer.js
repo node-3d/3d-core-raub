@@ -7,7 +7,6 @@ const { Screen, loop, gl, three } = require('../index');
 
 const screen = new Screen();
 
-const _dummyArray = new Float32Array(10);
 const REAL_SIZE = 20000;
 
 var camera, scene, renderer, particles, materials = [], i, h, color, size;
