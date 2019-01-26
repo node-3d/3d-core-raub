@@ -41,6 +41,18 @@ gl.shaderSource = (shader, string) => _shaderSource(
 gl.clearColor(0.0, 0.0, 0.0, 1.0);
 gl.enable(gl.DEPTH_TEST);
 
+global.location = {
+	href: 'https://www.google.com/_/chrome/newtab?ie=UTF-8',
+	ancestorOrigins: {},
+	origin: 'https://www.google.com',
+	protocol: 'https:',
+	host: 'www.google.com',
+	hostname: 'www.google.com',
+	port: '',
+	pathname: '/_/chrome/newtab',
+	search: '?ie=UTF-8',
+	hash: ''
+};
 
 global.navigator = {
 	appCodeName: 'Mozilla',
