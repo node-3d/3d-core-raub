@@ -7,9 +7,26 @@ const { Screen, loop, gl, three } = require('../index');
 
 const screen = new Screen();
 
+const F_KEY = 70;
+
+screen.on('keydown', e => {
+	
+	if (e.keyCode === F_KEY && e.ctrlKey && e.shiftKey) {
+		screen.mode = 'windowed';
+	} else if (e.keyCode === F_KEY && e.ctrlKey && e.altKey) {
+		screen.mode = 'fullscreen';
+	} else if (e.keyCode === F_KEY && e.ctrlKey) {
+		screen.mode = 'borderless';
+	} else {
+		return;
+	}
+	
+});
+
+
 const REAL_SIZE = 20000;
 
-var camera, scene, renderer, particles, materials = [], i, h, color, size;
+var camera, scene, particles, materials = [], i, h, color, size;
 var mouseX = 0, mouseY = 0;
 var windowHalfX = screen.width / 2;
 var windowHalfY = screen.height / 2;
@@ -24,7 +41,6 @@ function init() {
 	camera.position.z = 1000;
 	scene = new three.Scene();
 	scene.fog = new three.FogExp2( 0x000000, 0.0007 );
-	renderer = screen.renderer;
 	
 	cloud = addCloud();
 	
@@ -80,7 +96,7 @@ function render() {
 	
 	cloud.rotation.y = time * ( i < 4 ? i + 1 : -( i + 1 ) );
 	
-	renderer.render( scene, camera );
+	screen.renderer.render( scene, camera );
 	
 }
 

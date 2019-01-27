@@ -143,7 +143,7 @@ class Screen extends EventEmitter {
 	
 	
 	draw() {
-		this.renderer.render(this.scene, this.camera);
+		this._renderer.render(this.scene, this.camera);
 	}
 	
 }
