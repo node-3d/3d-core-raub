@@ -3,11 +3,6 @@
 
 module.exports = {
 	
-	Color : require('./math/color'),
-	Vec2  : require('./math/vec2'),
-	Vec3  : require('./math/vec3'),
-	Vec4  : require('./math/vec4'),
-	
 	Screen   : require('./screen'),
 	Drawable : require('./drawable'),
 	

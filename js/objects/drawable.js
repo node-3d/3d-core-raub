@@ -1,7 +1,7 @@
 'use strict';
 
-const Vec2  = require('./math/vec2');
-const Color = require('./math/color');
+const Vec2  = require('../math/vec2');
+const Color = require('../math/color');
 
 
 class Drawable {

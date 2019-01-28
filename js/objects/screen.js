@@ -67,6 +67,13 @@ class Screen extends EventEmitter {
 			
 		});
 		
+		this._camera.aspect = this.width / this.height;
+		this._camera.updateProjectionMatrix();
+		this._renderer.setSize(this.width, this.height, false);
+		this.context.enable(0x8861); // GL_POINT_SPRITE 0x8861
+		this.context.enable(0x8642); // GL_VERTEX_PROGRAM_POINT_SIZE
+		this.context.enable(0x8862); // GL_COORD_REPLACE
+		
 	}
 	
 	
@@ -81,7 +88,9 @@ class Screen extends EventEmitter {
 		}
 		
 		if ( ! opts.camera ) {
-			this._camera = new this.three.PerspectiveCamera(45, this.width / this.height, 5, 100000000);
+			this._camera = new this.three.PerspectiveCamera(
+				45, this.width / this.height, 5, 100000000
+			);
 			this._camera.position.z = 1000;
 		} else {
 			this._camera = opts.camera;
@@ -135,7 +144,7 @@ class Screen extends EventEmitter {
 		
 		this.context.enable(0x8861); // GL_POINT_SPRITE 0x8861
 		this.context.enable(0x8642); // GL_VERTEX_PROGRAM_POINT_SIZE
-		//gl.enable(0x8862);
+		this.context.enable(0x8862); // GL_COORD_REPLACE
 		
 		this.draw();
 		

@@ -1,7 +1,7 @@
 'use strict';
 
 const Drawable = require('./drawable');
-const Vec2     = require('./math/vec2');
+const Vec2     = require('../math/vec2');
 
 
 class Rect extends Drawable {

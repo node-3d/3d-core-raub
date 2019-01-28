@@ -1,6 +1,6 @@
 'use strict';
 
-const Vec2 = require('./math/vec2');
+const Vec2 = require('../math/vec2');
 const Drawable = require('./drawable');
 
 

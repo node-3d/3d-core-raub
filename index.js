@@ -1,7 +1,8 @@
 'use strict';
 
-const core = require('./core');
-const utils = require('./js');
 
-
-module.exports = Object.assign(core, utils);
+module.exports = {
+	...require('./js/core'),
+	...require('./js/objects'),
+	...require('./js/math'),
+};

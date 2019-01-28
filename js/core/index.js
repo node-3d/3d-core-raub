@@ -2,10 +2,14 @@
 
 const webgl = require('webgl-raub');
 const Image = require('image-raub');
+const glfw  = require('glfw-raub');
 
-const glfw = require('glfw-raub');
+const location     = require('./location');
+const navigator    = require('./navigator');
+const WebVRManager = require('./vr-manager');
+
+
 const { Document, Window } = glfw;
-
 
 Document.setWebgl(webgl);
 Document.setImage(Image);
@@ -18,9 +22,12 @@ global.document = doc;
 global.window = doc;
 global.cwrap = null;
 global.requestAnimationFrame = doc.requestAnimationFrame;
+global.location = location;
+global.navigator = navigator;
+global.WebVRManager = WebVRManager;
 
 
-// Hack for three.js, remove precision from shaders
+// Hack for three.js, adjust shaders
 const _shaderSource = gl.shaderSource;
 gl.shaderSource = (shader, string) => _shaderSource(
 	shader,
@@ -38,101 +45,47 @@ gl.shaderSource = (shader, string) => _shaderSource(
 );
 
 
-gl.clearColor(0.0, 0.0, 0.0, 1.0);
-gl.enable(gl.DEPTH_TEST);
-
-global.location = {
-	href: 'https://www.google.com/_/chrome/newtab?ie=UTF-8',
-	ancestorOrigins: {},
-	origin: 'https://www.google.com',
-	protocol: 'https:',
-	host: 'www.google.com',
-	hostname: 'www.google.com',
-	port: '',
-	pathname: '/_/chrome/newtab',
-	search: '?ie=UTF-8',
-	hash: ''
-};
-
-global.navigator = {
-	appCodeName: 'Mozilla',
-	appName: 'Netscape',
-	appVersion: 'Node3D',
-	bluetooth: {},
-	clipboard: {},
-	connection: {
-		onchange: null, effectiveType: '4g', rtt: 50, downlink: 3.3, saveData: false
-	},
-	cookieEnabled: false,
-	credentials: {},
-	deviceMemory: 8,
-	doNotTrack: null,
-	geolocation: {},
-	hardwareConcurrency: 4,
-	keyboard: {},
-	language: 'en',
-	languages: ['en', 'en-US'],
-	locks: {},
-	maxTouchPoints: 0,
-	mediaCapabilities: {},
-	mediaDevices: { ondevicechange: null },
-	mimeTypes: { length: 0 },
-	onLine: false,
-	permissions: {},
-	platform: 'Any',
-	plugins: { length: 0 },
-	presentation: { defaultRequest: null, receiver: null },
-	product: 'Node3D',
-	productSub: '1',
-	serviceWorker: {
-		ready: Promise.resolve(false),
-		controller: null,
-		oncontrollerchange: null,
-		onmessage: null
-	},
-	storage: {},
-	usb: { onconnect: null, ondisconnect: null },
-	userAgent: 'Mozilla/Node3D',
-	vendor: 'Node3D',
-	vendorSub: '',
-	webkitPersistentStorage: {},
-	webkitTemporaryStorage: {},
-};
-
-class WebVRManager {
-	
-	get enabled() { return false; }
-	
-	constructor() {}
-	
-	isPresenting() { return false; }
-	dispose() {}
-	setAnimationLoop() {}
-	getCamera() { return {}; }
-	submitFrame() {}
-	
-}
-
-global.WebVRManager = WebVRManager;
-
-
 // Require THREE after Document and GL are ready
 const three = require('threejs-raub');
 global.THREE = three;
 
 
 three.FileLoader.prototype.load = (url, onLoad, onProgress, onError) => {
-	require('fs').readFile(url, (err, data) => {
+	
+	const fs       = require('fs');
+	const download = require('./download');
+	
+	// Data URI
+	if (/^data:/.test(url)) {
+		
+		const [head, body] = url.split(',');
+		const isBase64 = head.indexOf('base64') > -1;
+		const data = isBase64 ? Buffer.from(body, 'base64') : Buffer.from(unescape(body));
+		onLoad(data);
+		return;
+		
+	}
+	
+	// Remote URI
+	if (/^https?:\/\//i.test(url)) {
+		
+		download(url).then(
+			data => onLoad(data),
+			err => typeof onError === 'function' ? onError(err) : console.error(err)
+		);
+		
+		return;
+		
+	}
+	
+	// Filesystem URI
+	fs.readFile(url, (err, data) => {
 		if (err) {
-			if (typeof onError === 'function') {
-				onError(err);
-			} else {
-				console.error(err);
-			}
-			return;
+			return typeof onError === 'function' ? onError(err) : console.error(err);
 		}
 		onLoad(data);
 	});
+	
 };
 
 
