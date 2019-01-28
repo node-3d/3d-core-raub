@@ -15,4 +15,4 @@ const location = {
 };
 
 
-module.exports = { location };
+module.exports = location;

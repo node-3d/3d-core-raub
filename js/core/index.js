@@ -14,7 +14,16 @@ const { Document, Window } = glfw;
 Document.setWebgl(webgl);
 Document.setImage(Image);
 
-const doc = new Document();
+
+let mode = 'windowed';
+
+if (process.argv.includes('--fullscreen')) {
+	mode = 'fullscreen';
+} else if (process.argv.includes('--borderless')) {
+	mode = 'borderless';
+}
+
+const doc = new Document({ mode });
 const canvas = doc;
 const gl = webgl;
 

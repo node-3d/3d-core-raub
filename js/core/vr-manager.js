@@ -16,4 +16,4 @@ class WebVRManager {
 }
 
 
-module.exports = { WebVRManager };
+module.exports = WebVRManager;

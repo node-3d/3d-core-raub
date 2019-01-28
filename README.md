@@ -27,6 +27,8 @@ For Windows, use **ADMIN PRIVELEGED** command line:
 \`npm i -g windows-build-tools\`.
 Also **Windows** needs **vcredist 2013** to be installed.
 
+The default window is 800x600. Use `--fullscreen` or `--borderless` to launch
+in one of the fullscreen modes.
 
 ## Exports
 

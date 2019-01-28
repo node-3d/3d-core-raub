@@ -47,4 +47,4 @@ const navigator = {
 };
 
 
-module.exports = { navigator };
+module.exports = navigator;
