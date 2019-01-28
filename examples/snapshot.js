@@ -5,6 +5,23 @@ const { Screen, loop, three, Image } = require('../index');
 
 const screen = new Screen();
 
+const F_KEY = 70;
+
+screen.on('keydown', e => {
+	
+	if (e.keyCode === F_KEY && e.ctrlKey && e.shiftKey) {
+		screen.mode = 'windowed';
+	} else if (e.keyCode === F_KEY && e.ctrlKey && e.altKey) {
+		screen.mode = 'fullscreen';
+	} else if (e.keyCode === F_KEY && e.ctrlKey) {
+		screen.mode = 'borderless';
+	} else {
+		return;
+	}
+	
+});
+
+
 const geometry = new three.IcosahedronGeometry(200, 1);
 const material =  new three.MeshLambertMaterial({
 	color: 0x888888 + Math.round((0xFFFFFF - 0x888888) * Math.random()),

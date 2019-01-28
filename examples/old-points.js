@@ -7,6 +7,23 @@ const { Screen, loop, three } = require('../index');
 
 const screen = new Screen();
 
+const F_KEY = 70;
+
+screen.on('keydown', e => {
+	
+	if (e.keyCode === F_KEY && e.ctrlKey && e.shiftKey) {
+		screen.mode = 'windowed';
+	} else if (e.keyCode === F_KEY && e.ctrlKey && e.altKey) {
+		screen.mode = 'fullscreen';
+	} else if (e.keyCode === F_KEY && e.ctrlKey) {
+		screen.mode = 'borderless';
+	} else {
+		return;
+	}
+	
+});
+
+
 var camera, scene, renderer, particles, geometry, materials = [], parameters, i, h, color, size;
 var mouseX = 0, mouseY = 0;
 var windowHalfX = screen.width / 2;

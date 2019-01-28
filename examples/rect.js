@@ -22,6 +22,7 @@ screen.on('keydown', e => {
 	
 });
 
+
 const rect = new Rect({ screen });
 
 const mouse = { x: screen.w / 2, y: screen.h / 2 };
