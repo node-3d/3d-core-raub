@@ -1,6 +1,6 @@
 'use strict';
 
-const { Screen, loop, three, Image } = require('../index');
+const { Screen, loop, three } = require('../index');
 
 
 const screen = new Screen();
