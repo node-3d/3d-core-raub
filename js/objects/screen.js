@@ -2,7 +2,7 @@
 
 const EventEmitter = require('events');
 
-const { three, gl, doc } = require('../core');
+const { three, gl, doc, Image } = require('../core');
 
 
 class Screen extends EventEmitter {
@@ -153,6 +153,26 @@ class Screen extends EventEmitter {
 	
 	draw() {
 		this._renderer.render(this.scene, this.camera);
+	}
+	
+	
+	snapshot(name = `${Date.now()}.jpg`) {
+		
+		const memSize = this.w * this.h * 4; // estimated number of bytes
+		const storage = { data: Buffer.allocUnsafeSlow(memSize) };
+		
+		this.context.readPixels(
+			0, 0,
+			this.w, this.h,
+			this.context.RGBA,
+			this.context.UNSIGNED_BYTE,
+			storage
+		);
+		
+		const img = Image.fromPixels(this.w, this.h, 32, storage.data);
+		
+		img.save(name);
+		
 	}
 	
 }

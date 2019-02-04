@@ -46,24 +46,4 @@ loop(() => {
 });
 
 
-const makeSnapshot = () => {
-	
-	const memSize = screen.w * screen.h * 4; // estimated number of bytes
-	const storage = { data: Buffer.allocUnsafeSlow(memSize) };
-	
-	screen.context.readPixels(
-		0, 0,
-		screen.w, screen.h,
-		screen.context.RGBA,
-		screen.context.UNSIGNED_BYTE,
-		storage
-	);
-	
-	const img = Image.fromPixels(screen.w, screen.h, 32, storage.data);
-	
-	img.save(`${Date.now()}.jpg`);
-	
-};
-
-
-setTimeout(makeSnapshot, 1000);
+setTimeout(() => screen.snapshot(), 1000);
