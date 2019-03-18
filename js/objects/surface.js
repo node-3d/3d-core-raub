@@ -129,13 +129,14 @@ class Surface extends Rect {
 	
 	
 	draw() {
-		this.screen.renderer.render(this._scene, this._camera, this._target);
+		const rt = this.renderer.getRenderTarget();
+		this.renderer.setRenderTarget(this._target);
+		this.screen.renderer.render(this._scene, this._camera);
+		this.renderer.setRenderTarget(rt);
 	}
 	
 	
 	_newTarget() {
-		// this._camera = new this.three.OrthographicCamera(0, this.w, this.h, 0, -100000, 100000 );
-		
 		return new this.three.WebGLRenderTarget(
 			this.w * 2,
 			this.h * 2,
