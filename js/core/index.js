@@ -1,174 +1,136 @@
 'use strict';
 
-const webgl = require('webgl-raub');
-const Image = require('image-raub');
-const glfw  = require('glfw-raub');
 
-const location     = require('./location');
-const navigator    = require('./navigator');
-const WebVRManager = require('./vr-manager');
-
-
-const { Document, Window } = glfw;
-
-Document.setWebgl(webgl);
-Document.setImage(Image);
-
-
-let mode = 'windowed';
-
-if (process.argv.includes('--fullscreen')) {
-	mode = 'fullscreen';
-} else if (process.argv.includes('--borderless')) {
-	mode = 'borderless';
-}
-
-const doc = new Document({ mode });
-const canvas = doc;
-const gl = webgl;
-
-global.document = doc;
-global.window = doc;
-global.cwrap = null;
-global.requestAnimationFrame = doc.requestAnimationFrame;
-global.location = location;
-global.navigator = navigator;
-global.WebVRManager = WebVRManager;
-
-
-// Hack for three.js, adjust shaders
-const _shaderSource = gl.shaderSource;
-gl.shaderSource = (shader, string) => _shaderSource(
-	shader,
-	string.replace(
-		/^\s*?(#version|precision).*?$/gm, ''
-	).replace(
-		/^/, '#version 120\n'
-	).replace(
-		/gl_FragDepthEXT/g, 'gl_FragDepth'
-	).replace(
-		'#extension GL_EXT_frag_depth : enable', ''
-	).replace(
-		/\bhighp\b/g, ''
-	)
-);
-
-
-// Require THREE after Document and GL are ready
-const three = require('threejs-raub');
-global.THREE = three;
-
-
-three.FileLoader.prototype.load = (url, onLoad, onProgress, onError) => {
+const init = (_opts = {}) => {
 	
-	// Data URI
-	if (/^data:/.test(url)) {
+	const opts = {
 		
-		const [head, body] = url.split(',');
-		const isBase64 = head.indexOf('base64') > -1;
-		const data = isBase64 ? Buffer.from(body, 'base64') : Buffer.from(unescape(body));
-		onLoad(data);
-		return;
+		mode        : 'windowed',
+		shaderHacks : [],
+		plugins     : [],
 		
-	}
-	
-	// Remote URI
-	if (/^https?:\/\//i.test(url)) {
+		webgl        : _opts.webgl || require('webgl-raub'),
+		Image        : _opts.Image || require('image-raub'),
+		glfw         : _opts.glfw || require('glfw-raub'),
+		location     : _opts.location || require('./location'),
+		navigator    : _opts.navigator || require('./navigator'),
+		WebVRManager : _opts.WebVRManager || require('./vr-manager'),
 		
-		const download = require('addon-tools-raub/download');
+		..._opts,
 		
-		download(url).then(
-			data => onLoad(data),
-			err => typeof onError === 'function' ? onError(err) : console.error(err)
-		);
-		
-		return;
-		
-	}
-	
-	// Filesystem URI
-	require('fs').readFile(url, (err, data) => {
-		if (err) {
-			return typeof onError === 'function' ? onError(err) : console.error(err);
-		}
-		onLoad(data);
-	});
-	
-};
-
-
-const _load = three.TextureLoader.prototype.load;
-three.TextureLoader.prototype.load = function (url, onLoad, onProgress, onError) {
-	const cb = tex => {
-		tex.format = three.RGBAFormat;
-		if (onLoad) {
-			onLoad(tex);
-		}
 	};
-	return _load.call(this, url, cb, onProgress, onError);
-};
-
-
-three.Texture.fromId = (id, renderer) => {
 	
-	const rawTexture = gl.createTexture();
-	rawTexture._ = id;
+	const {
+		mode,
+		webgl,
+		Image,
+		glfw,
+		location,
+		navigator,
+		WebVRManager,
+	} = opts;
 	
-	const texture = new three.Texture();
+	const { Document, Window } = glfw;
 	
-	let properties = null;
-	if ( ! renderer.properties ) {
-		properties = texture;
-	} else {
-		properties = renderer.properties.get(texture); // !!!!
-	}
+	const shaderHacks = [
+		{ search: /^\s*?(#version|precision).*?$/gm, replace: '' },
+		{ search: /^/, replace: '#version 120\n' },
+		{ search: /gl_FragDepthEXT/g, replace: 'gl_FragDepth' },
+		{ search: '#extension GL_EXT_frag_depth : enable', replace: '' },
+		{ search: /\bhighp\b/g, replace: '' },
+		...opts.shaderHacks,
+	];
 	
-	properties.__webglTexture = rawTexture;
-	properties.__webglInit = true;
+	Document.setWebgl(webgl);
+	Document.setImage(Image);
 	
-	return texture;
+	const doc = new Document({ mode });
+	const canvas = doc;
+	const gl = webgl;
 	
-};
-
-
-const loop = cb => {
+	global.document = doc;
+	global.window = doc;
+	global.cwrap = null;
+	global.requestAnimationFrame = doc.requestAnimationFrame;
+	global.location = location;
+	global.navigator = navigator;
+	global.WebVRManager = WebVRManager;
 	
-	let i = 0;
 	
-	const animation = () => {
+	// Hack for three.js, adjust shaders
+	const _shaderSource = gl.shaderSource;
+	gl.shaderSource = (shader, string) => _shaderSource(
+		shader,
+		shaderHacks.reduce((accum, hack) => {
+			if (typeof regex === 'object') {
+				regex.lastIndex = 0;
+			}
+			return accum.replace(hack.search, hack.replace);
+		}, string)
+	);
+	
+	
+	// Require THREE after Document and GL are ready
+	const three = opts.three || opts.THREE || require('threejs-raub');
+	global.THREE = three;
+	
+	require('./threejs-helpers')(three);
+	
+	
+	const loop = cb => {
 		
-		cb(i++);
+		let i = 0;
+		
+		const animation = () => {
+			
+			cb(i++);
+			doc.requestAnimationFrame(animation);
+			
+		};
+		
 		doc.requestAnimationFrame(animation);
 		
 	};
 	
-	doc.requestAnimationFrame(animation);
+	const core3d = {
+		
+		Image,
+		Document,
+		Window,
+		
+		gl,
+		webgl,
+		context : gl,
+		
+		glfw,
+		
+		doc,
+		canvas,
+		document : doc,
+		window   : doc,
+		
+		three,
+		THREE : three,
+		
+		loop,
+		requestAnimationFrame : doc.requestAnimationFrame,
+		frame                 : doc.requestAnimationFrame,
+		
+	};
+	
+	opts.plugins.forEach(plugin => {
+		if (typeof plugin === 'object' && plugin.name) {
+			const initPlugin = require(plugin.name);
+			initPlugin(core3d, plugin.opts || {});
+		} else if (typeof plugin === 'string') {
+			const initPlugin = require(plugin);
+			initPlugin(core3d, {});
+		}
+	});
+	
+	return core3d;
 	
 };
 
 
-module.exports = {
-	
-	Image,
-	Document,
-	Window,
-	
-	gl,
-	webgl,
-	context : gl,
-	
-	glfw,
-	
-	doc,
-	canvas,
-	document : doc,
-	window   : doc,
-	
-	three,
-	THREE : three,
-	
-	loop,
-	requestAnimationFrame : doc.requestAnimationFrame,
-	frame                 : doc.requestAnimationFrame,
-	
-};
+module.exports = { init };

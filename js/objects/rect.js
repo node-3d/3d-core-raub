@@ -24,7 +24,7 @@ class Rect extends Drawable {
 	
 	
 	_build(opts) {
-		return new this.three[opts.wire ? 'Line' : 'Mesh'](this._geo(opts), this._mat(opts));
+		return new THREE[opts.wire ? 'Line' : 'Mesh'](this._geo(opts), this._mat(opts));
 	}
 	
 	
@@ -33,7 +33,7 @@ class Rect extends Drawable {
 		const matName = opts.wire ? 'LineBasicMaterial' : 'MeshBasicMaterial';
 		const matOpts = {
 			transparent : true,
-			side        : this.three.DoubleSide,
+			side        : THREE.DoubleSide,
 			depthWrite  : false,
 			depthTest   : false,
 		};
@@ -42,7 +42,7 @@ class Rect extends Drawable {
 			matOpts.linewidth = 1;
 		}
 		
-		return new this.three[matName](matOpts);
+		return new THREE[matName](matOpts);
 		
 	}
 	
@@ -91,7 +91,7 @@ class Rect extends Drawable {
 		if (r) {
 			
 			// Rounded rectangle
-			const shape = new this.three.Shape();
+			const shape = new THREE.Shape();
 			
 			shape.moveTo( 0, r );
 			shape.lineTo( 0, h - r );
@@ -106,14 +106,14 @@ class Rect extends Drawable {
 			shape.lineTo( r, 0 );
 			shape.quadraticCurveTo( 0, 0, 0, r );
 			
-			geometry = new this.three.ShapeGeometry(shape);
+			geometry = new THREE.ShapeGeometry(shape);
 			
 			geometry.translate(-w * 0.5, -h * 0.5, 0);
 			geometry.rotateX(Math.PI);
 			geometry.translate(w * 0.5, h * 0.5, 0);
 			
 		} else {
-			geometry = new this.three.PlaneBufferGeometry(w, h);
+			geometry = new THREE.PlaneBufferGeometry(w, h);
 			geometry.rotateX(Math.PI);
 			geometry.translate(w * 0.5, h * 0.5, 0);
 		}

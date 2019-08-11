@@ -22,10 +22,9 @@ Launch **Node.js** in **WebGL** mode.
 * Image loading uses [FreeImage](http://freeimage.sourceforge.net/) encoder/decoder.
 * Window icons are supported and both JS- and Image-friendly.
 
-> Note: compilation tools must be in place on your system.
-For Windows, use **ADMIN PRIVELEGED** command line:
-\`npm i -g windows-build-tools\`.
-Also **Windows** needs **vcredist 2013** to be installed.
+> Note: this package uses a bunch of **N-API addons**, which are ABI-compatible across
+different Node.js versions. Addon binaries are precompiled and **there is no compilation**
+step during the `npm i` command.
 
 The default window is 800x600. Use `--fullscreen` or `--borderless` to launch
 in one of the fullscreen modes.

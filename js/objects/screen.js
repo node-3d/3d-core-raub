@@ -88,7 +88,7 @@ class Screen extends EventEmitter {
 		}
 		
 		if ( ! opts.camera ) {
-			this._camera = new this.three.PerspectiveCamera(
+			this._camera = new THREE.PerspectiveCamera(
 				45, this.width / this.height, 5, 100000000
 			);
 			this._camera.position.z = 1000;
@@ -97,7 +97,7 @@ class Screen extends EventEmitter {
 		}
 		
 		if ( ! opts.scene ) {
-			this._scene = new this.three.Scene();
+			this._scene = new THREE.Scene();
 		} else {
 			this._scene = opts.scene;
 		}
@@ -105,7 +105,7 @@ class Screen extends EventEmitter {
 		
 		if ( ! opts.renderer ) {
 			this._autoRenderer = true;
-			this._renderer = new this.three.WebGLRenderer({
+			this._renderer = new THREE.WebGLRenderer({
 				
 				context   : this.context,
 				antialias : true,

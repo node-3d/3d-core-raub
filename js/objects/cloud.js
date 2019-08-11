@@ -118,7 +118,7 @@ class Cloud extends Drawable {
 	
 	
 	_build(opts) {
-		const points = new this.three.Points(this._geo(opts), this._mat(opts));
+		const points = new THREE.Points(this._geo(opts), this._mat(opts));
 		points.frustumCulled = false;
 		return points;
 	}

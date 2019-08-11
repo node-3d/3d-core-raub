@@ -35,7 +35,7 @@ class Tris extends Cloud {
 	
 	
 	_build(opts) {
-		return new this.three.Mesh(this._geo(opts), this._mat(opts));
+		return new THREE.Mesh(this._geo(opts), this._mat(opts));
 	}
 	
 }
