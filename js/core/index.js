@@ -61,9 +61,6 @@ global.THREE = three;
 
 three.FileLoader.prototype.load = (url, onLoad, onProgress, onError) => {
 	
-	const fs       = require('fs');
-	const download = require('./download');
-	
 	// Data URI
 	if (/^data:/.test(url)) {
 		
@@ -78,6 +75,8 @@ three.FileLoader.prototype.load = (url, onLoad, onProgress, onError) => {
 	// Remote URI
 	if (/^https?:\/\//i.test(url)) {
 		
+		const download = require('addon-tools-raub/download');
+		
 		download(url).then(
 			data => onLoad(data),
 			err => typeof onError === 'function' ? onError(err) : console.error(err)
@@ -88,7 +87,7 @@ three.FileLoader.prototype.load = (url, onLoad, onProgress, onError) => {
 	}
 	
 	// Filesystem URI
-	fs.readFile(url, (err, data) => {
+	require('fs').readFile(url, (err, data) => {
 		if (err) {
 			return typeof onError === 'function' ? onError(err) : console.error(err);
 		}

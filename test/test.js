@@ -2,7 +2,8 @@
 
 const { expect } = require('chai');
 
-const node3d = require('3d-core-raub');
+const node3d = require('..');
+
 
 const { gl } = node3d;
 

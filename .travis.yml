@@ -1,7 +1,10 @@
 language: node_js
-
 node_js:
-  - "10.13.0"
+  - "10.16.1"
+
+install:
+  - cd test
+  - npm ci
 
 
 matrix:
@@ -21,8 +24,3 @@ matrix:
     os: windows
     script:
       - echo OK.
-
-
-install:
-  - cd test
-  - npm i
