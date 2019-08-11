@@ -1,11 +1,8 @@
-.idea
 .cproject
-.project
+.idea
 .lock-wscript
-build*/
 .DS_Store
-Debug/
+.project
+.DS_Store
 node_modules/
-package-lock.json
-binary/
 *.log
