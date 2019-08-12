@@ -68,7 +68,7 @@ animate();
 function init() {
 	container = document.getElementById( 'container' );
 	//
-	cameraOrtho = new THREE.OrthographicCamera( - halfWidth, halfWidth, halfHeight, - halfHeight, - 10000, 10000 );
+	cameraOrtho = new THREE.OrthographicCamera( -halfWidth, halfWidth, halfHeight, -halfHeight, -10000, 10000 );
 	cameraOrtho.position.z = 100;
 	cameraPerspective = new THREE.PerspectiveCamera( 50, width / height, 1, 10000 );
 	cameraPerspective.position.z = 900;
@@ -77,7 +77,7 @@ function init() {
 	sceneBG = new THREE.Scene();
 	//
 	directionalLight = new THREE.DirectionalLight( 0xffffff );
-	directionalLight.position.set( 0, - 0.1, 1 ).normalize();
+	directionalLight.position.set( 0, -0.1, 1 ).normalize();
 	sceneModel.add( directionalLight );
 	var loader = new GLTFLoader();
 	loader.load( __dirname + "/models/LeePerrySmith.glb", function ( gltf ) {
@@ -89,13 +89,13 @@ function init() {
 		depthTest: false
 	} );
 	quadBG = new THREE.Mesh( new THREE.PlaneBufferGeometry( 1, 1 ), materialColor );
-	quadBG.position.z = - 500;
+	quadBG.position.z = -500;
 	quadBG.scale.set( width, height, 1 );
 	sceneBG.add( quadBG );
 	//
 	var sceneMask = new THREE.Scene();
 	quadMask = new THREE.Mesh( new THREE.PlaneBufferGeometry( 1, 1 ), new THREE.MeshBasicMaterial( { color: 0xffaa00 } ) );
-	quadMask.position.z = - 300;
+	quadMask.position.z = -300;
 	quadMask.scale.set( width / 2, height / 2, 1 );
 	sceneMask.add( quadMask );
 	//
@@ -203,10 +203,10 @@ function onWindowResize() {
 	halfHeight = window.innerHeight / 2;
 	cameraPerspective.aspect = window.innerWidth / window.innerHeight;
 	cameraPerspective.updateProjectionMatrix();
-	cameraOrtho.left = - halfWidth;
+	cameraOrtho.left = -halfWidth;
 	cameraOrtho.right = halfWidth;
 	cameraOrtho.top = halfHeight;
-	cameraOrtho.bottom = - halfHeight;
+	cameraOrtho.bottom = -halfHeight;
 	cameraOrtho.updateProjectionMatrix();
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	composerScene.setSize( halfWidth * 2, halfHeight * 2 );
@@ -228,7 +228,7 @@ function createMesh( geometry, scene, scale ) {
 		normalScale: new THREE.Vector2( 0.75, 0.75 )
 	} );
 	mesh = new THREE.Mesh( geometry, mat2 );
-	mesh.position.set( 0, - 50, 0 );
+	mesh.position.set( 0, -50, 0 );
 	mesh.scale.set( scale, scale, scale );
 	scene.add( mesh );
 }
@@ -239,7 +239,7 @@ function animate() {
 }
 function render() {
 	var time = Date.now() * 0.0004;
-	if ( mesh ) mesh.rotation.y = - time;
+	if ( mesh ) mesh.rotation.y = -time;
 	renderer.setViewport( 0, 0, halfWidth, halfHeight );
 	composerScene.render( delta );
 	renderer.setViewport( 0, 0, halfWidth, halfHeight );
