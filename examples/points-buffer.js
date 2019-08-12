@@ -2,8 +2,10 @@
 
 console.log('https://threejs.org/examples/#webgl_points_random');
 
-const { Screen, loop, gl, three } = require('../index');
+const { Screen, init } = require('..');
 
+
+const { loop, gl, three } = init();
 
 const screen = new Screen();
 
@@ -33,9 +35,9 @@ var windowHalfY = screen.height / 2;
 
 let cloud = null;
 
-init();
+start();
 
-function init() {
+function start() {
 	
 	camera = new three.PerspectiveCamera( 75, screen.width / screen.height, 1, 3000 );
 	camera.position.z = 1000;

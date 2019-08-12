@@ -1,7 +1,9 @@
 'use strict';
 
-const { Screen, Tris, loop, gl } = require('../index');
+const { Screen, Tris, init } = require('..');
 
+
+const { loop, gl } = init();
 
 const F_KEY = 70;
 

@@ -42,7 +42,9 @@ class Lines extends Cloud {
 				default : return THREE.Line;
 			}
 		})();
-		return new Ctor(this._geo(opts), this._mat(opts));
+		const lines = new Ctor(this._geo(opts), this._mat(opts));
+		lines.frustumCulled = false;
+		return lines;
 	}
 	
 }

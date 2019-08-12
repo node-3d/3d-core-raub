@@ -35,7 +35,9 @@ class Tris extends Cloud {
 	
 	
 	_build(opts) {
-		return new THREE.Mesh(this._geo(opts), this._mat(opts));
+		const tris = new THREE.Mesh(this._geo(opts), this._mat(opts));
+		tris.frustumCulled = false;
+		return tris;
 	}
 	
 }

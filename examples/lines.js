@@ -1,7 +1,9 @@
 'use strict';
 
-const { gl, Screen, Lines, loop } = require('../index');
+const { Screen, Lines, init } = require('..');
 
+
+const { loop, gl } = init();
 
 const VBO_SIZE = 10;
 

@@ -1,10 +1,11 @@
 'use strict';
 
-const { Screen, Brush, loop } = require('../index');
+const { Screen, Brush, init } = require('..');
 
+
+const { loop } = init();
 
 const F_KEY = 70;
-
 
 const screen = new Screen();
 loop(() => screen.draw());

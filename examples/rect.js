@@ -1,7 +1,9 @@
 'use strict';
 
-const { Screen, Rect, loop }  = require('../index');
+const { Screen, Rect, init } = require('..');
 
+
+const { loop } = init();
 
 const screen = new Screen();
 loop(() => screen.draw());
@@ -28,10 +30,9 @@ const rect = new Rect({ screen });
 const mouse = { x: screen.w / 2, y: screen.h / 2 };
 
 const paint = () => {
-	const r = mouse.x / screen.w;
-	const g = mouse.y / screen.h;
-	const b = 1 - r * g;
-	rect.mat.color = [r, g, b];
+	rect.mat.color.r = mouse.x / screen.w;
+	rect.mat.color.g = mouse.y / screen.h;
+	rect.mat.color.b = 1 - rect.mat.color.r * rect.mat.color.g;
 };
 paint();
 

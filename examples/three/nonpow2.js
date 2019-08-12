@@ -1,6 +1,6 @@
-const {
-	THREE, window, document, requestAnimationFrame
-} = require('../../index');
+const { init: initCore } = require('../..');
+const { THREE, window, document, requestAnimationFrame } = initCore();
+
 
 var camera, scene, renderer;
 var mesh;
