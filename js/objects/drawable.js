@@ -88,12 +88,12 @@ class Drawable {
 	
 	
 	_build(opts) {
-		return new THREE.Mesh(this._geo(opts), this._mat(opts));
+		return new this.screen.three.Mesh(this._geo(opts), this._mat(opts));
 	}
 	
 	
 	_geo() {
-		return new THREE.PlaneBufferGeometry(2,2);
+		return new this.screen.three.PlaneBufferGeometry(2,2);
 	}
 	
 	
@@ -104,9 +104,9 @@ class Drawable {
 	
 	
 	_mat() {
-		return new THREE.MeshBasicMaterial({
+		return new this.screen.three.MeshBasicMaterial({
 			transparent: true,
-			side       : THREE.DoubleSide,
+			side       : this.screen.three.DoubleSide,
 			depthWrite : true,
 			depthTest  : true,
 		});

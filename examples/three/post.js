@@ -54,7 +54,7 @@ icon.on('load', () => document.icon = icon);
 document.title = 'Postprocessing';
 
 
-var container, stats;
+var container;
 var composerScene, composer1, composer2, composer3, composer4;
 var cameraOrtho, cameraPerspective, sceneModel, sceneBG, renderer, mesh, directionalLight;
 var width = window.innerWidth || 2;
@@ -68,7 +68,14 @@ animate();
 function init() {
 	container = document.getElementById( 'container' );
 	//
-	cameraOrtho = new THREE.OrthographicCamera( -halfWidth, halfWidth, halfHeight, -halfHeight, -10000, 10000 );
+	cameraOrtho = new THREE.OrthographicCamera(
+		-halfWidth,
+		halfWidth,
+		halfHeight,
+		-halfHeight,
+		-10000,
+		10000
+	);
 	cameraOrtho.position.z = 100;
 	cameraPerspective = new THREE.PerspectiveCamera( 50, width / height, 1, 10000 );
 	cameraPerspective.position.z = 900;
@@ -132,8 +139,12 @@ function init() {
 	effectVBlur.uniforms[ 'v' ].value = 2 / ( height / 2 );
 	var effectColorify1 = new ShaderPass( ColorifyShader );
 	var effectColorify2 = new ShaderPass( ColorifyShader );
-	effectColorify1.uniforms[ 'color' ] = new THREE.Uniform( new THREE.Color( 1, 0.8, 0.8 ) );
-	effectColorify2.uniforms[ 'color' ] = new THREE.Uniform( new THREE.Color( 1, 0.75, 0.5 ) );
+	effectColorify1.uniforms[ 'color' ] = new THREE.Uniform(
+		new THREE.Color( 1, 0.8, 0.8 )
+	);
+	effectColorify2.uniforms[ 'color' ] = new THREE.Uniform(
+		new THREE.Color( 1, 0.75, 0.5 )
+	);
 	var clearMask = new ClearMaskPass();
 	var renderMask = new MaskPass( sceneModel, cameraPerspective );
 	var renderMaskInverse = new MaskPass( sceneModel, cameraPerspective );
@@ -151,7 +162,10 @@ function init() {
 	var renderBackground = new RenderPass( sceneBG, cameraOrtho );
 	var renderModel = new RenderPass( sceneModel, cameraPerspective );
 	renderModel.clear = false;
-	composerScene = new EffectComposer( renderer, new THREE.WebGLRenderTarget( rtWidth * 2, rtHeight * 2, rtParameters ) );
+	composerScene = new EffectComposer(
+		renderer, 
+		new THREE.WebGLRenderTarget( rtWidth * 2, rtHeight * 2, rtParameters )
+	);
 	composerScene.addPass( renderBackground );
 	composerScene.addPass( renderModel );
 	composerScene.addPass( renderMaskInverse );
@@ -161,14 +175,20 @@ function init() {
 	//
 	renderScene = new TexturePass( composerScene.renderTarget2.texture );
 	//
-	composer1 = new EffectComposer( renderer, new THREE.WebGLRenderTarget( rtWidth, rtHeight, rtParameters ) );
+	composer1 = new EffectComposer(
+		renderer,
+		new THREE.WebGLRenderTarget( rtWidth, rtHeight, rtParameters )
+	);
 	composer1.addPass( renderScene );
 	//composer1.addPass( renderMask );
 	composer1.addPass( effectFilmBW );
 	//composer1.addPass( clearMask );
 	composer1.addPass( effectVignette );
 	//
-	composer2 = new EffectComposer( renderer, new THREE.WebGLRenderTarget( rtWidth, rtHeight, rtParameters ) );
+	composer2 = new EffectComposer(
+		renderer,
+		new THREE.WebGLRenderTarget( rtWidth, rtHeight, rtParameters )
+	);
 	composer2.addPass( renderScene );
 	composer2.addPass( effectDotScreen );
 	composer2.addPass( renderMask );
@@ -179,7 +199,10 @@ function init() {
 	composer2.addPass( clearMask );
 	composer2.addPass( effectVignette );
 	//
-	composer3 = new EffectComposer( renderer, new THREE.WebGLRenderTarget( rtWidth, rtHeight, rtParameters ) );
+	composer3 = new EffectComposer(
+		renderer,
+		new THREE.WebGLRenderTarget( rtWidth, rtHeight, rtParameters )
+	);
 	composer3.addPass( renderScene );
 	//composer3.addPass( renderMask );
 	composer3.addPass( effectSepia );
@@ -187,7 +210,10 @@ function init() {
 	//composer3.addPass( clearMask );
 	composer3.addPass( effectVignette );
 	//
-	composer4 = new EffectComposer( renderer, new THREE.WebGLRenderTarget( rtWidth, rtHeight, rtParameters ) );
+	composer4 = new EffectComposer(
+		renderer,
+		new THREE.WebGLRenderTarget( rtWidth, rtHeight, rtParameters )
+	);
 	composer4.addPass( renderScene );
 	//composer4.addPass( renderMask );
 	composer4.addPass( effectBloom );
@@ -224,7 +250,9 @@ function createMesh( geometry, scene, scale ) {
 		specular: 0x080808,
 		shininess: 20,
 		map: new THREE.TextureLoader().load( __dirname + "/textures/Map-COL.jpg" ),
-		normalMap: new THREE.TextureLoader().load( __dirname + "/textures/Infinite-Level_02_Tangent_SmoothUV.jpg" ),
+		normalMap: new THREE.TextureLoader().load(
+			__dirname + "/textures/Infinite-Level_02_Tangent_SmoothUV.jpg"
+		),
 		normalScale: new THREE.Vector2( 0.75, 0.75 )
 	} );
 	mesh = new THREE.Mesh( geometry, mat2 );

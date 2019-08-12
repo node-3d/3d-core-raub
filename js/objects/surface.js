@@ -21,14 +21,19 @@ class Surface extends Rect {
 		
 		// Create a different scene to hold our buffer objects
 		if ( ! opts.camera ) {
-			this._camera = new THREE.PerspectiveCamera(45, this.width / this.height, 5, 100000000);
+			this._camera = new this.screen.three.PerspectiveCamera(
+				45,
+				this.width / this.height,
+				5,
+				50000
+			);
 			this._camera.position.z = 1000;
 		} else {
 			this._camera = opts.camera;
 		}
 		
 		if ( ! opts.scene ) {
-			this._scene = new THREE.Scene();
+			this._scene = new this.screen.three.Scene();
 		} else {
 			this._scene = opts.scene;
 		}
@@ -38,9 +43,9 @@ class Surface extends Rect {
 		this.draw();
 		
 		
-		this.mesh.material = new THREE.ShaderMaterial({
+		this.mesh.material = new this.screen.three.ShaderMaterial({
 			
-			side: THREE.DoubleSide,
+			side: this.screen.three.DoubleSide,
 			
 			uniforms      : { type: 't', t: { value: this._target.texture } },
 			
@@ -72,12 +77,12 @@ class Surface extends Rect {
 		
 		
 		this.mesh.geometry.computeBoundingSphere = () => {
-			this.mesh.geometry.boundingSphere = new THREE.Sphere(undefined, Infinity);
+			this.mesh.geometry.boundingSphere = new this.screen.three.Sphere(undefined, Infinity);
 		};
 		this.mesh.geometry.computeBoundingSphere();
 		
 		this.mesh.geometry.computeBoundingBox = () => {
-			this.mesh.geometry.boundingBox = new THREE.Box3();
+			this.mesh.geometry.boundingBox = new this.screen.three.Box3();
 		};
 		this.mesh.geometry.computeBoundingBox();
 		
@@ -138,13 +143,13 @@ class Surface extends Rect {
 	
 	
 	_newTarget() {
-		return new THREE.WebGLRenderTarget(
+		return new this.screen.three.WebGLRenderTarget(
 			this.w * 2,
 			this.h * 2,
 			{
-				minFilter : THREE.LinearFilter,
-				magFilter : THREE.NearestFilter,
-				format    : THREE.RGBAFormat,
+				minFilter : this.screen.three.LinearFilter,
+				magFilter : this.screen.three.NearestFilter,
+				format    : this.screen.three.RGBAFormat,
 			}
 		);
 	}

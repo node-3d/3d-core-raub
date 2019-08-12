@@ -38,7 +38,7 @@ class Brush extends Drawable {
 	set pos(v) {
 		this._pos.copy(v);
 		if (this.visible) {
-			this._mesh.material.uniforms.pos.value = new THREE.Vector2(
+			this._mesh.material.uniforms.pos.value = new this.screen.three.Vector2(
 				(this._pos.x / this.screen.w - 0.5) * 2,
 				(-this._pos.y / this.screen.h + 0.5) * 2
 			);
@@ -53,13 +53,18 @@ class Brush extends Drawable {
 		
 		if (this.visible) {
 			
-			this._mesh.material.uniforms.pos.value =
-				new THREE.Vector2(this._pos.x, this._pos.y);
+			this._mesh.material.uniforms.pos.value = new this.screen.three.Vector2(
+				this._pos.x,
+				this._pos.y
+			);
 				
 			this._mesh.material.uniforms.size.value = this._size / this.screen.h;
 			
-			this._mesh.material.uniforms.color.value =
-				new THREE.Vector3(this._color.r, this._color.g, this._color.b);
+			this._mesh.material.uniforms.color.value = new this.screen.three.Vector3(
+				this._color.r,
+				this._color.g,
+				this._color.b
+			);
 			
 		}
 		
@@ -70,20 +75,24 @@ class Brush extends Drawable {
 	set color(v) {
 		this._color = v;
 		if (this.visible) {
-			this.mat.uniforms.color.value =
-				new THREE.Vector3(this._color.r, this._color.g, this._color.b);
+			this.mat.uniforms.color.value = new this.screen.three.Vector3(
+				this._color.r,
+				this._color.g,
+				this._color.b
+			);
 		}
 	}
 	
 	
 	_geo() {
 		
-		const geo = new THREE.PlaneBufferGeometry(2, 2);
-		geo.computeBoundingSphere = () => geo.boundingSphere = new THREE.Sphere(
-			undefined, Infinity
-		);
+		const geo = new this.screen.three.PlaneBufferGeometry(2, 2);
+		geo.computeBoundingSphere =
+			() => geo.boundingSphere = new this.screen.three.Sphere(
+				undefined, Infinity
+			);
 		geo.computeBoundingSphere();
-		geo.computeBoundingBox = () => geo.boundingBox = new THREE.Box3();
+		geo.computeBoundingBox = () => geo.boundingBox = new this.screen.three.Box3();
 		geo.computeBoundingBox();
 		return geo;
 		
@@ -91,15 +100,15 @@ class Brush extends Drawable {
 	
 	
 	_mat() {
-		return new THREE.ShaderMaterial({
+		return new this.screen.three.ShaderMaterial({
 			
-			side: THREE.DoubleSide,
+			side: this.screen.three.DoubleSide,
 			
 			uniforms: {
 				aspect : { type: 'f', value: this.screen.w / this.screen.h },
 				size   : { type: 'f', value: 100 / this.screen.h },
-				pos    : { type: 'v2', value: new THREE.Vector2(0, 0) },
-				color  : { type: 'v3', value: new THREE.Vector3(0, 1, 1) },
+				pos    : { type: 'v2', value: new this.screen.three.Vector2(0, 0) },
+				color  : { type: 'v3', value: new this.screen.three.Vector3(0, 1, 1) },
 			},
 			
 			vertexShader: `
@@ -130,7 +139,7 @@ class Brush extends Drawable {
 				}
 			`,
 			
-			blending   : THREE.AdditiveBlending,
+			blending   : this.screen.three.AdditiveBlending,
 			depthTest  : false,
 			transparent: true,
 			
@@ -139,7 +148,7 @@ class Brush extends Drawable {
 	
 	
 	_build(opts) {
-		return new THREE.Mesh(this._geo(opts), this._mat(opts));
+		return new this.screen.three.Mesh(this._geo(opts), this._mat(opts));
 	}
 	
 }

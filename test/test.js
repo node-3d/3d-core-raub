@@ -18,7 +18,7 @@ const {
 	init,
 } = core3d;
 
-const inited = core3d.init();
+const inited = init();
 const { gl, three, Document, Window, Image } = inited;
 
 

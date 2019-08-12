@@ -19,15 +19,27 @@ class Lines extends Cloud {
 			varying vec2  varTcoord;
 			varying float varSize;
 			
-			${opts.inject && opts.inject.frag && opts.inject.frag.vars ? opts.inject.frag.vars : ''}
+			${
+				opts.inject && opts.inject.frag && opts.inject.frag.vars
+					? opts.inject.frag.vars
+					: ''
+			}
 			
 			void main() {
 				
-				${opts.inject && opts.inject.frag && opts.inject.frag.before ? opts.inject.frag.before : ''}
+				${
+					opts.inject && opts.inject.frag && opts.inject.frag.before
+						? opts.inject.frag.before
+						: ''
+				}
 				
 				gl_FragColor = vec4(varColor, 1.0);
 				
-				${opts.inject && opts.inject.frag && opts.inject.frag.after ? opts.inject.frag.after : ''}
+				${
+					opts.inject && opts.inject.frag && opts.inject.frag.after
+						? opts.inject.frag.after
+						: ''
+				}
 				
 			}
 		`;
@@ -37,9 +49,9 @@ class Lines extends Cloud {
 	_build(opts) {
 		const Ctor = (() => {
 			switch (opts.mode) {
-				case 'segments' : return THREE.LineSegments;
-				case 'loop' : return THREE.LineLoop;
-				default : return THREE.Line;
+				case 'segments' : return this.screen.three.LineSegments;
+				case 'loop' : return this.screen.three.LineLoop;
+				default : return this.screen.three.Line;
 			}
 		})();
 		const lines = new Ctor(this._geo(opts), this._mat(opts));

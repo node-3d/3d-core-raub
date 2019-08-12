@@ -15,7 +15,11 @@ class Points extends Cloud {
 	
 	buildVert(opts) {
 		return opts.vert || `
-			${opts.attrs.size ? 'attribute float size' : `float size = ${opts.size ? opts.size : '10.0'}`};
+			${
+				opts.attrs.size
+					? 'attribute float size'
+					: `float size = ${opts.size ? opts.size : '10.0'}`
+			};
 			attribute vec3  color;
 			varying   vec3  varColor;
 			varying   vec2  varTcoord;
@@ -23,11 +27,19 @@ class Points extends Cloud {
 			
 			uniform   float winh;
 			
-			${opts.inject && opts.inject.vert && opts.inject.vert.vars ? opts.inject.vert.vars : ''}
+			${
+				opts.inject && opts.inject.vert && opts.inject.vert.vars
+					? opts.inject.vert.vars
+					: ''
+			}
 			
 			void main() {
 				
-				${opts.inject && opts.inject.vert && opts.inject.vert.before ? opts.inject.vert.before : ''}
+				${
+					opts.inject && opts.inject.vert && opts.inject.vert.before
+						? opts.inject.vert.before
+						: ''
+				}
 				
 				varColor        = color;
 				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
@@ -36,7 +48,11 @@ class Points extends Cloud {
 				gl_PointSize    = max(2.0, 2.0 * winh * varSize / length( mvPosition.xyz ));
 				varTcoord       = position.xy;
 				
-				${opts.inject && opts.inject.vert && opts.inject.vert.after ? opts.inject.vert.after : ''}
+				${
+					opts.inject && opts.inject.vert && opts.inject.vert.after
+						? opts.inject.vert.after
+						: ''
+				}
 				
 			}
 		`;
@@ -49,18 +65,30 @@ class Points extends Cloud {
 			varying vec2  varTcoord;
 			varying float varSize;
 			
-			${opts.inject && opts.inject.frag && opts.inject.frag.vars ? opts.inject.frag.vars : ''}
+			${
+				opts.inject && opts.inject.frag && opts.inject.frag.vars
+					? opts.inject.frag.vars
+					: ''
+			}
 			
 			void main() {
 				
-				${opts.inject && opts.inject.frag && opts.inject.frag.before ? opts.inject.frag.before : ''}
+				${
+					opts.inject && opts.inject.frag && opts.inject.frag.before
+						? opts.inject.frag.before
+						: ''
+				}
 				
 				float offs = length(gl_PointCoord.xy - vec2(0.5, 0.5));
 				float dist = clamp(1.0 - 2.0 * offs, 0.0, 1.0) * 0.2 * varSize;
 				dist = pow(dist, 5);
 				gl_FragColor = vec4(varColor, dist);
 				
-				${opts.inject && opts.inject.frag && opts.inject.frag.after ? opts.inject.frag.after : ''}
+				${
+					opts.inject && opts.inject.frag && opts.inject.frag.after
+						? opts.inject.frag.after
+						: ''
+				}
 				
 			}
 		`;

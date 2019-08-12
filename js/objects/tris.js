@@ -19,15 +19,27 @@ class Tris extends Cloud {
 			varying vec2  varTcoord;
 			varying float varSize;
 			
-			${opts.inject && opts.inject.frag && opts.inject.frag.vars ? opts.inject.frag.vars : ''}
+			${
+				opts.inject && opts.inject.frag && opts.inject.frag.vars
+						? opts.inject.frag.vars
+						: ''
+			}
 			
 			void main() {
 				
-				${opts.inject && opts.inject.frag && opts.inject.frag.before ? opts.inject.frag.before : ''}
+				${
+					opts.inject && opts.inject.frag && opts.inject.frag.before
+						? opts.inject.frag.before
+						: ''
+				}
 				
 				gl_FragColor = vec4(varColor, 1.0);
 				
-				${opts.inject && opts.inject.frag && opts.inject.frag.after ? opts.inject.frag.after : ''}
+				${
+					opts.inject && opts.inject.frag && opts.inject.frag.after
+						? opts.inject.frag.after
+						: ''
+				}
 				
 			}
 		`;
@@ -35,7 +47,7 @@ class Tris extends Cloud {
 	
 	
 	_build(opts) {
-		const tris = new THREE.Mesh(this._geo(opts), this._mat(opts));
+		const tris = new this.screen.three.Mesh(this._geo(opts), this._mat(opts));
 		tris.frustumCulled = false;
 		return tris;
 	}
