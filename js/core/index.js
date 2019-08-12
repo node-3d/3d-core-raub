@@ -55,6 +55,8 @@ const init = (_opts = {}) => {
 	global.location = location;
 	global.navigator = navigator;
 	global.WebVRManager = WebVRManager;
+	global.Image = Image;
+	global._gl = gl;
 	
 	
 	// Hack for three.js, adjust shaders

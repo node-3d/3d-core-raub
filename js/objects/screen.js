@@ -2,13 +2,11 @@
 
 const EventEmitter = require('events');
 
-const { three, gl, doc, Image } = require('../core');
-
 
 class Screen extends EventEmitter {
 	
-	get context() { return gl; }
-	get three() { return three; }
+	get context() { return this._gl; }
+	get three() { return this._three; }
 	
 	get renderer() { return this._renderer; }
 	get scene() { return this._scene; }
@@ -21,7 +19,7 @@ class Screen extends EventEmitter {
 	get height() { return this._doc.height; }
 	get w() { return this.width; }
 	get h() { return this.height; }
-	get size() { return new three.Vector2(this.width, this.height); }
+	get size() { return new this.three.Vector2(this.width, this.height); }
 	
 	
 	get title() { return this._doc.title; }
@@ -54,11 +52,11 @@ class Screen extends EventEmitter {
 		}
 		
 		this._autoRenderer = true;
-		this._renderer = new three.WebGLRenderer({
+		this._renderer = new this.three.WebGLRenderer({
 			
-			context   : gl,
+			context   : this.context,
 			antialias : true,
-			canvas    : this._doc,
+			canvas    : this.canvas,
 			alpha     : true,
 			
 			premultipliedAlpha     : true,
@@ -81,14 +79,17 @@ class Screen extends EventEmitter {
 		
 		super();
 		
-		this._doc = opts.doc || doc;
+		this._three = opts.three || opts.THREE || global.THREE;
+		this._gl = opts.gl || global._gl;
+		this._doc = opts.doc || opts.document || global.document;
+		this._Image = opts.Image || global.Image;
 		
 		if (opts.title) {
 			this.title = opts.title;
 		}
 		
 		if ( ! opts.camera ) {
-			this._camera = new THREE.PerspectiveCamera(
+			this._camera = new this.three.PerspectiveCamera(
 				45, this.width / this.height, 5, 100000000
 			);
 			this._camera.position.z = 1000;
@@ -97,7 +98,7 @@ class Screen extends EventEmitter {
 		}
 		
 		if ( ! opts.scene ) {
-			this._scene = new THREE.Scene();
+			this._scene = new this.three.Scene();
 		} else {
 			this._scene = opts.scene;
 		}
@@ -105,7 +106,7 @@ class Screen extends EventEmitter {
 		
 		if ( ! opts.renderer ) {
 			this._autoRenderer = true;
-			this._renderer = new THREE.WebGLRenderer({
+			this._renderer = new this.three.WebGLRenderer({
 				
 				context   : this.context,
 				antialias : true,
@@ -169,7 +170,7 @@ class Screen extends EventEmitter {
 			storage
 		);
 		
-		const img = Image.fromPixels(this.w, this.h, 32, storage.data);
+		const img = this._Image.fromPixels(this.w, this.h, 32, storage.data);
 		
 		img.save(name);
 		

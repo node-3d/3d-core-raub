@@ -192,7 +192,7 @@ describe('Node.js 3D Core', () => {
 		
 		Object.keys(staticClasses).forEach(c => describe(c, () => {
 			
-			const current = classes[c];
+			const current = staticClasses[c];
 			const instance = current.create({ screen });
 			
 			it('can be created', () => {
@@ -229,7 +229,7 @@ describe('Node.js 3D Core', () => {
 		
 		Object.keys(initedClasses).forEach(c => describe(c, () => {
 			
-			const current = classes[c];
+			const current = initedClasses[c];
 			const instance = current.create();
 			
 			it('can be created', () => {
