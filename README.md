@@ -1,3 +1,4 @@
+
 # Node.js 3D Core
 
 This is a part of [Node3D](https://github.com/node-3d) project.
@@ -55,97 +56,37 @@ Parameter `opts` and all of its fields are optional:
 * `navigator` - override for `window.navigator`.
 * `WebVRManager` - override for `window.WebVRManager`.
 * `three`, `opts.THREE` - override for module "threejs-raub".
-* `{search,replace} shaderHacks` - a list of shader replacement rules.
+* `[{search,replace}] shaderHacks` - a list of shader replacement rules. Each rule is later
+	translated into a call of
+	[String.replace()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace)
+
 
 Returns:
 
-* Image - Almost the same as `Image` in a browser. This constructor can be used to create one.
-Also `document.createElement('img')` does the same thing as `new Image()`.
-For more info see
-[the respective docs of image-raub](https://github.com/node-3d/image-raub#image-for-nodejs).
-
-Document,
-Window,
-
-gl,
-webgl,
-context
-
-glfw,
-
-doc,
-canvas,
-document
-window
-
-three,
-THREE
-
-loop,
-requestAnimationFrame
-frame
-
-
-### class Image
-
-Almost the same as `Image` in a browser. This constructor can be used to create one.
-Also `document.createElement('img')` does the same thing as `new Image()`.
-For more info see
-[the respective docs of image-raub](https://github.com/node-3d/image-raub#image-for-nodejs).
-
-
-### class Window
-
-This constructor spawns a new platform window.
-For more info see
-[the respective docs of glfw-raub](https://github.com/node-3d/glfw-raub#class-window).
-
-
-### class Document extends Window
-
-This constructor spawns a new platform window **with a web-document like interface**.
-For more info see
-[the respective docs of glfw-raub](https://github.com/node-3d/glfw-raub#class-document).
-
-
-### doc, document, canvas
-
-The default instance of Document. It is used to immediately initialize three.js.
-This implies, that (the first occurance of) `require('node-3d-core-raub')`
-results in a new platform window being immediately created.
-
-
-### gl, webgl, context
-
-A WebGL context instance. This is almost the same as real WebGL stuff.
-Actually we seem to use **OpenGL 2.1**, **GLSL 1.20**. If you use pure-WebGL-specific
-shaders, that is **WebGL 1.0 GLSL 1.0**, you might hit a trouble because of sintax shift in
-**GLSL 1.2** (`#version 120`). For more info see
-[the respective docs of webgl-raub](https://github.com/node-3d/webgl-raub#webgl-for-nodejs).
-
-
-### glfw
-
-Low level GLFW interface. For more info see
+* `Image` - Almost the same as `Image` in a browser. Also `document.createElement('img')`
+	does the same thing as `new Image()`. For more info see
+	[the respective docs of image-raub](https://github.com/node-3d/image-raub#image-for-nodejs).
+* `Window` - This constructor spawns a new platform window.
+	For more info see
+	[the respective docs of glfw-raub](https://github.com/node-3d/glfw-raub#class-window).
+* `Document` - This constructor spawns a new platform window **with a web-document like interface**.
+	For more info see
+	[the respective docs of glfw-raub](https://github.com/node-3d/glfw-raub#class-document).
+* `gl`, `webgl`, `context` - A WebGL context instance. This is almost the same as real WebGL stuff.
+	For more info see
+	[the respective docs of webgl-raub](https://github.com/node-3d/webgl-raub#webgl-for-nodejs).
+* `glfw` - Low level GLFW interface. For more info see
 [the respective docs of glfw-raub](https://github.com/node-3d/glfw-raub#glfw-for-nodejs).
-
-
-### three, THREE
-
-An instance of three.js. For more info see
-[the respective docs of three.js](https://github.com/mrdoob/three.js/#threejs).
-
-
-### frame(cb), requestAnimationFrame(cb)
-
-What is known as `window.requestAnimationFrame`.
+* `doc`, `canvas`, `document`, `window` - The default instance of Document.
+	It is used to immediately initialize three.js.
+	This implies, that (the first occurance of) `require('node-3d-core-raub')`
+	results in a new platform window being immediately created.
+* `three`, `THREE` - An instance of three.js. For more info see
+	[the respective docs of three.js](https://github.com/mrdoob/three.js/#threejs).
+* `loop` - A convenience shortcut to induce `requestAnimationFrame`-driven render loop.
 Function `cb` is called, whenever the default document is ready to produce a new
 frame. The function is **BOUND** to the default document instance.
-
-
-### loop(cb)
-
-A convenience shortcut to induce `requestAnimationFrame`-driven render loop.
+* `requestAnimationFrame`, `frame` - What is known as `window.requestAnimationFrame`.
 Function `cb` is called, whenever the default document is ready to produce a new
 frame. The function is **BOUND** to the default document instance.
 
