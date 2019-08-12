@@ -34,7 +34,7 @@ module.exports = three => {
 			if (err) {
 				return typeof onError === 'function' ? onError(err) : console.error(err);
 			}
-			onLoad(data);
+			onLoad((new Uint8Array(data)).buffer);
 		});
 		
 	};

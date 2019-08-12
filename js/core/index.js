@@ -37,7 +37,6 @@ const init = (_opts = {}) => {
 		{ search: /^/, replace: '#version 120\n' },
 		{ search: /gl_FragDepthEXT/g, replace: 'gl_FragDepth' },
 		{ search: '#extension GL_EXT_frag_depth : enable', replace: '' },
-		{ search: /\bhighp\b/g, replace: '' },
 		...opts.shaderHacks,
 	];
 	
