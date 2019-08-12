@@ -26,10 +26,64 @@ Launch **Node.js** in **WebGL** mode.
 different Node.js versions. Addon binaries are precompiled and **there is no compilation**
 step during the `npm i` command.
 
-The default window is 800x600. Use `--fullscreen` or `--borderless` to launch
-in one of the fullscreen modes.
 
 ## Exports
+
+
+### init(opts)
+
+Initialize Node3D. Creates the first window and sets up the global environment.
+This function can be called repeatedly, but will ignore further calls.
+The return value will be the same for any number of repeating calls.
+
+Parameter `opts` and all of its fields are optional:
+
+* `[string|{name,opts}] plugins` - a list of plugins to initialize.
+* `string title $PWD` - window title, takes current directory as default.
+* `number width 800` - window initial width.
+* `number height 600` - window initial height.
+* `number display undefined` - display id to open window on a specific display.
+* `boolean vsync false` - if vsync should be used.
+* `string mode 'windowed'` - one of `'windowed', 'borderless', 'fullscreen'`.
+* `boolean autoIconify true` - if fullscreen windows should iconify automatically on focus loss.
+* `number msaa 2` - multisample antialiasing level.
+* `boolean decorated true` - if window has borders (use `false` for borderless fullscreen).
+* `webgl` - override for module "webgl-raub".
+* `Image` - override for module "image-raub".
+* `glfw` - override for module "glfw-raub".
+* `location` - override for `window.location`.
+* `navigator` - override for `window.navigator`.
+* `WebVRManager` - override for `window.WebVRManager`.
+* `three`, `opts.THREE` - override for module "threejs-raub".
+* `{search,replace} shaderHacks` - a list of shader replacement rules.
+
+Returns:
+
+* Image - Almost the same as `Image` in a browser. This constructor can be used to create one.
+Also `document.createElement('img')` does the same thing as `new Image()`.
+For more info see
+[the respective docs of image-raub](https://github.com/node-3d/image-raub#image-for-nodejs).
+
+Document,
+Window,
+
+gl,
+webgl,
+context
+
+glfw,
+
+doc,
+canvas,
+document
+window
+
+three,
+THREE
+
+loop,
+requestAnimationFrame
+frame
 
 
 ### class Image

@@ -1,7 +1,7 @@
 'use strict';
 
 
-const init = (_opts = {}) => {
+const _init = (_opts = {}) => {
 	
 	const opts = {
 		
@@ -21,13 +21,23 @@ const init = (_opts = {}) => {
 	};
 	
 	const {
-		mode,
 		webgl,
 		Image,
 		glfw,
 		location,
 		navigator,
 		WebVRManager,
+		width,
+		height,
+		display,
+		vsync,
+		autoIconify,
+		fullscreen,
+		mode,
+		decorated,
+		msaa,
+		icon,
+		title,
 	} = opts;
 	
 	const { Document, Window } = glfw;
@@ -43,7 +53,19 @@ const init = (_opts = {}) => {
 	Document.setWebgl(webgl);
 	Document.setImage(Image);
 	
-	const doc = new Document({ mode });
+	const doc = new Document({
+		width,
+		height,
+		display,
+		vsync,
+		autoIconify,
+		fullscreen,
+		mode,
+		decorated,
+		msaa,
+		icon,
+		title,
+	});
 	const canvas = doc;
 	const gl = webgl;
 	
@@ -133,5 +155,14 @@ const init = (_opts = {}) => {
 	
 };
 
+
+let inited = null;
+const init = opts => {
+	if (inited) {
+		return inited;
+	}
+	inited = _init(opts);
+	return inited;
+}
 
 module.exports = { init };
