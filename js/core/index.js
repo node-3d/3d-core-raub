@@ -97,7 +97,7 @@ const _init = (_opts = {}) => {
 	const three = opts.three || opts.THREE || require('threejs-raub');
 	global.THREE = three;
 	
-	require('./threejs-helpers')(three);
+	require('./threejs-helpers')(three, gl);
 	
 	
 	const loop = cb => {

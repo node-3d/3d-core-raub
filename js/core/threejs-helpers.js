@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = three => {
+module.exports = (three, gl) => {
 	
 	three.FileLoader.prototype.load = (url, onLoad, onProgress, onError) => {
 		

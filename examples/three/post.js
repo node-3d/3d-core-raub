@@ -101,7 +101,10 @@ function init() {
 	sceneBG.add( quadBG );
 	//
 	var sceneMask = new THREE.Scene();
-	quadMask = new THREE.Mesh( new THREE.PlaneBufferGeometry( 1, 1 ), new THREE.MeshBasicMaterial( { color: 0xffaa00 } ) );
+	quadMask = new THREE.Mesh(
+		new THREE.PlaneBufferGeometry( 1, 1 ),
+		new THREE.MeshBasicMaterial( { color: 0xffaa00 } )
+	);
 	quadMask.position.z = -300;
 	quadMask.scale.set( width / 2, height / 2, 1 );
 	sceneMask.add( quadMask );
@@ -163,7 +166,7 @@ function init() {
 	var renderModel = new RenderPass( sceneModel, cameraPerspective );
 	renderModel.clear = false;
 	composerScene = new EffectComposer(
-		renderer, 
+		renderer,
 		new THREE.WebGLRenderTarget( rtWidth * 2, rtHeight * 2, rtParameters )
 	);
 	composerScene.addPass( renderBackground );
