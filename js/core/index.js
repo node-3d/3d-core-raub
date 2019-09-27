@@ -148,6 +148,8 @@ const _init = (_opts = {}) => {
 		} else if (typeof plugin === 'string') {
 			const initPlugin = require(plugin);
 			initPlugin(core3d, {});
+		} else if (typeof plugin === 'function') {
+			plugin(core3d);
 		}
 	});
 	
