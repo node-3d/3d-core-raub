@@ -2,24 +2,14 @@
 
 const { expect } = require('chai');
 
-const core3d = require('..');
+const init = require('..');
 
-
-const {
-	Brush,
-	Cloud,
-	Drawable,
-	Lines,
-	Points,
-	Rect,
-	Screen,
-	Surface,
-	Tris,
-	init,
-} = core3d;
 
 const inited = init();
-const { gl, three, Document, Window, Image } = inited;
+const {
+	gl, three, Document, Window, Image,
+	Brush, Cloud, Drawable, Lines, Points, Rect, Screen, Surface, Tris,
+} = inited;
 
 
 const staticClasses = {
@@ -174,7 +164,7 @@ const initedClasses = {
 describe('Node.js 3D Core', () => {
 	
 	it('exports an object', () => {
-		expect(core3d).to.be.an('object');
+		expect(inited).to.be.an('object');
 	});
 	
 	
@@ -183,7 +173,7 @@ describe('Node.js 3D Core', () => {
 		Object.keys(staticClasses).forEach(
 			c => {
 				it(`${c} is exported`, () => {
-					expect(core3d).to.respondTo(c);
+					expect(inited).to.respondTo(c);
 				});
 			}
 		);
@@ -196,7 +186,7 @@ describe('Node.js 3D Core', () => {
 			const instance = current.create({ screen });
 			
 			it('can be created', () => {
-				expect(instance).to.be.an.instanceOf(core3d[c]);
+				expect(instance).to.be.an.instanceOf(inited[c]);
 			});
 			
 			
