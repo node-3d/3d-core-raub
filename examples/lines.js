@@ -1,9 +1,9 @@
 'use strict';
 
-const { Screen, Lines, init } = require('..');
+const init = require('..');
 
 
-const { loop, gl } = init();
+const { Screen, Lines, loop, gl } = init();
 
 const VBO_SIZE = 10;
 

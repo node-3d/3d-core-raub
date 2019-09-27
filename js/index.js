@@ -12,9 +12,9 @@ const _init = (_opts = {}) => {
 		webgl        : _opts.webgl || require('webgl-raub'),
 		Image        : _opts.Image || require('image-raub'),
 		glfw         : _opts.glfw || require('glfw-raub'),
-		location     : _opts.location || require('./location'),
-		navigator    : _opts.navigator || require('./navigator'),
-		WebVRManager : _opts.WebVRManager || require('./vr-manager'),
+		location     : _opts.location || require('./core/location'),
+		navigator    : _opts.navigator || require('./core/navigator'),
+		WebVRManager : _opts.WebVRManager || require('./core/vr-manager'),
 		
 		..._opts,
 		
@@ -97,7 +97,7 @@ const _init = (_opts = {}) => {
 	const three = opts.three || opts.THREE || require('threejs-raub');
 	global.THREE = three;
 	
-	require('./threejs-helpers')(three, gl);
+	require('./core/threejs-helpers')(three, gl);
 	
 	
 	const loop = cb => {
@@ -139,6 +139,11 @@ const _init = (_opts = {}) => {
 		requestAnimationFrame : doc.requestAnimationFrame,
 		frame                 : doc.requestAnimationFrame,
 		
+		...require('./math'),
+		...require('./objects'),
+		
+		...(opts.extend || null),
+		
 	};
 	
 	opts.plugins.forEach(plugin => {
@@ -167,4 +172,4 @@ const init = opts => {
 	return inited;
 }
 
-module.exports = { init };
+module.exports = init;

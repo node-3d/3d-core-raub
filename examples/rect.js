@@ -1,9 +1,9 @@
 'use strict';
 
-const { Screen, Rect, init } = require('..');
+const init = require('..');
 
 
-const { loop } = init();
+const { Screen, Rect, loop } = init();
 
 const screen = new Screen();
 loop(() => screen.draw());
