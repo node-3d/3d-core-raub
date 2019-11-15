@@ -22,5 +22,8 @@ matrix:
       - echo OK.
   - name: "Windows"
     os: windows
+    before_install:
+      # Workaround for https://github.com/appveyor/ci/issues/2420
+      - set "PATH=%PATH%;C:\Program Files\Git\mingw64\libexec\git-core"
     script:
       - echo OK.
