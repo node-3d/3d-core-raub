@@ -23,7 +23,6 @@ matrix:
   - name: "Windows"
     os: windows
     before_install:
-      - set "PATH=%PATH%;C:/Program Files/Git/mingw64/libexec/git-core"
-      - set "PATH=%PATH%;C:/Program Files/Git/usr/bin"
+      - export PATH=$PATH:";C:/Program Files/Git/mingw64/libexec/git-core"
     script:
       - echo OK.
