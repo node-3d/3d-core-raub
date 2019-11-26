@@ -1,4 +1,4 @@
-const { init: initCore } = require('../..');
+const initCore = require('../..');
 const {
 	THREE,
 	window,

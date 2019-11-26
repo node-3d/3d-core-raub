@@ -122,7 +122,7 @@ function addCloud() {
 	gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 	const posAttr = new three.GLBufferAttribute( gl, vbo, gl.FLOAT, 3, REAL_SIZE );
-	geo.addAttribute( 'position', posAttr );
+	geo.setAttribute( 'position', posAttr );
 	geo.setDrawRange( 0, REAL_SIZE );
 	
 	color = [1, 1, 0.5];

@@ -8,7 +8,7 @@ This is a part of [Node3D](https://github.com/node-3d) project.
 [![Build Status](https://api.travis-ci.com/node-3d/3d-core-raub.svg?branch=master)](https://travis-ci.com/node-3d/3d-core-raub)
 [![CodeFactor](https://www.codefactor.io/repository/github/node-3d/3d-core-raub/badge)](https://www.codefactor.io/repository/github/node-3d/3d-core-raub)
 
-> npm i -s 3d-core-raub
+> npm i 3d-core-raub
 
 
 ## Synopsis

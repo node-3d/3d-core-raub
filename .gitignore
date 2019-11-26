@@ -5,4 +5,5 @@
 .project
 .DS_Store
 node_modules/
+examples/*.jpg
 *.log

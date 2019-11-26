@@ -43,7 +43,7 @@ class Cloud extends Drawable {
 		const geo = new this.screen.three.BufferGeometry();
 		
 		Object.keys(opts.attrs).forEach(key => {
-			geo.addAttribute(key, this.buildAttr(opts.attrs[key], opts.count));
+			geo.setAttribute(key, this.buildAttr(opts.attrs[key], opts.count));
 		});
 		
 		return geo;
