@@ -32,7 +32,6 @@
 		"url": "https://github.com/node-3d/3d-core-raub.git"
 	},
 	"dependencies": {
-		"addon-tools-raub": "5.0.0",
 		"threejs-raub": "0.110.0",
 		"image-raub": "3.0.0",
 		"glfw-raub": "4.0.0",
