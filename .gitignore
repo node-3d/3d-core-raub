@@ -3,7 +3,7 @@
 .lock-wscript
 .DS_Store
 .project
-.DS_Store
+.vscode
 node_modules/
 examples/*.jpg
 *.log

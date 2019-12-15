@@ -4,6 +4,8 @@ const { THREE, window, document, requestAnimationFrame } = initCore();
 
 var camera, scene, renderer;
 var mesh;
+let prevTime = Date.now();
+
 init();
 animate();
 function init() {
@@ -11,7 +13,7 @@ function init() {
 	camera.position.z = 400;
 	scene = new THREE.Scene();
 	var texture = new THREE.TextureLoader().load( __dirname + '/textures/freeimage.jpg' );
-	var geometry = new THREE.BoxBufferGeometry( 200, 200, 200 );
+	var geometry = new THREE.PlaneBufferGeometry( 200, 200 );
 	var material = new THREE.MeshBasicMaterial( { map: texture } );
 	mesh = new THREE.Mesh( geometry, material );
 	scene.add( mesh );
@@ -27,10 +29,13 @@ function onWindowResize() {
 	camera.updateProjectionMatrix();
 	renderer.setSize( window.innerWidth, window.innerHeight );
 }
+
 function animate() {
 	requestAnimationFrame( animate );
 	const time = Date.now();
-	mesh.rotation.x = time * 0.0005;
-	mesh.rotation.y = time * 0.001;
+	const dt = time - prevTime;
+	prevTime = time;
+	mesh.rotation.x += dt * 0.00005;
+	mesh.rotation.y += dt * 0.0001;
 	renderer.render( scene, camera );
 }
