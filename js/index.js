@@ -43,10 +43,6 @@ const _init = (_opts = {}) => {
 	const { Document, Window } = glfw;
 	
 	const shaderHacks = [
-		{ search: /^\s*?(#version|precision).*?$/gm, replace: '' },
-		{ search: /^/, replace: '#version 120\n' },
-		{ search: /gl_FragDepthEXT/g, replace: 'gl_FragDepth' },
-		{ search: '#extension GL_EXT_frag_depth : enable', replace: '' },
 		...opts.shaderHacks,
 	];
 	
