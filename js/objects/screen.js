@@ -124,7 +124,6 @@ class Screen extends EventEmitter {
 		}
 		
 		this.renderer.setSize(this._doc.width, this._doc.height, false);
-		this.renderer.gammaInput = true;
 		
 		this.document.on('resize', ({ width, height }) => {
 			
