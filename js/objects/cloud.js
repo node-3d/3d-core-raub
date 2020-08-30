@@ -29,10 +29,10 @@ class Cloud extends Drawable {
 	
 	buildAttr(source, count) {
 		return new this.screen.three.GLBufferAttribute(
-			this.screen.context,
 			source.vbo,
 			this.screen.context.FLOAT,
 			source.items,
+			4,
 			count
 		);
 	}

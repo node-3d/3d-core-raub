@@ -7,7 +7,7 @@ const {
 	Image,
 } = initCore();
 
-const getJs = p => require(`threejs-raub/examples/js/${p}`);
+const getJs = p => require(`three/examples/js/${p}`);
 
 getJs('postprocessing/EffectComposer');
 getJs('postprocessing/RenderPass');

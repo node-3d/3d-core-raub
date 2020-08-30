@@ -52,14 +52,8 @@ The return value will be the same for any number of repeating calls.
 
 Parameter `opts` and all of its fields are optional:
 
-* `[string|function|{name,opts}] plugins` - a list of plugins to initialize.
-	Plugins are inited the very last. Right before the result of `init()` is returned.
-	Given the name of the plugin `init()` will try to require it and call it passing
-	the future-return-value. Plugins are inited in the same order as they present in the
-	array. You may also pass the plugin as a function, which is equivalent to a manual
-	call `plugin(initResult)`, where `initResult` is what `init()` returns. Yet even
-	in this case using the array parameter allows shorter syntax and order control.
-* `{} extend` - extend or override the returning fields.
+* `number major 2` - major OpenGL version to be used.
+* `number minor 1` - minor OpenGL version to be used.
 * `string title $PWD` - window title, takes current directory as default.
 * `number width 800` - window initial width.
 * `number height 600` - window initial height.
@@ -75,10 +69,18 @@ Parameter `opts` and all of its fields are optional:
 * `location` - override for `window.location`.
 * `navigator` - override for `window.navigator`.
 * `WebVRManager` - override for `window.WebVRManager`.
-* `three`, `opts.THREE` - override for module "threejs-raub".
+* `three`, `opts.THREE` - override for module "three".
 * `[{search,replace}] shaderHacks` - a list of shader replacement rules. Each rule is later
 	translated into a call of
 	[String.replace()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace)
+* `[string|function|{name,opts}] plugins` - a list of plugins to initialize.
+	Plugins are inited the very last. Right before the result of `init()` is returned.
+	Given the name of the plugin `init()` will try to require it and call it passing
+	the future-return-value. Plugins are inited in the same order as they present in the
+	array. You may also pass the plugin as a function, which is equivalent to a manual
+	call `plugin(initResult)`, where `initResult` is what `init()` returns. Yet even
+	in this case using the array parameter allows shorter syntax and order control.
+* `Object extend` - extend or override the returning fields.
 
 
 Returns:

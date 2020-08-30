@@ -90,7 +90,7 @@ const _init = (_opts = {}) => {
 	
 	
 	// Require THREE after Document and GL are ready
-	const three = opts.three || opts.THREE || require('threejs-raub');
+	const three = opts.three || opts.THREE || require('three');
 	global.THREE = three;
 	
 	require('./core/threejs-helpers')(three, gl);
