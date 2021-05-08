@@ -111,6 +111,8 @@ const _init = (_opts = {}) => {
 		
 	};
 	
+	gl.canvas = canvas;
+	
 	const core3d = {
 		
 		Image,

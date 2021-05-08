@@ -1,7 +1,5 @@
 'use strict';
 
-const { expect } = require('chai');
-
 const init = require('..');
 
 
@@ -164,7 +162,7 @@ const initedClasses = {
 describe('Node.js 3D Core', () => {
 	
 	it('exports an object', () => {
-		expect(inited).to.be.an('object');
+		expect(typeof inited).toBe('object');
 	});
 	
 	
@@ -173,7 +171,7 @@ describe('Node.js 3D Core', () => {
 		Object.keys(staticClasses).forEach(
 			c => {
 				it(`${c} is exported`, () => {
-					expect(inited).to.respondTo(c);
+					expect(typeof inited[c]).toBe('function');
 				});
 			}
 		);
@@ -186,19 +184,19 @@ describe('Node.js 3D Core', () => {
 			const instance = current.create({ screen });
 			
 			it('can be created', () => {
-				expect(instance).to.be.an.instanceOf(inited[c]);
+				expect(instance).toBeInstanceOf(inited[c]);
 			});
 			
 			
 			current.props.forEach(prop => {
 				it(`#${prop} property exposed`, () => {
-					expect(instance).to.have.property(prop);
+					expect(instance).toHaveProperty(prop);
 				});
 			});
 			
 			current.methods.forEach(method => {
 				it(`#${method}() method exposed`, () => {
-					expect(instance).to.respondTo(method);
+					expect(typeof instance[method]).toBe('function');
 				});
 			});
 			
@@ -212,7 +210,7 @@ describe('Node.js 3D Core', () => {
 		Object.keys(initedClasses).forEach(
 			c => {
 				it(`${c} is exported`, () => {
-					expect(inited).to.respondTo(c);
+					expect(typeof inited[c]).toBe('function');
 				});
 			}
 		);
@@ -223,7 +221,7 @@ describe('Node.js 3D Core', () => {
 			const instance = current.create();
 			
 			it('can be created', () => {
-				expect(instance).to.be.an.instanceOf(inited[c]);
+				expect(instance).toBeInstanceOf(inited[c]);
 			});
 			
 		}));
@@ -238,7 +236,7 @@ describe('Node.js 3D Core', () => {
 		const mesh = new three.Mesh(geometry, material);
 		screen.scene.add(mesh);
 		screen.draw();
-		expect(mesh).to.be.an('object');
+		expect(typeof mesh).toBe('object');
 	});
 	
 });

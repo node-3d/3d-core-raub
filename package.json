@@ -1,7 +1,7 @@
 {
 	"author": "Luis Blanco <luisblanco1337@gmail.com>",
 	"name": "3d-core-raub",
-	"version": "3.5.0",
+	"version": "3.6.0",
 	"description": "An extensible Node3D core for desktop applications",
 	"license": "MIT",
 	"main": "index.js",
@@ -19,23 +19,37 @@
 	"files": [
 		"js",
 		"index.js",
+		"index.d.ts",
 		"LICENSE",
 		"package.json",
 		"README.md"
 	],
 	"engines": {
-		"node": ">=12.13.0",
-		"npm": ">=6.12.0"
+		"node": ">=14.16.0",
+		"npm": ">=6.14.1"
+	},
+	"scripts": {
+		"eslint": "eslint .",
+		"test": "jest --coverage=false --watch",
+		"test-ci": "jest --coverage=false --verbose",
+		"test-coverage": "rm -rf doc/jest && jest --coverage --silent"
 	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/node-3d/3d-core-raub.git"
 	},
 	"dependencies": {
-		"addon-tools-raub": "5.2.x",
-		"three": "0.120.x",
-		"image-raub": "3.1.x",
-		"glfw-raub": "4.5.x",
-		"webgl-raub": "2.1.x"
+		"addon-tools-raub": "5.3.x",
+		"three": "0.128.x",
+		"image-raub": "3.2.x",
+		"glfw-raub": "4.6.x",
+		"webgl-raub": "2.2.x"
+	},
+	"devDependencies": {
+		"eslint": "7.23.0",
+		"eslint-plugin-jest": "24.3.3",
+		"eslint-plugin-node": "11.1.0",
+		"jest": "26.6.3",
+		"typescript": "4.2.4"
 	}
 }
