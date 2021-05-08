@@ -81,28 +81,28 @@ class Cloud extends Drawable {
 			varying   vec3  varColor;
 			
 			${
-				opts.inject && opts.inject.vert && opts.inject.vert.vars
-					? opts.inject.vert.vars
-					: ''
-			}
+	opts.inject && opts.inject.vert && opts.inject.vert.vars
+		? opts.inject.vert.vars
+		: ''
+}
 			
 			void main() {
 				
 				${
-					opts.inject && opts.inject.vert && opts.inject.vert.before
-						? opts.inject.vert.before
-						: ''
-				}
+	opts.inject && opts.inject.vert && opts.inject.vert.before
+		? opts.inject.vert.before
+		: ''
+}
 				
 				varColor        = color;
 				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
 				gl_Position     = projectionMatrix * mvPosition;
 				
 				${
-					opts.inject && opts.inject.vert && opts.inject.vert.after
-						? opts.inject.vert.after
-						: ''
-				}
+	opts.inject && opts.inject.vert && opts.inject.vert.after
+		? opts.inject.vert.after
+		: ''
+}
 				
 			}
 		`;
@@ -114,27 +114,27 @@ class Cloud extends Drawable {
 			varying vec3  varColor;
 			
 			${
-				opts.inject && opts.inject.frag && opts.inject.frag.vars
-					? opts.inject.frag.vars
-					: ''
-			}
+	opts.inject && opts.inject.frag && opts.inject.frag.vars
+		? opts.inject.frag.vars
+		: ''
+}
 			
 			void main() {
 				
 				${
-					opts.inject && opts.inject.frag && opts.inject.frag.before
-						? opts.inject.frag.before
-						: ''
-				}
+	opts.inject && opts.inject.frag && opts.inject.frag.before
+		? opts.inject.frag.before
+		: ''
+}
 				
 				// gl_FragColor = vec4(varColor, 1.0);
 				gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 				
 				${
-					opts.inject && opts.inject.frag && opts.inject.frag.after
-						? opts.inject.frag.after
-						: ''
-				}
+	opts.inject && opts.inject.frag && opts.inject.frag.after
+		? opts.inject.frag.after
+		: ''
+}
 				
 			}
 		`;

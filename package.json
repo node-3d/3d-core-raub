@@ -38,6 +38,21 @@
 		"type": "git",
 		"url": "https://github.com/node-3d/3d-core-raub.git"
 	},
+	"jest": {
+		"globalSetup": "<rootDir>/test/setup.js",
+		"testEnvironment": "node",
+		"testMatch": [
+			"**/*.test.js"
+		],
+		"coverageDirectory": "doc/jest",
+		"coverageReporters": [
+			"lcov"
+		],
+		"collectCoverageFrom": [
+			"**/*.js",
+			"!**/*.test.js"
+		]
+	},
 	"dependencies": {
 		"addon-tools-raub": "5.3.x",
 		"three": "0.128.x",

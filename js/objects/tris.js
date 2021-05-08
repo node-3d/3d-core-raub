@@ -20,26 +20,26 @@ class Tris extends Cloud {
 			varying float varSize;
 			
 			${
-				opts.inject && opts.inject.frag && opts.inject.frag.vars
-						? opts.inject.frag.vars
-						: ''
-			}
+	opts.inject && opts.inject.frag && opts.inject.frag.vars
+		? opts.inject.frag.vars
+		: ''
+}
 			
 			void main() {
 				
 				${
-					opts.inject && opts.inject.frag && opts.inject.frag.before
-						? opts.inject.frag.before
-						: ''
-				}
+	opts.inject && opts.inject.frag && opts.inject.frag.before
+		? opts.inject.frag.before
+		: ''
+}
 				
 				gl_FragColor = vec4(varColor, 1.0);
 				
 				${
-					opts.inject && opts.inject.frag && opts.inject.frag.after
-						? opts.inject.frag.after
-						: ''
-				}
+	opts.inject && opts.inject.frag && opts.inject.frag.after
+		? opts.inject.frag.after
+		: ''
+}
 				
 			}
 		`;

@@ -81,8 +81,8 @@ const _init = (_opts = {}) => {
 	gl.shaderSource = (shader, string) => _shaderSource(
 		shader,
 		shaderHacks.reduce((accum, hack) => {
-			if (typeof regex === 'object') {
-				regex.lastIndex = 0;
+			if (typeof hack.search === 'object') {
+				hack.search.lastIndex = 0;
 			}
 			return accum.replace(hack.search, hack.replace);
 		}, string)
@@ -168,6 +168,6 @@ const init = opts => {
 	}
 	inited = _init(opts);
 	return inited;
-}
+};
 
 module.exports = init;

@@ -72,9 +72,9 @@ class Color extends Vec4 {
 			b = args[0][2];
 			a = typeof args[0][3] === 'number' ? args[0][3] : 1;
 		} else if (
-				typeof args[0].r === 'number' && typeof args[0].g === 'number' &&
+			typeof args[0].r === 'number' && typeof args[0].g === 'number' &&
 				typeof args[0].b === 'number'
-			) {
+		) {
 			r = args[0].r;
 			g = args[0].g;
 			b = args[0].b;

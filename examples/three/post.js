@@ -87,12 +87,12 @@ function init() {
 	directionalLight.position.set( 0, -0.1, 1 ).normalize();
 	sceneModel.add( directionalLight );
 	var loader = new GLTFLoader();
-	loader.load( __dirname + "/models/LeePerrySmith.glb", function ( gltf ) {
+	loader.load( __dirname + '/models/LeePerrySmith.glb', function ( gltf ) {
 		createMesh( gltf.scene.children[ 0 ].geometry, sceneModel, 100 );
 	} );
 	//
 	var materialColor = new THREE.MeshBasicMaterial( {
-		map: new THREE.TextureLoader().load( __dirname + "/textures/pz.jpg" ),
+		map: new THREE.TextureLoader().load( __dirname + '/textures/pz.jpg' ),
 		depthTest: false
 	} );
 	quadBG = new THREE.Mesh( new THREE.PlaneBufferGeometry( 1, 1 ), materialColor );
@@ -128,10 +128,10 @@ function init() {
 	var effectSepia = new ShaderPass( shaderSepia );
 	var effectVignette = new ShaderPass( shaderVignette );
 	// var effectCopy = new ShaderPass( shaderCopy );
-	effectBleach.uniforms[ "opacity" ].value = 0.95;
-	effectSepia.uniforms[ "amount" ].value = 0.9;
-	effectVignette.uniforms[ "offset" ].value = 0.95;
-	effectVignette.uniforms[ "darkness" ].value = 1.6;
+	effectBleach.uniforms[ 'opacity' ].value = 0.95;
+	effectSepia.uniforms[ 'amount' ].value = 0.9;
+	effectVignette.uniforms[ 'offset' ].value = 0.95;
+	effectVignette.uniforms[ 'darkness' ].value = 1.6;
 	var effectBloom = new BloomPass( 0.5 );
 	var effectFilm = new FilmPass( 0.35, 0.025, 648, false );
 	var effectFilmBW = new FilmPass( 0.35, 0.5, 2048, true );
@@ -224,7 +224,7 @@ function init() {
 	composer4.addPass( effectBleach );
 	//composer4.addPass( clearMask );
 	composer4.addPass( effectVignette );
-	renderScene.uniforms[ "tDiffuse" ].value = composerScene.renderTarget2.texture;
+	renderScene.uniforms[ 'tDiffuse' ].value = composerScene.renderTarget2.texture;
 	window.addEventListener( 'resize', onWindowResize, false );
 }
 function onWindowResize() {
@@ -243,7 +243,7 @@ function onWindowResize() {
 	composer2.setSize( halfWidth, halfHeight );
 	composer3.setSize( halfWidth, halfHeight );
 	composer4.setSize( halfWidth, halfHeight );
-	renderScene.uniforms[ "tDiffuse" ].value = composerScene.renderTarget2.texture;
+	renderScene.uniforms[ 'tDiffuse' ].value = composerScene.renderTarget2.texture;
 	quadBG.scale.set( window.innerWidth, window.innerHeight, 1 );
 	quadMask.scale.set( window.innerWidth / 2, window.innerHeight / 2, 1 );
 }
@@ -252,9 +252,9 @@ function createMesh( geometry, scene, scale ) {
 		color: 0x999999,
 		specular: 0x080808,
 		shininess: 20,
-		map: new THREE.TextureLoader().load( __dirname + "/textures/Map-COL.jpg" ),
+		map: new THREE.TextureLoader().load( __dirname + '/textures/Map-COL.jpg' ),
 		normalMap: new THREE.TextureLoader().load(
-			__dirname + "/textures/Infinite-Level_02_Tangent_SmoothUV.jpg"
+			__dirname + '/textures/Infinite-Level_02_Tangent_SmoothUV.jpg'
 		),
 		normalScale: new THREE.Vector2( 0.75, 0.75 )
 	} );
