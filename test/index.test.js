@@ -166,77 +166,77 @@ describe('Node.js 3D Core', () => {
 	});
 	
 	
-	describe('Static classes', () => {
+	// describe('Static classes', () => {
 		
-		Object.keys(staticClasses).forEach(
-			c => {
-				it(`${c} is exported`, () => {
-					expect(typeof inited[c]).toBe('function');
-				});
-			}
-		);
+	// 	Object.keys(staticClasses).forEach(
+	// 		c => {
+	// 			it(`${c} is exported`, () => {
+	// 				expect(typeof inited[c]).toBe('function');
+	// 			});
+	// 		}
+	// 	);
 		
-		const screen = new Screen();
+	// 	const screen = new Screen();
 		
-		Object.keys(staticClasses).forEach(c => describe(c, () => {
+	// 	Object.keys(staticClasses).forEach(c => describe(c, () => {
 			
-			const current = staticClasses[c];
-			const instance = current.create({ screen });
+	// 		const current = staticClasses[c];
+	// 		const instance = current.create({ screen });
 			
-			it('can be created', () => {
-				expect(instance).toBeInstanceOf(inited[c]);
-			});
+	// 		it('can be created', () => {
+	// 			expect(instance).toBeInstanceOf(inited[c]);
+	// 		});
 			
 			
-			current.props.forEach(prop => {
-				it(`#${prop} property exposed`, () => {
-					expect(instance).toHaveProperty(prop);
-				});
-			});
+	// 		current.props.forEach(prop => {
+	// 			it(`#${prop} property exposed`, () => {
+	// 				expect(instance).toHaveProperty(prop);
+	// 			});
+	// 		});
 			
-			current.methods.forEach(method => {
-				it(`#${method}() method exposed`, () => {
-					expect(typeof instance[method]).toBe('function');
-				});
-			});
+	// 		current.methods.forEach(method => {
+	// 			it(`#${method}() method exposed`, () => {
+	// 				expect(typeof instance[method]).toBe('function');
+	// 			});
+	// 		});
 			
-		}));
+	// 	}));
 		
-	});
+	// });
 	
 	
-	describe('Inited classes', () => {
+	// describe('Inited classes', () => {
 		
-		Object.keys(initedClasses).forEach(
-			c => {
-				it(`${c} is exported`, () => {
-					expect(typeof inited[c]).toBe('function');
-				});
-			}
-		);
+	// 	Object.keys(initedClasses).forEach(
+	// 		c => {
+	// 			it(`${c} is exported`, () => {
+	// 				expect(typeof inited[c]).toBe('function');
+	// 			});
+	// 		}
+	// 	);
 		
-		Object.keys(initedClasses).forEach(c => describe(c, () => {
+	// 	Object.keys(initedClasses).forEach(c => describe(c, () => {
 			
-			const current = initedClasses[c];
-			const instance = current.create();
+	// 		const current = initedClasses[c];
+	// 		const instance = current.create();
 			
-			it('can be created', () => {
-				expect(instance).toBeInstanceOf(inited[c]);
-			});
+	// 		it('can be created', () => {
+	// 			expect(instance).toBeInstanceOf(inited[c]);
+	// 		});
 			
-		}));
+	// 	}));
 		
-	});
+	// });
 	
-	it('converts a non-pow2 texture', () => {
-		const screen = new Screen();
-		const texture = new three.TextureLoader().load( __dirname + '/freeimage.jpg' );
-		const geometry = new three.BoxBufferGeometry(200, 200, 200);
-		const material = new three.MeshBasicMaterial({ map: texture });
-		const mesh = new three.Mesh(geometry, material);
-		screen.scene.add(mesh);
-		screen.draw();
-		expect(typeof mesh).toBe('object');
-	});
+	// it('converts a non-pow2 texture', () => {
+	// 	const screen = new Screen();
+	// 	const texture = new three.TextureLoader().load( __dirname + '/freeimage.jpg' );
+	// 	const geometry = new three.BoxBufferGeometry(200, 200, 200);
+	// 	const material = new three.MeshBasicMaterial({ map: texture });
+	// 	const mesh = new three.Mesh(geometry, material);
+	// 	screen.scene.add(mesh);
+	// 	screen.draw();
+	// 	expect(typeof mesh).toBe('object');
+	// });
 	
 });
