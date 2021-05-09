@@ -72,13 +72,6 @@ declare module "3d-core-raub" {
 		webkitTemporaryStorage: TSomeObject,
 	}>;
 	
-	// type TSize = Readonly<{ width: number; height: number }>;
-	
-	// type TImage = TSize & Readonly<{
-	// 	data: Buffer;
-	// 	noflip?: boolean;
-	// }>;
-	
 	type TInitOpts = Readonly<{
 		webgl?: TSomeObject,
 		Image?: Image,
