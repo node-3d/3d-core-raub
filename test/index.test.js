@@ -5,7 +5,6 @@ const init = require('..');
 
 const inited = init();
 const {
-	three,
 	gl, Document, Window, Image,
 	Brush, Cloud, Drawable, Lines, Points, Rect, Screen, Surface, Tris,
 } = inited;
@@ -227,18 +226,6 @@ describe('Node.js 3D Core', () => {
 			
 		}));
 		
-	});
-	
-	it('converts a non-pow2 texture', () => {
-		const screen = new Screen();
-		// const texture = new three.TextureLoader().load( __dirname + '/freeimage.jpg' );
-		const geometry = new three.BoxBufferGeometry(200, 200, 200);
-		// const material = new three.MeshBasicMaterial();
-		// const material = new three.MeshBasicMaterial({ map: texture });
-		const mesh = new three.Mesh(geometry);
-		screen.scene.add(mesh);
-		screen.draw();
-		expect(typeof screen).toBe('object');
 	});
 	
 });
