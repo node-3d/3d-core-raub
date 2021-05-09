@@ -4,10 +4,11 @@ const init = require('..');
 
 
 const inited = init();
-// const {
-// 	gl, // three, Document, Window, Image,
-// 	Brush, Cloud, Drawable, Lines, Points, Rect, Screen, Surface, Tris,
-// } = inited;
+const {
+	three, Screen,
+	// gl, Document, Window, Image,
+	// Brush, Cloud, Drawable, Lines, Points, Rect, Surface, Tris,
+} = inited;
 
 
 // const staticClasses = {
@@ -228,15 +229,15 @@ describe('Node.js 3D Core', () => {
 		
 	// });
 	
-	// it('converts a non-pow2 texture', () => {
-	// 	const screen = new Screen();
-	// 	const texture = new three.TextureLoader().load( __dirname + '/freeimage.jpg' );
-	// 	const geometry = new three.BoxBufferGeometry(200, 200, 200);
-	// 	const material = new three.MeshBasicMaterial({ map: texture });
-	// 	const mesh = new three.Mesh(geometry, material);
-	// 	screen.scene.add(mesh);
-	// 	screen.draw();
-	// 	expect(typeof mesh).toBe('object');
-	// });
+	it('converts a non-pow2 texture', () => {
+		const screen = new Screen();
+		const texture = new three.TextureLoader().load( __dirname + '/freeimage.jpg' );
+		const geometry = new three.BoxBufferGeometry(200, 200, 200);
+		const material = new three.MeshBasicMaterial({ map: texture });
+		const mesh = new three.Mesh(geometry, material);
+		screen.scene.add(mesh);
+		screen.draw();
+		expect(typeof mesh).toBe('object');
+	});
 	
 });
