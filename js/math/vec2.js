@@ -14,7 +14,6 @@
  * @author Luis Blanco
  */
 class Vec2 extends Array {
-	
 	/**
 	 * @constructs Vec2
 	 * @desc Takes two numbers, or single array, or an object with `.x` and `.y` properties.
@@ -32,12 +31,11 @@ class Vec2 extends Array {
 		this.x = 0;
 		this.y = 0;
 		
-		if ( ! args.length ) {
+		if (!args.length) {
 			return;
 		}
 		
 		if (typeof args[0] === 'object') {
-			
 			if (args[0] === null) {
 				return;
 			}
@@ -52,7 +50,6 @@ class Vec2 extends Array {
 			}
 			
 		} else if (typeof args[0] === 'number') {
-			
 			if (isNaN(args[0])) {
 				return;
 			}
@@ -60,10 +57,7 @@ class Vec2 extends Array {
 			// a,b or a,a
 			this.x = args[0];
 			this.y = (typeof args[1] === 'number') ? args[1] : args[0];
-			
 		}
-		
-		
 	}
 	
 	/**
@@ -603,7 +597,6 @@ class Vec2 extends Array {
 	 * @return {Vec} null if no intersection.
 	 */
 	getLineSegmentsIntersection(p0, p1, p2, p3) {
-		
 		var t = Vec2.getLineSegmentsIntersectionFraction(p0, p1, p2, p3);
 		
 		if (t < 0) {
@@ -611,7 +604,6 @@ class Vec2 extends Array {
 		}
 		
 		return new Vec2(p0[0] + (t * (p1[0] - p0[0])), p0[1] + (t * (p1[1] - p0[1])));
-		
 	}
 	
 	/**

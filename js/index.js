@@ -2,22 +2,17 @@
 
 
 const _init = (_opts = {}) => {
-	
 	const opts = {
-		
-		mode        : 'windowed',
+		mode: 'windowed',
 		shaderHacks : [],
-		plugins     : [],
-		
-		webgl        : _opts.webgl || require('webgl-raub'),
-		Image        : _opts.Image || require('image-raub'),
-		glfw         : _opts.glfw || require('glfw-raub'),
-		location     : _opts.location || require('./core/location'),
-		navigator    : _opts.navigator || require('./core/navigator'),
-		WebVRManager : _opts.WebVRManager || require('./core/vr-manager'),
-		
+		plugins: [],
+		webgl: _opts.webgl || require('webgl-raub'),
+		Image: _opts.Image || require('image-raub'),
+		glfw: _opts.glfw || require('glfw-raub'),
+		location: _opts.location || require('./core/location'),
+		navigator: _opts.navigator || require('./core/navigator'),
+		WebVRManager: _opts.WebVRManager || require('./core/vr-manager'),
 		..._opts,
-		
 	};
 	
 	const {
@@ -42,9 +37,7 @@ const _init = (_opts = {}) => {
 	
 	const { Document, Window } = glfw;
 	
-	const shaderHacks = [
-		...opts.shaderHacks,
-	];
+	const shaderHacks = [...opts.shaderHacks];
 	
 	Document.setWebgl(webgl);
 	Document.setImage(Image);
@@ -65,6 +58,13 @@ const _init = (_opts = {}) => {
 	const canvas = doc;
 	const gl = webgl;
 	
+	// gl.WebGL2RenderingContext = function WebGL2RenderingContext(_) { this._ = _; };
+	// global.WebGL2RenderingContext = gl.WebGL2RenderingContext;
+	// // gl.prototype = gl.prototype || {};
+	// Object.setPrototypeOf(gl, gl.WebGL2RenderingContext.prototype);
+	// // gl.constructor = gl.WebGL2RenderingContext;
+	// console.log('test', gl instanceof global.WebGL2RenderingContext);
+	
 	global.document = doc;
 	global.window = doc;
 	global.cwrap = null;
@@ -75,19 +75,20 @@ const _init = (_opts = {}) => {
 	global.Image = Image;
 	global._gl = gl;
 	
-	
 	// Hack for three.js, adjust shaders
 	const _shaderSource = gl.shaderSource;
 	gl.shaderSource = (shader, string) => _shaderSource(
 		shader,
-		shaderHacks.reduce((accum, hack) => {
-			if (typeof hack.search === 'object') {
-				hack.search.lastIndex = 0;
-			}
-			return accum.replace(hack.search, hack.replace);
-		}, string)
+		shaderHacks.reduce(
+			(accum, hack) => {
+				if (typeof hack.search === 'object') {
+					hack.search.lastIndex = 0;
+				}
+				return accum.replace(hack.search, hack.replace);
+			},
+			string,
+		),
 	);
-	
 	
 	// Require THREE after Document and GL are ready
 	const three = opts.three || opts.THREE || require('three');
@@ -95,56 +96,53 @@ const _init = (_opts = {}) => {
 	
 	require('./core/threejs-helpers')(three, gl);
 	
-	
-	const loop = cb => {
-		
+	const loop = (cb) => {
 		let i = 0;
 		
 		const animation = () => {
-			
 			cb(i++);
 			doc.requestAnimationFrame(animation);
-			
 		};
 		
 		doc.requestAnimationFrame(animation);
-		
 	};
 	
 	gl.canvas = canvas;
+	gl.getContextAttributes = () => ({
+		alpha: true,
+		antialias: true,
+		depth: true,
+		failIfMajorPerformanceCaveat: false,
+		powerPreference: 'default',
+		premultipliedAlpha: true,
+		preserveDrawingBuffer: false,
+		stencil: false,
+		desynchronized: false
+	});
 	
 	const core3d = {
-		
 		Image,
 		Document,
 		Window,
-		
 		gl,
 		webgl,
-		context : gl,
-		
+		context: gl,
 		glfw,
-		
 		doc,
 		canvas,
-		document : doc,
-		window   : doc,
-		
+		document: doc,
+		window: doc,
 		three,
-		THREE : three,
-		
+		THREE: three,
 		loop,
 		requestAnimationFrame : doc.requestAnimationFrame,
-		frame                 : doc.requestAnimationFrame,
-		
+		frame: doc.requestAnimationFrame,
 		...require('./math'),
 		...require('./objects'),
-		
 		...(opts.extend || null),
-		
 	};
 	
-	opts.plugins.forEach(plugin => {
+	opts.plugins.forEach((plugin) => {
 		if (typeof plugin === 'object' && plugin.name) {
 			const initPlugin = require(plugin.name);
 			initPlugin(core3d, plugin.opts || {});
@@ -157,12 +155,11 @@ const _init = (_opts = {}) => {
 	});
 	
 	return core3d;
-	
 };
 
 
 let inited = null;
-const init = opts => {
+const init = (opts) => {
 	if (inited) {
 		return inited;
 	}

@@ -13,7 +13,7 @@ function init() {
 	camera.position.z = 400;
 	scene = new THREE.Scene();
 	var texture = new THREE.TextureLoader().load( __dirname + '/textures/freeimage.jpg' );
-	var geometry = new THREE.PlaneBufferGeometry( 200, 200 );
+	var geometry = new THREE.PlaneGeometry( 200, 200 );
 	var material = new THREE.MeshBasicMaterial( { map: texture } );
 	mesh = new THREE.Mesh( geometry, material );
 	scene.add( mesh );

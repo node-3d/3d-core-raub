@@ -10,7 +10,6 @@ const Vec2 = require('./vec2');
  * @extends Vec2
  */
 class Vec3 extends Vec2 {
-	
 	/**
 	 * @constructs Vec3
 	 * @desc Takes three numbers, or single array, or an object with `.x`, `.y`, and `.z` properties.
@@ -21,14 +20,13 @@ class Vec3 extends Vec2 {
 	 * @arg {Number} [z=0]
 	 */
 	constructor(x, y, z) {
-		
 		const args = arguments;
 		
 		super(x, y, z);
 		
 		this.z = 0;
 		
-		if ( ! args.length ) {
+		if (!args.length) {
 			return;
 		}
 		
@@ -60,8 +58,6 @@ class Vec3 extends Vec2 {
 			this.z = (typeof args[2] === 'number') ? args[2] : args[0];
 			
 		}
-		
-		
 	}
 	
 	/**
@@ -148,8 +144,6 @@ class Vec3 extends Vec2 {
 	
 	/** @override */
 	toString() { return 'Vec3(' + this[0] + ', ' + this[1] + ', ' + this[2] + ')'; }
-	
-	
 }
 
 module.exports = Vec3;

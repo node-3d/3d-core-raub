@@ -22,7 +22,6 @@ const staticClasses = {
 	
 	Cloud: {
 		create({ screen }) {
-			
 			const vertices = [];
 			for (let i = 30; i > 0; i--) {
 				vertices.push( Math.random() * 2000 - 1000 );
@@ -47,7 +46,6 @@ const staticClasses = {
 	
 	Points: {
 		create({ screen }) {
-			
 			const vertices = [];
 			for (let i = 30; i > 0; i--) {
 				vertices.push( Math.random() * 2000 - 1000 );
@@ -64,7 +62,6 @@ const staticClasses = {
 	
 	Lines: {
 		create({ screen }) {
-			
 			const vertices = [];
 			for (let i = 30; i > 0; i--) {
 				vertices.push( Math.random() * 2000 - 1000 );
@@ -81,7 +78,6 @@ const staticClasses = {
 	
 	Tris: {
 		create({ screen }) {
-			
 			const vertices = [];
 			for (let i = 30; i > 0; i--) {
 				vertices.push( Math.random() * 2000 - 1000 );
@@ -125,13 +121,10 @@ const staticClasses = {
 		],
 		methods: [],
 	},
-	
-
 };
 
 
 const initedClasses = {
-	
 	Image: {
 		create() {
 			return new Image();
@@ -155,21 +148,17 @@ const initedClasses = {
 		props: ['body'],
 		methods: ['createElement'],
 	},
-	
 };
 
 
 describe('Node.js 3D Core', () => {
-	
 	it('exports an object', () => {
 		expect(typeof inited).toBe('object');
 	});
 	
-	
 	describe('Static classes', () => {
-		
 		Object.keys(staticClasses).forEach(
-			c => {
+			(c) => {
 				it(`${c} is exported`, () => {
 					expect(typeof inited[c]).toBe('function');
 				});
@@ -178,8 +167,7 @@ describe('Node.js 3D Core', () => {
 		
 		const screen = new Screen();
 		
-		Object.keys(staticClasses).forEach(c => describe(c, () => {
-			
+		Object.keys(staticClasses).forEach((c) => describe(c, () => {
 			const current = staticClasses[c];
 			const instance = current.create({ screen });
 			
@@ -187,45 +175,36 @@ describe('Node.js 3D Core', () => {
 				expect(instance).toBeInstanceOf(inited[c]);
 			});
 			
-			
-			current.props.forEach(prop => {
+			current.props.forEach((prop) => {
 				it(`#${prop} property exposed`, () => {
 					expect(instance).toHaveProperty(prop);
 				});
 			});
 			
-			current.methods.forEach(method => {
+			current.methods.forEach((method) => {
 				it(`#${method}() method exposed`, () => {
 					expect(typeof instance[method]).toBe('function');
 				});
 			});
-			
 		}));
-		
 	});
 	
-	
 	describe('Inited classes', () => {
-		
 		Object.keys(initedClasses).forEach(
-			c => {
+			(c) => {
 				it(`${c} is exported`, () => {
 					expect(typeof inited[c]).toBe('function');
 				});
 			}
 		);
 		
-		Object.keys(initedClasses).forEach(c => describe(c, () => {
-			
+		Object.keys(initedClasses).forEach((c) => describe(c, () => {
 			const current = initedClasses[c];
 			const instance = current.create();
 			
 			it('can be created', () => {
 				expect(instance).toBeInstanceOf(inited[c]);
 			});
-			
 		}));
-		
 	});
-	
 });

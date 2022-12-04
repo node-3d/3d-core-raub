@@ -12,10 +12,9 @@ loop(() => screen.draw());
 
 const brush = new Brush({ screen, color: 0x00FF00 });
 
-screen.on('mousemove', e => brush.pos = [e.x, e.y]);
+screen.on('mousemove', (e) => brush.pos = [e.x, e.y]);
 
-screen.on('keydown', e => {
-	
+screen.on('keydown', (e) => {
 	if (e.keyCode === F_KEY && e.ctrlKey && e.shiftKey) {
 		screen.mode = 'windowed';
 	} else if (e.keyCode === F_KEY && e.ctrlKey && e.altKey) {
@@ -25,5 +24,4 @@ screen.on('keydown', e => {
 	} else {
 		return;
 	}
-	
 });

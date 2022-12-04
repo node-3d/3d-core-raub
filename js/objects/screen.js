@@ -88,7 +88,7 @@ class Screen extends EventEmitter {
 			this.title = opts.title;
 		}
 		
-		if ( ! opts.camera ) {
+		if (!opts.camera) {
 			this._camera = new this.three.PerspectiveCamera(
 				45, this.width / this.height, 5, 100000000
 			);
@@ -97,14 +97,14 @@ class Screen extends EventEmitter {
 			this._camera = opts.camera;
 		}
 		
-		if ( ! opts.scene ) {
+		if (!opts.scene) {
 			this._scene = new this.three.Scene();
 		} else {
 			this._scene = opts.scene;
 		}
 		
 		
-		if ( ! opts.renderer ) {
+		if (!opts.renderer) {
 			this._autoRenderer = true;
 			this._renderer = new this.three.WebGLRenderer({
 				
@@ -139,7 +139,7 @@ class Screen extends EventEmitter {
 		});
 		
 		['keydown', 'keyup', 'mousedown', 'mouseup', 'mousemove','mousewheel'].forEach(
-			type => this.document.on(type, e => this.emit(type, e))
+			(type) => this.document.on(type, (e) => this.emit(type, e))
 		);
 		
 		this.context.enable(0x8861); // GL_POINT_SPRITE 0x8861

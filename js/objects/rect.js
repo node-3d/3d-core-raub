@@ -116,7 +116,7 @@ class Rect extends Drawable {
 			geometry.translate(w * 0.5, h * 0.5, 0);
 			
 		} else {
-			geometry = new this.screen.three.PlaneBufferGeometry(w, h);
+			geometry = new this.screen.three.PlaneGeometry(w, h);
 			geometry.rotateX(Math.PI);
 			geometry.translate(w * 0.5, h * 0.5, 0);
 		}

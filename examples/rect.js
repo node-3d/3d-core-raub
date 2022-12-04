@@ -10,8 +10,7 @@ loop(() => screen.draw());
 
 const F_KEY = 70;
 
-screen.on('keydown', e => {
-	
+screen.on('keydown', (e) => {
 	if (e.keyCode === F_KEY && e.ctrlKey && e.shiftKey) {
 		screen.mode = 'windowed';
 	} else if (e.keyCode === F_KEY && e.ctrlKey && e.altKey) {
@@ -21,7 +20,6 @@ screen.on('keydown', e => {
 	} else {
 		return;
 	}
-	
 });
 
 
@@ -41,8 +39,7 @@ let isMoving = false;
 screen.on('mousedown', () => isMoving = true);
 screen.on('mouseup', () => isMoving = false);
 
-screen.on('mousemove', e => {
-	
+screen.on('mousemove', (e) => {
 	const dx = mouse.x - e.x;
 	const dy = mouse.y - e.y;
 	
@@ -51,10 +48,9 @@ screen.on('mousemove', e => {
 	
 	paint();
 	
-	if ( ! isMoving ) {
+	if (!isMoving) {
 		return;
 	}
 	
 	rect.pos = rect.pos.plused([-dx, dy]);
-	
 });

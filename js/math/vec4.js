@@ -10,7 +10,6 @@ const Vec2 = require('./vec2');
  * @extends Vec3
  */
 class Vec4 extends Vec3 {
-	
 	/**
 	 * @constructs Vec4
 	 * @desc Takes four numbers, or single array, or an object with `.x`, `.y`, `.z`, and `.w` properties.
@@ -23,37 +22,29 @@ class Vec4 extends Vec3 {
 	 * @arg {Number} [w=0]
 	 */
 	constructor(x, y, z, w) {
-		
 		const args = arguments;
 		
 		super(x, y, z);
 		
 		this.w = 1;
 		
-		if ( ! args.length ) {
+		if (!args.length) {
 			return;
 		}
 		
 		if (typeof args[0] === 'object') {
-			
 			this.w = Vec4.wFromObject(args);
-			
 		} else if (typeof args[0] === 'number') {
-			
 			if (isNaN(args[0])) {
 				return;
 			}
 			
 			this.w = (typeof args[3] === 'number') ? w : args[0];
-			
 		}
-		
-		
 	}
 	
 	
 	static wFromObject(args) {
-		
 		if (args[0] === null) {
 			return 1;
 		}
@@ -76,7 +67,6 @@ class Vec4 extends Vec3 {
 				return args[1];
 			}
 		}
-		
 	}
 	
 	
@@ -184,8 +174,6 @@ class Vec4 extends Vec3 {
 	toString() {
 		return 'Vec4(' + this[0] + ', ' + this[1] + ', ' + this[2] + ', ' + this[3] + ')';
 	}
-	
-	
 }
 
 module.exports = Vec4;

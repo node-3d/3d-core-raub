@@ -10,7 +10,6 @@ const Vec3 = require('./vec3');
  * @extends Vec4
  */
 class Color extends Vec4 {
-	
 	/**
 	 * @constructs Color
 	 * @desc Takes four numbers, or single array, or an object with `.r`, `.g`, `.b`, and `.a` properties.
@@ -24,7 +23,6 @@ class Color extends Vec4 {
 	 * @arg {Number} [w=0]
 	 */
 	constructor() {
-		
 		const args = arguments;
 		
 		let method = 'rgbaFromEmpty';
@@ -42,7 +40,6 @@ class Color extends Vec4 {
 		const { r, g, b, a } = Color[method](args);
 		
 		super(r, g, b, a);
-		
 	}
 	
 	
@@ -58,7 +55,6 @@ class Color extends Vec4 {
 	
 	
 	static rgbaFromObject(args) {
-		
 		let r = 0, g = 0, b = 0, a = 1;
 		
 		if (args[0] === null) {
@@ -92,12 +88,10 @@ class Color extends Vec4 {
 		a = Color.clampTo1(a);
 		
 		return { r, g, b, a };
-		
 	}
 	
 	
 	static rgbaFromFloats(args) {
-		
 		let r = 0, g = 0, b = 0, a = 1;
 		
 		if (isNaN(args[0])) {
@@ -124,12 +118,10 @@ class Color extends Vec4 {
 		a = Color.clampTo1(a);
 		
 		return { r, g, b, a };
-		
 	}
 	
 	
 	static rgbaFromString(args) {
-		
 		let r = 0, g = 0, b = 0, a = 1;
 		
 		let rest = 0;
@@ -159,7 +151,6 @@ class Color extends Vec4 {
 		a = Color.clampTo1(a);
 		
 		return { r, g, b, a };
-		
 	}
 	
 	
@@ -269,8 +260,6 @@ class Color extends Vec4 {
 		const r = Math.round(255 * this.r);
 		return (r > 15 ? '' : '0') + this.hexA;
 	}
-	
-	
 }
 
 module.exports = Color;

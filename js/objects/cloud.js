@@ -4,7 +4,6 @@ const Drawable = require('./drawable');
 
 
 class Cloud extends Drawable {
-	
 	/**
 	 * Create an instance of Cloud.
 	 *
@@ -17,9 +16,7 @@ class Cloud extends Drawable {
 	 *
 	 */
 	constructor(opts) {
-		
 		super(opts);
-		
 	}
 	
 	
@@ -39,20 +36,17 @@ class Cloud extends Drawable {
 	
 	
 	_geo(opts) {
-		
 		const geo = new this.screen.three.BufferGeometry();
 		
-		Object.keys(opts.attrs).forEach(key => {
+		Object.keys(opts.attrs).forEach((key) => {
 			geo.setAttribute(key, this.buildAttr(opts.attrs[key], opts.count));
 		});
 		
 		return geo;
-		
 	}
 	
 	
 	_mat(opts) {
-		
 		const uniforms = {
 			...(opts.uniforms || null),
 			winh : { type: 'f' , value: this.screen.height },
@@ -71,7 +65,6 @@ class Cloud extends Drawable {
 			fragmentShader : this.buildFrag(opts),
 			
 		});
-		
 	}
 	
 	
@@ -146,7 +139,6 @@ class Cloud extends Drawable {
 		points.frustumCulled = false;
 		return points;
 	}
-	
 }
 
 

@@ -9,8 +9,7 @@ const screen = new Screen();
 
 const F_KEY = 70;
 
-screen.on('keydown', e => {
-	
+screen.on('keydown', (e) => {
 	if (e.keyCode === F_KEY && e.ctrlKey && e.shiftKey) {
 		screen.mode = 'windowed';
 	} else if (e.keyCode === F_KEY && e.ctrlKey && e.altKey) {
@@ -20,7 +19,6 @@ screen.on('keydown', e => {
 	} else {
 		return;
 	}
-	
 });
 
 
@@ -41,7 +39,7 @@ const mesh = new three.Mesh(geometry, material);
 screen.scene.add( mesh );
 
 const pointLight = new three.PointLight(0xFFFFFF, 1, 100000);
-screen.scene.add( pointLight );
+screen.scene.add(pointLight);
 pointLight.position.x = 200;
 pointLight.position.y = 2000;
 pointLight.position.z = 500;

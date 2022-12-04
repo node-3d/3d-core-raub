@@ -2,7 +2,6 @@
 
 
 class WebVRManager {
-	
 	get enabled() { return false; }
 	
 	constructor() {}
@@ -12,7 +11,6 @@ class WebVRManager {
 	setAnimationLoop() {}
 	getCamera() { return {}; }
 	submitFrame() {}
-	
 }
 
 

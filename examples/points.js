@@ -10,8 +10,7 @@ const F_KEY = 70;
 const screen = new Screen();
 loop(() => screen.draw());
 
-screen.on('keydown', e => {
-	
+screen.on('keydown', (e) => {
 	if (e.keyCode === F_KEY && e.ctrlKey && e.shiftKey) {
 		screen.mode = 'windowed';
 	} else if (e.keyCode === F_KEY && e.ctrlKey && e.altKey) {
@@ -21,7 +20,6 @@ screen.on('keydown', e => {
 	} else {
 		return;
 	}
-	
 });
 
 
@@ -45,38 +43,33 @@ gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
 
 
 const points = new Points({
-	
 	screen,
-	
 	size  : '7.0',
 	count : VBO_SIZE,
 	attrs : {
-		position : { vbo: pos, items: 3 },
-		color    : { vbo: rgb, items: 3 },
+		position: { vbo: pos, items: 3 },
+		color: { vbo: rgb, items: 3 },
 	},
-	
 });
 
 
 let isMoving = false;
 let mouse = { x: 0, y: 0 };
 
-screen.on('mousedown', () => isMoving = true);
-screen.on('mouseup', () => isMoving = false);
+screen.on('mousedown', () => { isMoving = true; });
+screen.on('mouseup', () => { isMoving = false; });
 
-screen.on('mousemove', e => {
-	
+screen.on('mousemove', (e) => {
 	const dx = mouse.x - e.x;
 	const dy = mouse.y - e.y;
 	
 	mouse.x = e.x;
 	mouse.y = e.y;
 	
-	if ( ! isMoving ) {
+	if (!isMoving) {
 		return;
 	}
 	
 	points.mesh.rotation.y += dx * 0.001;
 	points.mesh.rotation.x += dy * 0.001;
-	
 });

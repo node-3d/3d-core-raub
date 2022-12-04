@@ -11,8 +11,7 @@ const screen = new Screen();
 
 const F_KEY = 70;
 
-screen.on('keydown', e => {
-	
+screen.on('keydown', (e) => {
 	if (e.keyCode === F_KEY && e.ctrlKey && e.shiftKey) {
 		screen.mode = 'windowed';
 	} else if (e.keyCode === F_KEY && e.ctrlKey && e.altKey) {
@@ -22,7 +21,6 @@ screen.on('keydown', e => {
 	} else {
 		return;
 	}
-	
 });
 
 
@@ -35,56 +33,37 @@ var windowHalfY = screen.height / 2;
 
 let cloud = null;
 
-start();
 
-function start() {
-	
-	camera = new three.PerspectiveCamera( 75, screen.width / screen.height, 1, 3000 );
-	camera.position.z = 1000;
-	scene = new three.Scene();
-	scene.fog = new three.FogExp2( 0x000000, 0.0007 );
-	
-	cloud = addCloud();
-	
-	screen.document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-	screen.document.addEventListener( 'touchstart', onDocumentTouchStart, false );
-	screen.document.addEventListener( 'touchmove', onDocumentTouchMove, false );
-	
-	screen.document.addEventListener( 'resize', onWindowResize, false );
-	
-}
-
-function onWindowResize() {
+const onWindowResize = () => {
 	windowHalfX = screen.width / 2;
 	windowHalfY = screen.height / 2;
 	camera.aspect = screen.width / screen.height;
 	camera.updateProjectionMatrix();
-}
+};
 
-function onDocumentMouseMove( event ) {
+const onDocumentMouseMove = (event) => {
 	mouseX = event.clientX - windowHalfX;
 	mouseY = event.clientY - windowHalfY;
-}
+};
 
-function onDocumentTouchStart( event ) {
+const onDocumentTouchStart = (event) => {
 	if ( event.touches.length === 1 ) {
 		event.preventDefault();
 		mouseX = event.touches[ 0 ].pageX - windowHalfX;
 		mouseY = event.touches[ 0 ].pageY - windowHalfY;
 	}
-}
+};
 
-function onDocumentTouchMove( event ) {
+const onDocumentTouchMove = (event) => {
 	if ( event.touches.length === 1 ) {
 		event.preventDefault();
 		mouseX = event.touches[ 0 ].pageX - windowHalfX;
 		mouseY = event.touches[ 0 ].pageY - windowHalfY;
 	}
-}
+};
 
 
-function render() {
-	
+const render = () => {
 	var time = Date.now() * 0.00005;
 	camera.position.x += ( mouseX - camera.position.x ) * 0.05;
 	camera.position.y += ( -mouseY - camera.position.y ) * 0.05;
@@ -99,12 +78,10 @@ function render() {
 	cloud.rotation.y = time * ( i < 4 ? i + 1 : -( i + 1 ) );
 	
 	screen.renderer.render( scene, camera );
-	
-}
+};
 
 
-function addCloud() {
-	
+const addCloud = () => {
 	const geo = new three.BufferGeometry();
 	geo.computeBoundingSphere = (() => {
 		geo.boundingSphere = new three.Sphere(undefined, Infinity);
@@ -133,8 +110,25 @@ function addCloud() {
 	scene.add( particles );
 	
 	return particles;
+};
+
+
+const start = () => {
+	camera = new three.PerspectiveCamera(75, screen.width / screen.height, 1, 3000);
+	camera.position.z = 1000;
+	scene = new three.Scene();
+	scene.fog = new three.FogExp2( 0x000000, 0.0007 );
 	
-}
+	cloud = addCloud();
+	
+	screen.document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+	screen.document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+	screen.document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+	
+	screen.document.addEventListener( 'resize', onWindowResize, false );
+};
+
+start();
 
 
 loop(render);

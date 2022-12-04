@@ -11,8 +11,7 @@ const screen = new Screen();
 
 const F_KEY = 70;
 
-screen.on('keydown', e => {
-	
+screen.on('keydown', (e) => {
 	if (e.keyCode === F_KEY && e.ctrlKey && e.shiftKey) {
 		screen.mode = 'windowed';
 	} else if (e.keyCode === F_KEY && e.ctrlKey && e.altKey) {
@@ -22,7 +21,6 @@ screen.on('keydown', e => {
 	} else {
 		return;
 	}
-	
 });
 
 
@@ -47,15 +45,12 @@ gl.bindBuffer(gl.ARRAY_BUFFER, rgb1);
 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors1), gl.STATIC_DRAW);
 
 const lines1 = new Lines({
-	
 	screen,
-	
 	count : VBO_SIZE,
 	attrs : {
-		position : { vbo: pos1, items: 3 },
-		color    : { vbo: rgb1, items: 3 },
+		position: { vbo: pos1, items: 3 },
+		color : { vbo: rgb1, items: 3 },
 	},
-	
 });
 
 
@@ -75,16 +70,13 @@ gl.bindBuffer(gl.ARRAY_BUFFER, rgb2);
 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors2), gl.STATIC_DRAW);
 
 const lines2 = new Lines({
-	
 	screen,
-	
 	mode  : 'segments',
 	count : VBO_SIZE,
 	attrs : {
-		position : { vbo: pos2, items: 3 },
-		color    : { vbo: rgb2, items: 3 },
+		position: { vbo: pos2, items: 3 },
+		color: { vbo: rgb2, items: 3 },
 	},
-	
 });
 
 
@@ -104,16 +96,13 @@ gl.bindBuffer(gl.ARRAY_BUFFER, rgb3);
 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors3), gl.STATIC_DRAW);
 
 const lines3 = new Lines({
-	
 	screen,
-	
 	mode  : 'loop',
 	count : VBO_SIZE,
 	attrs : {
-		position : { vbo: pos3, items: 3 },
-		color    : { vbo: rgb3, items: 3 },
+		position: { vbo: pos3, items: 3 },
+		color: { vbo: rgb3, items: 3 },
 	},
-	
 });
 
 
@@ -123,15 +112,14 @@ let mouse = { x: 0, y: 0 };
 screen.on('mousedown', () => isMoving = true);
 screen.on('mouseup', () => isMoving = false);
 
-screen.on('mousemove', e => {
-	
+screen.on('mousemove', (e) => {
 	const dx = mouse.x - e.x;
 	const dy = mouse.y - e.y;
 	
 	mouse.x = e.x;
 	mouse.y = e.y;
 	
-	if ( ! isMoving ) {
+	if (!isMoving) {
 		return;
 	}
 	
@@ -143,5 +131,4 @@ screen.on('mousemove', e => {
 	
 	lines3.mesh.rotation.y += dx * 0.001;
 	lines3.mesh.rotation.x += dy * 0.001;
-	
 });

@@ -20,7 +20,7 @@ class Surface extends Rect {
 		
 		
 		// Create a different scene to hold our buffer objects
-		if ( ! opts.camera ) {
+		if (!opts.camera ) {
 			this._camera = new this.screen.three.PerspectiveCamera(
 				45,
 				this.width / this.height,
@@ -32,7 +32,7 @@ class Surface extends Rect {
 			this._camera = opts.camera;
 		}
 		
-		if ( ! opts.scene ) {
+		if (!opts.scene ) {
 			this._scene = new this.screen.three.Scene();
 		} else {
 			this._scene = opts.scene;

@@ -93,7 +93,7 @@ class Drawable {
 	
 	
 	_geo() {
-		return new this.screen.three.PlaneBufferGeometry(2,2);
+		return new this.screen.three.PlaneGeometry(2,2);
 	}
 	
 	

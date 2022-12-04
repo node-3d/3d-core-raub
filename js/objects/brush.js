@@ -5,15 +5,13 @@ const Drawable = require('./drawable');
 
 
 class Brush extends Drawable {
-	
 	constructor(opts) {
-		
 		super({ screen: opts.screen, color: opts.color });
 		
 		this._size = opts.size || 100;
 		this._pos = opts.pos || new Vec2();
 		
-		if (opts.visible !== undefined && ! opts.visible) {
+		if (opts.visible !== undefined && !opts.visible) {
 			this.visible = false;
 		}
 		
@@ -21,7 +19,6 @@ class Brush extends Drawable {
 			this._mesh.material.uniforms.aspect.value = this.screen.w / this.screen.h;
 			this._mesh.material.uniforms.size.value = this._size / this.screen.h;
 		});
-		
 	}
 	
 	
@@ -48,11 +45,9 @@ class Brush extends Drawable {
 	
 	get visible() { return super.visible; }
 	set visible(v) {
-		
 		super.visible = v;
 		
 		if (this.visible) {
-			
 			this._mesh.material.uniforms.pos.value = new this.screen.three.Vector2(
 				this._pos.x,
 				this._pos.y
@@ -65,9 +60,7 @@ class Brush extends Drawable {
 				this._color.g,
 				this._color.b
 			);
-			
 		}
-		
 	}
 	
 	
@@ -85,8 +78,7 @@ class Brush extends Drawable {
 	
 	
 	_geo() {
-		
-		const geo = new this.screen.three.PlaneBufferGeometry(2, 2);
+		const geo = new this.screen.three.PlaneGeometry(2, 2);
 		geo.computeBoundingSphere =
 			() => geo.boundingSphere = new this.screen.three.Sphere(
 				undefined, Infinity
@@ -95,22 +87,18 @@ class Brush extends Drawable {
 		geo.computeBoundingBox = () => geo.boundingBox = new this.screen.three.Box3();
 		geo.computeBoundingBox();
 		return geo;
-		
 	}
 	
 	
 	_mat() {
 		return new this.screen.three.ShaderMaterial({
-			
 			side: this.screen.three.DoubleSide,
-			
 			uniforms: {
 				aspect : { type: 'f', value: this.screen.w / this.screen.h },
 				size   : { type: 'f', value: 100 / this.screen.h },
 				pos    : { type: 'v2', value: new this.screen.three.Vector2(0, 0) },
 				color  : { type: 'v3', value: new this.screen.three.Vector3(0, 1, 1) },
 			},
-			
 			vertexShader: `
 				varying vec3 projPos;
 				
@@ -120,7 +108,6 @@ class Brush extends Drawable {
 					gl_Position = vec4(position.xyz, 1.0);
 				}
 			`,
-			
 			fragmentShader: `
 				varying vec3 projPos;
 				
@@ -138,11 +125,9 @@ class Brush extends Drawable {
 					gl_FragColor = vec4(color, opacity);
 				}
 			`,
-			
 			blending   : this.screen.three.AdditiveBlending,
 			depthTest  : false,
 			transparent: true,
-			
 		});
 	}
 	
@@ -150,7 +135,6 @@ class Brush extends Drawable {
 	_build(opts) {
 		return new this.screen.three.Mesh(this._geo(opts), this._mat(opts));
 	}
-	
 }
 
 module.exports = Brush;
