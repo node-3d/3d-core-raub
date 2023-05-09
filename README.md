@@ -1,25 +1,22 @@
-
 # Node.js 3D Core
 
 This is a part of [Node3D](https://github.com/node-3d) project.
 
-[![NPM](https://nodei.co/npm/3d-core-raub.png?compact=true)](https://www.npmjs.com/package/3d-core-raub)
+[![NPM](https://badge.fury.io/js/3d-core-raub.svg)](https://badge.fury.io/js/3d-core-raub)
 [![CodeFactor](https://www.codefactor.io/repository/github/node-3d/3d-core-raub/badge)](https://www.codefactor.io/repository/github/node-3d/3d-core-raub)
 
 ```
 npm i 3d-core-raub
 ```
 
-
-## Synopsis
-
-Launch **Node.js** in **WebGL** mode.
+Run **WebGL** code on **Node.js**.
 
 ![Example](examples/screenshot.png)
 
 * Shipped together with [three.js](https://github.com/mrdoob/three.js) for convenience.
-* Multiple windows are supported, with the help of [GLFW](http://www.glfw.org/).
-* WebGL implementation is also using [GLEW](http://glew.sourceforge.net/).
+* Multiple windows are supported, using [GLFW](http://www.glfw.org/) for window management.
+* WebGL implementation is fake - just a tiny wrapper around normal OpenGL.
+* The C++ bindings use [GLEW](http://glew.sourceforge.net/) to access all the OpenGL functions.
 * Image loading uses [FreeImage](http://freeimage.sourceforge.net/) encoder/decoder.
 * Window icons are supported and both JS- and Image-friendly.
 
@@ -27,8 +24,6 @@ Launch **Node.js** in **WebGL** mode.
 different Node.js versions. Addon binaries are precompiled and **there is no compilation**
 step during the `npm i` command.
 
-
-## Usage
 
 This module directly exports only one function - `init()`. Call it with or without
 custom options to start with the first window and acquire all the features.
@@ -44,7 +39,7 @@ const brush = new Brush({ screen, color: 0x00FF00 });
 screen.on('mousemove', e => brush.pos = [e.x, e.y]);
 ```
 
-### init(opts = {})
+## `init(opts = {})`
 
 Initialize Node3D. Creates the first window and sets up the global environment.
 This function can be called repeatedly, but will ignore further calls.
