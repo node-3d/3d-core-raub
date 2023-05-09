@@ -1,0 +1,9 @@
+{
+  "name": "pixi-example",
+	"version": "0.0.0",
+	"private": true,
+  "main": "index.js",
+  "dependencies": {
+    "pixi.js": "^7.2.4"
+  }
+}
