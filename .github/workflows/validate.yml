@@ -26,7 +26,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.17.0
+          node-version: 18.16.0
           cache: 'npm'
 
       - name: Install Modules
@@ -36,6 +36,6 @@ jobs:
         run: npm run eslint
 
       - name: Run Unit Tests
-        uses: GabrielBB/xvfb-action@v1
+        uses: actions/setup-node@v3
         with:
           run: npm run test-ci
