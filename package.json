@@ -29,6 +29,7 @@
 		"npm": ">=9.5.1"
 	},
 	"scripts": {
+		"eslint": "eslint .",
 		"test": "jest --coverage=false --watch --config=conf/jest.json",
 		"test-ci": "jest --ci --runInBand --coverage=false --forceExit --detectOpenHandles --config=conf/jest.json",
 		"test-coverage": "rm -rf doc/jest && jest --coverage --silent --config=conf/jest.json"
