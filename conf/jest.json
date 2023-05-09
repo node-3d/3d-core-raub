@@ -1,0 +1,19 @@
+{
+    "rootDir": "../",
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+        "js",
+        "node"
+    ],
+    "testMatch": [
+        "<rootDir>/**/*.test.js"
+    ],
+    "coverageDirectory": "doc/jest",
+    "coverageReporters": [
+        "lcov"
+    ],
+    "collectCoverageFrom": [
+        "**/*.js",
+        "!**/*.test.js"
+    ]
+}
