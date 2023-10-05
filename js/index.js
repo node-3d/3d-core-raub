@@ -4,8 +4,6 @@
 const _init = (_opts = {}) => {
 	const opts = {
 		mode: 'windowed',
-		shaderHacks : [],
-		plugins: [],
 		webgl: _opts.webgl || require('webgl-raub'),
 		Image: _opts.Image || require('image-raub'),
 		glfw: _opts.glfw || require('glfw-raub'),
@@ -22,49 +20,70 @@ const _init = (_opts = {}) => {
 		location,
 		navigator,
 		WebVRManager,
-		width,
-		height,
-		display,
-		vsync,
-		autoIconify,
-		fullscreen,
-		mode,
-		decorated,
-		msaa,
-		icon,
-		title,
+		isWebGL2,
+		isGles3,
+		isVisible,
+		...optsDoc
 	} = opts;
 	
 	const { Document, Window } = glfw;
 	
-	const shaderHacks = [...opts.shaderHacks];
-	
 	Document.setWebgl(webgl);
 	Document.setImage(Image);
+	if (!Image.prototype.fillRect) {
+		Image.prototype.fillRect = () => {};
+	}
 	
-	const doc = new Document({
-		width,
-		height,
-		display,
-		vsync,
-		autoIconify,
-		fullscreen,
-		mode,
-		decorated,
-		msaa,
-		icon,
-		title,
-	});
-	const canvas = doc;
-	const gl = webgl;
+	if (isWebGL2) {
+		// eslint-disable-next-line func-names
+		webgl.WebGL2RenderingContext = function WebGL2RenderingContext(_) { this._ = _; };
+		global.WebGL2RenderingContext = webgl.WebGL2RenderingContext;
+		Object.setPrototypeOf(webgl, webgl.WebGL2RenderingContext.prototype);
+	}
 	
-	// gl.WebGL2RenderingContext = function WebGL2RenderingContext(_) { this._ = _; };
-	// global.WebGL2RenderingContext = gl.WebGL2RenderingContext;
-	// // gl.prototype = gl.prototype || {};
-	// Object.setPrototypeOf(gl, gl.WebGL2RenderingContext.prototype);
-	// // gl.constructor = gl.WebGL2RenderingContext;
-	// console.log('test', gl instanceof global.WebGL2RenderingContext);
+	const onBeforeWindow = (window, glfw) => {
+		if (isGles3) {
+			glfw.windowHint(glfw.OPENGL_PROFILE, glfw.OPENGL_ANY_PROFILE);
+			glfw.windowHint(glfw.CONTEXT_VERSION_MAJOR, 3);
+			glfw.windowHint(glfw.CONTEXT_VERSION_MINOR, 2);
+			glfw.windowHint(glfw.CLIENT_API, glfw.OPENGL_ES_API);
+		}
+		
+		if (isVisible === false) {
+			glfw.windowHint(glfw.VISIBLE, glfw.FALSE);
+		}
+		
+		if (optsDoc.onBeforeWindow) {
+			optsDoc.onBeforeWindow(window, glfw);
+		}
+	};
 	
+	if (!isGles3) {
+		const shaderSource = webgl.shaderSource;
+		webgl.shaderSource = (shader, code) => shaderSource(
+			shader,
+			code.replace(
+				/^\s*?(#version|precision).*?($|;)/gm, ''
+			).replace(
+				/^/, '#version 120\n'
+			).replace(
+				/gl_FragDepthEXT/g, 'gl_FragDepth'
+			).replace(
+				'#extension GL_EXT_frag_depth : enable', ''
+			).replace(
+				/\bhighp\s+/g, ''
+			)
+		);
+	}
+	
+	const doc = new Document({ ...optsDoc, onBeforeWindow });
+	
+	webgl.init();
+	
+	global.self = global;
+	global.globalThis = global;
+	global.addEventListener = doc.addEventListener.bind(doc);
+	global.removeEventListener = doc.removeEventListener.bind(doc);
 	global.document = doc;
 	global.window = doc;
 	global.cwrap = null;
@@ -73,28 +92,7 @@ const _init = (_opts = {}) => {
 	global.navigator = navigator;
 	global.WebVRManager = WebVRManager;
 	global.Image = Image;
-	global._gl = gl;
-	
-	// Hack for three.js, adjust shaders
-	const _shaderSource = gl.shaderSource;
-	gl.shaderSource = (shader, string) => _shaderSource(
-		shader,
-		shaderHacks.reduce(
-			(accum, hack) => {
-				if (typeof hack.search === 'object') {
-					hack.search.lastIndex = 0;
-				}
-				return accum.replace(hack.search, hack.replace);
-			},
-			string,
-		),
-	);
-	
-	// Require THREE after Document and GL are ready
-	const three = opts.three || opts.THREE || require('three');
-	global.THREE = three;
-	
-	require('./core/threejs-helpers')(three, gl);
+	global._gl = webgl;
 	
 	const loop = (cb) => {
 		let i = 0;
@@ -107,52 +105,24 @@ const _init = (_opts = {}) => {
 		doc.requestAnimationFrame(animation);
 	};
 	
-	gl.canvas = canvas;
-	gl.getContextAttributes = () => ({
-		alpha: true,
-		antialias: true,
-		depth: true,
-		failIfMajorPerformanceCaveat: false,
-		powerPreference: 'default',
-		premultipliedAlpha: true,
-		preserveDrawingBuffer: false,
-		stencil: false,
-		desynchronized: false
-	});
+	webgl.canvas = doc;
 	
 	const core3d = {
 		Image,
 		Document,
 		Window,
-		gl,
-		webgl,
-		context: gl,
+		gl: webgl,
 		glfw,
 		doc,
-		canvas,
+		canvas: doc,
 		document: doc,
 		window: doc,
-		three,
-		THREE: three,
 		loop,
 		requestAnimationFrame : doc.requestAnimationFrame,
-		frame: doc.requestAnimationFrame,
+		addThreeHelpers,
 		...require('./math'),
 		...require('./objects'),
-		...(opts.extend || null),
 	};
-	
-	opts.plugins.forEach((plugin) => {
-		if (typeof plugin === 'object' && plugin.name) {
-			const initPlugin = require(plugin.name);
-			initPlugin(core3d, plugin.opts || {});
-		} else if (typeof plugin === 'string') {
-			const initPlugin = require(plugin);
-			initPlugin(core3d, {});
-		} else if (typeof plugin === 'function') {
-			plugin(core3d);
-		}
-	});
 	
 	return core3d;
 };
@@ -167,4 +137,11 @@ const init = (opts) => {
 	return inited;
 };
 
-module.exports = init;
+const addThreeHelpers = (three, webgl) => {
+	require('./core/threejs-helpers')(three, webgl);
+};
+
+module.exports = {
+	init,
+	addThreeHelpers,
+};

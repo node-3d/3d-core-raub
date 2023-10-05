@@ -1,6 +1,6 @@
 'use strict';
 
-const init = require('..');
+const { init } = require('..');
 
 
 const inited = init();
@@ -9,6 +9,7 @@ const {
 	Brush, Cloud, Drawable, Lines, Points, Rect, Screen, Surface, Tris,
 } = inited;
 
+const three = {};
 
 const staticClasses = {
 	
@@ -102,7 +103,7 @@ const staticClasses = {
 	
 	Screen: {
 		create() {
-			return new Screen();
+			return new Screen({ three });
 		},
 		props: [
 			'three', 'canvas', 'camera', 'scene', 'renderer', 'context',
@@ -165,7 +166,7 @@ describe('Node.js 3D Core', () => {
 			}
 		);
 		
-		const screen = new Screen();
+		const screen = new Screen({ three });
 		
 		Object.keys(staticClasses).forEach((c) => describe(c, () => {
 			const current = staticClasses[c];

@@ -1,13 +1,14 @@
 'use strict';
 
-const init = require('..');
+const three = require('three');
+const { init } = require('..');
 
 
 const { Screen, Lines, loop, gl } = init();
 
 const VBO_SIZE = 10;
 
-const screen = new Screen();
+const screen = new Screen({ three });
 
 const F_KEY = 70;
 
@@ -26,13 +27,13 @@ screen.on('keydown', (e) => {
 
 loop(() => screen.draw());
 
-screen.camera.position.z = 3000;
+screen.camera.position.z = 300;
 
 
 const vertices1 = [];
 const colors1 = [];
 for (let i = VBO_SIZE; i > 0; i--) {
-	vertices1.push( Math.random() * 2000 - 1000, Math.random() * 700 - 1200, Math.random() * 2000 - 1000 );
+	vertices1.push( Math.random() * 200 - 100, Math.random() * 70 - 120, Math.random() * 200 - 100 );
 	colors1.push( Math.random(), Math.random(), Math.random() );
 }
 
@@ -57,7 +58,7 @@ const lines1 = new Lines({
 const vertices2 = [];
 const colors2 = [];
 for (let i = VBO_SIZE; i > 0; i--) {
-	vertices2.push( Math.random() * 2000 - 1000, Math.random() * 700 - 500, Math.random() * 2000 - 1000 );
+	vertices2.push( Math.random() * 200 - 100, Math.random() * 70 - 50, Math.random() * 200 - 100 );
 	colors2.push( Math.random(), Math.random(), Math.random() );
 }
 
@@ -83,7 +84,7 @@ const lines2 = new Lines({
 const vertices3 = [];
 const colors3 = [];
 for (let i = VBO_SIZE; i > 0; i--) {
-	vertices3.push( Math.random() * 2000 - 1000, Math.random() * 700 + 300, Math.random() * 2000 - 1000 );
+	vertices3.push( Math.random() * 200 - 100, Math.random() * 70 + 30, Math.random() * 200 - 100 );
 	colors3.push( Math.random(), Math.random(), Math.random() );
 }
 
@@ -105,12 +106,12 @@ const lines3 = new Lines({
 	},
 });
 
-
 let isMoving = false;
 let mouse = { x: 0, y: 0 };
 
 screen.on('mousedown', () => isMoving = true);
 screen.on('mouseup', () => isMoving = false);
+
 
 screen.on('mousemove', (e) => {
 	const dx = mouse.x - e.x;

@@ -41,6 +41,7 @@ class Cloud extends Drawable {
 		Object.keys(opts.attrs).forEach((key) => {
 			geo.setAttribute(key, this.buildAttr(opts.attrs[key], opts.count));
 		});
+		geo.boundingSphere = new this.screen.three.Sphere(new this.screen.three.Vector3(), Infinity);
 		
 		return geo;
 	}
@@ -137,6 +138,7 @@ class Cloud extends Drawable {
 	_build(opts) {
 		const points = new this.screen.three.Points(this._geo(opts), this._mat(opts));
 		points.frustumCulled = false;
+		points.boundingSphere = new this.screen.three.Sphere(new this.screen.three.Vector3(), Infinity);
 		return points;
 	}
 }

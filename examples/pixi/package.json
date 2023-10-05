@@ -4,6 +4,6 @@
 	"private": true,
   "main": "index.js",
   "dependencies": {
-    "pixi.js": "^7.2.4"
+    "pixi.js": "^7.3.1"
   }
 }

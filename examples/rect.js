@@ -1,12 +1,15 @@
 'use strict';
 
-const init = require('..');
+const three = require('three');
+const { init } = require('..');
 
 
 const { Screen, Rect, loop } = init();
 
-const screen = new Screen();
+const screen = new Screen({ three });
 loop(() => screen.draw());
+
+screen.camera.position.z = 500;
 
 const F_KEY = 70;
 

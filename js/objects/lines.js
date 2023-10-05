@@ -56,6 +56,7 @@ class Lines extends Cloud {
 		})();
 		const lines = new Ctor(this._geo(opts), this._mat(opts));
 		lines.frustumCulled = false;
+		lines.boundingSphere = new this.screen.three.Sphere(new this.screen.three.Vector3(), Infinity);
 		return lines;
 	}
 	

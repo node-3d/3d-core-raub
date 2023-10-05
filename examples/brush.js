@@ -1,13 +1,14 @@
 'use strict';
 
-const init = require('..');
+const three = require('three');
+const { init } = require('..');
 
 
 const { Screen, Brush, loop } = init();
 
 const F_KEY = 70;
 
-const screen = new Screen();
+const screen = new Screen({ three });
 loop(() => screen.draw());
 
 const brush = new Brush({ screen, color: 0x00FF00 });

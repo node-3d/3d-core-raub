@@ -90,9 +90,9 @@ class Screen extends EventEmitter {
 		
 		if (!opts.camera) {
 			this._camera = new this.three.PerspectiveCamera(
-				45, this.width / this.height, 5, 100000000
+				70, this.width / this.height, 0.1, 1000
 			);
-			this._camera.position.z = 1000;
+			this._camera.position.z = 10;
 		} else {
 			this._camera = opts.camera;
 		}

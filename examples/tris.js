@@ -1,14 +1,17 @@
 'use strict';
 
-const init = require('..');
+const three = require('three');
+const { init } = require('..');
 
 
 const { Screen, Tris, loop, gl } = init();
 
 const F_KEY = 70;
 
-const screen = new Screen();
+const screen = new Screen({ three });
 loop(() => screen.draw());
+
+screen.camera.position.z = 70;
 
 
 screen.on('keydown', (e) => {
@@ -30,7 +33,7 @@ const VBO_SIZE = 3000;
 const vertices = [];
 const colors = [];
 for (let i = VBO_SIZE * 3; i > 0; i--) {
-	vertices.push(Math.random() * 500 - 250);
+	vertices.push(Math.random() * 50 - 25);
 	colors.push(Math.random());
 }
 

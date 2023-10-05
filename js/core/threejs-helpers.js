@@ -33,17 +33,6 @@ module.exports = (three, gl) => {
 		});
 	};
 	
-	const _load = three.TextureLoader.prototype.load;
-	three.TextureLoader.prototype.load = function (url, onLoad, onProgress, onError) {
-		const cb = (tex) => {
-			tex.format = three.RGBAFormat;
-			if (onLoad) {
-				onLoad(tex);
-			}
-		};
-		return _load.call(this, url, cb, onProgress, onError);
-	};
-	
 	three.Texture.fromId = (id, renderer) => {
 		const rawTexture = gl.createTexture();
 		rawTexture._ = id;

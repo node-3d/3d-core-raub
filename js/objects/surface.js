@@ -8,7 +8,6 @@ const Vec2 = require('../math/vec2');
 
 class Surface extends Rect {
 	
-	
 	constructor(opts) {
 		
 		opts.pos = opts.pos || new Vec2(-300, -300);
@@ -22,12 +21,12 @@ class Surface extends Rect {
 		// Create a different scene to hold our buffer objects
 		if (!opts.camera ) {
 			this._camera = new this.screen.three.PerspectiveCamera(
-				45,
+				70,
 				this.width / this.height,
-				5,
-				50000
+				0.1,
+				1000
 			);
-			this._camera.position.z = 1000;
+			this._camera.position.z = 10;
 		} else {
 			this._camera = opts.camera;
 		}

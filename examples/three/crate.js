@@ -1,32 +1,37 @@
-const initCore = require('../..');
-const { THREE, window, document, requestAnimationFrame } = initCore();
+const three = require('three');
+const { init, addThreeHelpers } = require('../..');
 
+const { window, document, gl, requestAnimationFrame } = init();
+addThreeHelpers(three, gl);
 
-var camera, scene, renderer;
-var mesh;
-init();
+var camera, scene, renderer, mesh;
+
+initExample();
 animate();
-function init() {
-	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
-	camera.position.z = 400;
-	scene = new THREE.Scene();
-	var texture = new THREE.TextureLoader().load( __dirname + '/textures/crate.gif' );
-	var geometry = new THREE.BoxBufferGeometry( 200, 200, 200 );
-	var material = new THREE.MeshBasicMaterial( { map: texture } );
-	mesh = new THREE.Mesh( geometry, material );
+
+function initExample() {
+	camera = new three.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+	camera.position.z = 2;
+	scene = new three.Scene();
+	var texture = new three.TextureLoader().load( __dirname + '/textures/crate.gif' );
+	var geometry = new three.BoxGeometry();
+	var material = new three.MeshBasicMaterial( { map: texture } );
+	mesh = new three.Mesh( geometry, material );
 	scene.add( mesh );
-	renderer = new THREE.WebGLRenderer();
+	renderer = new three.WebGLRenderer();
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild( renderer.domElement );
-	//
+	
 	window.addEventListener( 'resize', onWindowResize, false );
 }
+
 function onWindowResize() {
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
 	renderer.setSize( window.innerWidth, window.innerHeight );
 }
+
 function animate() {
 	requestAnimationFrame( animate );
 	const time = Date.now();

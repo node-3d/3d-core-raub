@@ -81,7 +81,7 @@ class Points extends Cloud {
 				
 				float offs = length(gl_PointCoord.xy - vec2(0.5, 0.5));
 				float dist = clamp(1.0 - 2.0 * offs, 0.0, 1.0) * 0.2 * varSize;
-				dist = pow(dist, 5);
+				dist = pow(dist, 5.0);
 				gl_FragColor = vec4(varColor, dist);
 				
 				${

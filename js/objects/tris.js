@@ -49,6 +49,7 @@ class Tris extends Cloud {
 	_build(opts) {
 		const tris = new this.screen.three.Mesh(this._geo(opts), this._mat(opts));
 		tris.frustumCulled = false;
+		tris.boundingSphere = new this.screen.three.Sphere(new this.screen.three.Vector3(), Infinity);
 		return tris;
 	}
 	

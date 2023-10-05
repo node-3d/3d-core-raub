@@ -1,23 +1,28 @@
-const initCore = require('../..');
-const { THREE, window, document, requestAnimationFrame } = initCore();
+const { init, addThreeHelpers } = require('../..');
+const { window, document, gl, requestAnimationFrame } = init();
+
+const three = require('three');
+addThreeHelpers(three, gl);
 
 
 var camera, scene, renderer;
 var mesh;
 let prevTime = Date.now();
 
-init();
+initExample();
 animate();
-function init() {
-	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+function initExample() {
+	camera = new three.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	camera.position.z = 400;
-	scene = new THREE.Scene();
-	var texture = new THREE.TextureLoader().load( __dirname + '/textures/freeimage.jpg' );
-	var geometry = new THREE.PlaneGeometry( 200, 200 );
-	var material = new THREE.MeshBasicMaterial( { map: texture } );
-	mesh = new THREE.Mesh( geometry, material );
+	scene = new three.Scene();
+	
+	var texture = new three.TextureLoader().load( __dirname + '/textures/freeimage.jpg' );
+	var geometry = new three.PlaneGeometry( 200, 200 );
+	var material = new three.MeshBasicMaterial({ map: texture });
+	mesh = new three.Mesh( geometry, material );
 	scene.add( mesh );
-	renderer = new THREE.WebGLRenderer();
+	
+	renderer = new three.WebGLRenderer();
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild( renderer.domElement );

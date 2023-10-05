@@ -1,15 +1,16 @@
-import { Document, Window } from 'glfw-raub';
-import { Image, TImage } from 'image-raub';
+import glfw, { Document, Window } from 'glfw-raub';
+import webgl from 'webgl-raub';
+import { Image } from 'image-raub';
 
 import WebVRManager from './js/core/vr-manager';
 
 
 declare module "3d-core-raub" {
-	type TSomeObject = Readonly<{ [id: string]: unknown }>;
+	type TUnknownObject = Readonly<{ [id: string]: unknown }>;
 	
 	type TLocation = Readonly<{
 		href: string,
-		ancestorOrigins: TSomeObject,
+		ancestorOrigins: TUnknownObject,
 		origin: string,
 		protocol: string,
 		host: string,
@@ -24,8 +25,8 @@ declare module "3d-core-raub" {
 		appCodeName: string,
 		appName: string,
 		appVersion: string,
-		bluetooth: TSomeObject,
-		clipboard: TSomeObject,
+		bluetooth: TUnknownObject,
+		clipboard: TUnknownObject,
 		connection: {
 			onchange: null,
 			effectiveType: string,
@@ -34,21 +35,21 @@ declare module "3d-core-raub" {
 			saveData: boolean,
 		},
 		cookieEnabled: boolean,
-		credentials: TSomeObject,
+		credentials: TUnknownObject,
 		deviceMemory: number,
 		doNotTrack: null,
-		geolocation: TSomeObject,
+		geolocation: TUnknownObject,
 		hardwareConcurrency: number,
-		keyboard: TSomeObject,
+		keyboard: TUnknownObject,
 		language: string,
 		languages: string[],
-		locks: TSomeObject,
+		locks: TUnknownObject,
 		maxTouchPoints: number,
-		mediaCapabilities: TSomeObject,
+		mediaCapabilities: TUnknownObject,
 		mediaDevices: { ondevicechange: null },
 		mimeTypes: { length: number },
 		onLine: boolean,
-		permissions: TSomeObject,
+		permissions: TUnknownObject,
 		platform: string,
 		plugins: { length: number },
 		presentation: { defaultRequest: null, receiver: null },
@@ -60,7 +61,7 @@ declare module "3d-core-raub" {
 			oncontrollerchange: null,
 			onmessage: null
 		},
-		storage: TSomeObject,
+		storage: TUnknownObject,
 		usb: {
 			onconnect: null,
 			ondisconnect: null,
@@ -68,62 +69,118 @@ declare module "3d-core-raub" {
 		userAgent: string,
 		vendor: string,
 		vendorSub: string,
-		webkitPersistentStorage: TSomeObject,
-		webkitTemporaryStorage: TSomeObject,
+		webkitPersistentStorage: TUnknownObject,
+		webkitTemporaryStorage: TUnknownObject,
 	}>;
 	
-	type TInitOpts = Readonly<{
-		webgl?: TSomeObject,
-		Image?: Image,
-		glfw?: TSomeObject,
-		location?: TLocation,
-		navigator?: TNavigator,
-		WebVRManager?: WebVRManager,
-		width?: number,
-		height?: number,
-		display?: number,
-		vsync?: boolean,
-		autoIconify?: boolean,
-		fullscreen?: boolean,
-		mode?: string,
-		decorated?: boolean,
-		msaa?: number,
-		icon?: TImage,
-		title?: string,
-		shaderHacks?: unknown[],
-		three?: TSomeObject,
-		THREE?: TSomeObject,
-		extend?: TSomeObject,
-		plugins?: TSomeObject,
-	}>;
+	type TLoop = (cb: (i: number) => void) => void;
 	
 	type TCore3D = {
+		/**
+		 * Almost the same as `Image` in a browser. Also `document.createElement('img')`
+		 * does the same thing as `new Image()`. For more info see
+		 * [image-raub](https://github.com/node-3d/image-raub#image-for-nodejs).
+		 */
 		Image: typeof Image,
+		
+		/**
+		 * This constructor spawns a new platform window **with a web-document like interface**.
+		 * For more info see [glfw-raub](https://github.com/node-3d/glfw-raub#class-document).
+		 */
 		Document: typeof Document,
+		
+		/**
+		 * This constructor spawns a new OS window.
+		 * For more info see [glfw-raub](https://github.com/node-3d/glfw-raub#class-window).
+		 */
 		Window: typeof Window,
 		
-		gl: TSomeObject,
-		webgl: TSomeObject,
-		context: TSomeObject,
+		/**
+		 * A WebGL context instance. This is **almost** the same as real WebGL stuff.
+		 * For more info see [webgl-raub](https://github.com/node-3d/webgl-raub#webgl-for-nodejs).
+		 */
+		gl: typeof webgl,
 		
-		glfw: TSomeObject,
+		/**
+		 * Low level GLFW interface.
+		 * For more info see glfw-raub](https://github.com/node-3d/glfw-raub#glfw-for-nodejs)
+		 */
+		glfw: typeof glfw,
 		
+		/**
+		 * The default instance of Document - created automatically when `init()` is called.
+		 */
 		doc: Document,
+		
+		/**
+		 * @alias doc
+		 */
 		canvas: Document,
+		/**
+		 * @alias doc
+		 */
 		document: Document,
+		/**
+		 * @alias doc
+		 */
 		window: Document,
 		
-		three: TSomeObject,
-		THREE: TSomeObject,
+		/**
+		 * The default frame-loop helper, calls `requestAnimationFrame` automatically.
+		 */
+		loop: TLoop,
 		
-		loop,
-		requestAnimationFrame,
-		frame,
-		
-		[key: string]: unknown,
+		/**
+		 * Swaps GL buffers and calls the `cb` callback on next frame.
+		 * @alias doc.requestAnimationFrame
+		 */
+		requestAnimationFrame: (cb: (dateNow: number) => void) => number,
 	};
 	
-	const init: (opts?: TInitOpts) => TCore3D;
+	type TPluginDecl = string | ((core3d: TCore3D) => void) | Readonly<{ name: string, opts: TUnknownObject }>;
 	
-	export = init;
+	type TInitOpts = ConstructorParameters<typeof Document>[0] & Readonly<{
+		/**
+		 * An override for WebGL implementation.
+		 */
+		webgl?: typeof webgl,
+		
+		/**
+		 * An override for Image implementation.
+		 */
+		Image?: Image,
+		
+		/**
+		 * An override for GLFW implementation.
+		 */
+		glfw?: typeof glfw,
+		
+		/**
+		 * An override for the `location` object.
+		 */
+		location?: TLocation,
+		
+		/**
+		 * An override for the `navigator` object.
+		 */
+		navigator?: TNavigator,
+		
+		/**
+		 * An override for the `WebVRManager` object.
+		 */
+		WebVRManager?: WebVRManager,
+	}>;
+	
+	/**
+	 * Initialize Node3D. Creates the first window/document and sets up the global environment.
+	 * This function can be called repeatedly, but will ignore further calls.
+	 * The return value is cached and will be returned immediately for repeating calls.
+	 */
+	export const init: (opts?: TInitOpts) => TCore3D;
+	
+	/**
+	 * Teaches `three.FileLoader.load` to work with Node `fs`. Additionally implements
+	 * `three.Texture.fromId` static method to create THREE textures from known GL resource IDs.
+	 */
+	export const addThreeHelpers: (three: TUnknownObject, gl: typeof webgl) => void;
 }

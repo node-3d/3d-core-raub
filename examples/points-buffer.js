@@ -2,12 +2,13 @@
 
 console.log('https://threejs.org/examples/#webgl_points_random');
 
-const init = require('..');
+const three = require('three');
+const { init } = require('..');
 
 
-const { Screen, loop, gl, three } = init();
+const { Screen, loop, gl } = init();
 
-const screen = new Screen();
+const screen = new Screen({ three });
 
 const F_KEY = 70;
 

@@ -1,14 +1,17 @@
 'use strict';
 
-const init = require('..');
+const three = require('three');
+const { init } = require('..');
 
 
-const { Screen, Surface, Points, loop, gl } = init();
+const { Screen, Surface, Rect, Points, loop, gl } = init();
 
 const VBO_SIZE = 10000;
 
-const screen = new Screen();
+const screen = new Screen({ three });
 loop(() => screen.draw());
+
+screen.camera.position.z = 400;
 
 
 const F_KEY = 70;
@@ -25,14 +28,23 @@ screen.on('keydown', (e) => {
 	}
 });
 
+const rect1 = new Rect({ screen, pos: [-500, -500], size: [1000, 1000] });
+rect1.mat.color.r = 1;
+rect1.mat.color.g = 0;
+rect1.mat.color.b = 0;
 
 const surface = new Surface({ screen });
+surface.camera.position.z = 400;
 
+const rect2 = new Rect({ screen: surface, pos: [-500, -500], size: [1000, 1000] });
+rect2.mat.color.r = 0;
+rect2.mat.color.g = 1;
+rect2.mat.color.b = 0;
 
 const vertices = [];
 const colors = [];
 for (let i = VBO_SIZE * 3; i > 0; i--) {
-	vertices.push( Math.random() * 2000 - 1000 );
+	vertices.push( Math.random() * 600 - 300 );
 	colors.push( Math.random() );
 }
 
