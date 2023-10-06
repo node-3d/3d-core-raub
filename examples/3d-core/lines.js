@@ -1,7 +1,7 @@
 'use strict';
 
 const three = require('three');
-const { init } = require('..');
+const { init } = require('../..');
 
 
 const { Screen, Lines, loop, gl } = init();

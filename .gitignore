@@ -5,5 +5,5 @@
 .project
 .vscode
 node_modules/
-examples/*.jpg
+examples/3d-core/*.jpg
 *.log
