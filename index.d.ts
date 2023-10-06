@@ -141,6 +141,27 @@ declare module "3d-core-raub" {
 	
 	type TInitOpts = ConstructorParameters<typeof Document>[0] & Readonly<{
 		/**
+		 * Use GLES 3.2 profile instead of default.
+		 *
+		 * In this mode, shader augmentation is disabled, as the context becomes compatible
+		 * with WebGL API set (as GLES intended). Some things, such as
+		 * `texture.colorSpace = three.SRGBColorSpace;` work better or even exclusively
+		 * in this mode.
+		 */
+		isGles3?: boolean,
+		
+		/**
+		 * EXPERIMENTAL. Defines WebGL2 context, so three.js uses WebGL2 pathways.
+		 *
+		 * At this point, most of the stuff stops working in this mode. Some additional
+		 * shader tweaks or API exports may be required to fully support running web
+		 * libs in WebGL2 mode.
+		 *
+		 * Note: for non-web libs this has no effect, since it only affects common "isWebGL2" checks.
+		 */
+		isWebGL2?: boolean,
+		
+		/**
 		 * An override for WebGL implementation.
 		 */
 		webgl?: typeof webgl,

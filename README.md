@@ -3,10 +3,11 @@
 This is a part of [Node3D](https://github.com/node-3d) project.
 
 [![NPM](https://badge.fury.io/js/3d-core-raub.svg)](https://badge.fury.io/js/3d-core-raub)
-[![CodeFactor](https://www.codefactor.io/repository/github/node-3d/3d-core-raub/badge)](https://www.codefactor.io/repository/github/node-3d/3d-core-raub)
+[![ESLint](https://github.com/node-3d/3d-core-raub/actions/workflows/eslint.yml/badge.svg)](https://github.com/node-3d/3d-core-raub/actions/workflows/eslint.yml)
+[![Test](https://github.com/node-3d/3d-core-raub/actions/workflows/test.yml/badge.svg)](https://github.com/node-3d/3d-core-raub/actions/workflows/test.yml)
 
 ```
-npm i 3d-core-raub
+npm i -s 3d-core-raub
 ```
 
 Run **WebGL** code on **Node.js**.

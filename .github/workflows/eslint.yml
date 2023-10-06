@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  Validate:
+  Eslint:
     strategy:
         matrix:
           os: [ubuntu-20.04]
