@@ -1,4 +1,4 @@
-name: Validate
+name: ESLint
 
 on:
   push:
@@ -34,8 +34,3 @@ jobs:
 
       - name: Run Lint
         run: npm run eslint
-
-      - name: Run Unit Tests
-        uses: actions/setup-node@v3
-        with:
-          run: npm run test-ci
