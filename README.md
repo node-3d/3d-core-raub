@@ -35,7 +35,7 @@ See [TypeSctipt defenitions](/index.d.ts) for more details.
 
 Example (also see [here](/examples/crate-lean.js)):
 
-```
+```javascript
 const three = require('three');
 const { init, addThreeHelpers } = require('3d-core-raub');
 
