@@ -28,8 +28,17 @@ different Node.js versions. Addon binaries are precompiled and **there is no com
 step during the `npm i` command.
 
 
-This module directly exports only one function - `init()`. Call it with or without
-custom options to start with the first window and acquire all the features.
+This module exports 2 methods:
+1. `export const init: (opts?: TInitOpts) => TCore3D;`
+    
+    Initialize Node3D. Creates the first window/document and sets up the global environment.
+    This function can be called repeatedly, but will ignore further calls.
+    The return value is cached and will be returned immediately for repeating calls.
+2. `export const addThreeHelpers: (three: TUnknownObject, gl: typeof webgl) => void;`
+    
+    Teaches `three.FileLoader.load` to work with Node `fs`. Additionally implements
+    `three.Texture.fromId` static method to create THREE textures from known GL resource IDs.
+
 
 See [TypeSctipt defenitions](/index.d.ts) for more details.
 
