@@ -1,7 +1,10 @@
 'use strict';
 
-const { init } = require('..');
+const assert = require('node:assert').strict;
+const { describe, it } = require('node:test');
 
+const three = require('three');
+const { init } = require('..');
 
 const inited = init();
 const {
@@ -9,10 +12,8 @@ const {
 	Brush, Cloud, Drawable, Lines, Points, Rect, Screen, Surface, Tris,
 } = inited;
 
-const three = {};
 
 const staticClasses = {
-	
 	Brush: {
 		create({ screen }) {
 			return new Brush({ screen });
@@ -20,7 +21,6 @@ const staticClasses = {
 		props: ['size', 'pos', 'visible', 'color'],
 		methods: [],
 	},
-	
 	Cloud: {
 		create({ screen }) {
 			const vertices = [];
@@ -36,7 +36,6 @@ const staticClasses = {
 		props: ['three', 'screen', 'mat', 'geo', 'mesh', 'visible'],
 		methods: [],
 	},
-	
 	Drawable: {
 		create({ screen }) {
 			return new Drawable({ screen });
@@ -44,7 +43,6 @@ const staticClasses = {
 		props: ['three', 'screen', 'mat', 'geo', 'mesh', 'z', 'visible', 'pos', 'color'],
 		methods: [],
 	},
-	
 	Points: {
 		create({ screen }) {
 			const vertices = [];
@@ -60,7 +58,6 @@ const staticClasses = {
 		props: ['three', 'screen', 'mat', 'geo', 'mesh', 'visible'],
 		methods: [],
 	},
-	
 	Lines: {
 		create({ screen }) {
 			const vertices = [];
@@ -76,7 +73,6 @@ const staticClasses = {
 		props: ['three', 'screen', 'mat', 'geo', 'mesh', 'visible'],
 		methods: [],
 	},
-	
 	Tris: {
 		create({ screen }) {
 			const vertices = [];
@@ -92,7 +88,6 @@ const staticClasses = {
 		props: ['three', 'screen', 'mat', 'geo', 'mesh', 'visible'],
 		methods: [],
 	},
-	
 	Rect: {
 		create({ screen }) {
 			return new Rect({ screen });
@@ -100,7 +95,6 @@ const staticClasses = {
 		props: ['three', 'screen', 'mat', 'geo', 'mesh', 'visible'],
 		methods: [],
 	},
-	
 	Screen: {
 		create() {
 			return new Screen({ three });
@@ -111,7 +105,6 @@ const staticClasses = {
 		],
 		methods: [],
 	},
-	
 	Surface: {
 		create({ screen }) {
 			return new Surface({ screen });
@@ -151,17 +144,16 @@ const initedClasses = {
 	},
 };
 
-
 describe('Node.js 3D Core', () => {
 	it('exports an object', () => {
-		expect(typeof inited).toBe('object');
+		assert.strictEqual(typeof inited, 'object');
 	});
 	
 	describe('Static classes', () => {
 		Object.keys(staticClasses).forEach(
 			(c) => {
 				it(`${c} is exported`, () => {
-					expect(typeof inited[c]).toBe('function');
+					assert.strictEqual(typeof inited[c], 'function');
 				});
 			}
 		);
@@ -173,18 +165,18 @@ describe('Node.js 3D Core', () => {
 			const instance = current.create({ screen });
 			
 			it('can be created', () => {
-				expect(instance).toBeInstanceOf(inited[c]);
+				assert.strictEqual(instance instanceof inited[c], true);
 			});
 			
 			current.props.forEach((prop) => {
 				it(`#${prop} property exposed`, () => {
-					expect(instance).toHaveProperty(prop);
+					assert.strictEqual(instance[prop] !== undefined, true);
 				});
 			});
 			
 			current.methods.forEach((method) => {
 				it(`#${method}() method exposed`, () => {
-					expect(typeof instance[method]).toBe('function');
+					assert.strictEqual(typeof instance[method], 'function');
 				});
 			});
 		}));
@@ -194,7 +186,7 @@ describe('Node.js 3D Core', () => {
 		Object.keys(initedClasses).forEach(
 			(c) => {
 				it(`${c} is exported`, () => {
-					expect(typeof inited[c]).toBe('function');
+					assert.strictEqual(typeof inited[c], 'function');
 				});
 			}
 		);
@@ -204,7 +196,7 @@ describe('Node.js 3D Core', () => {
 			const instance = current.create();
 			
 			it('can be created', () => {
-				expect(instance).toBeInstanceOf(inited[c]);
+				assert.strictEqual(instance instanceof inited[c], true);
 			});
 		}));
 	});
