@@ -30,9 +30,9 @@ jobs:
           node-version: 18.16.0
           cache: 'npm'
 
-      - name: Get Npm Version
+      - name: Get Package Version
         id: package-version
-        uses: martinbeentjes/npm-get-version-action@master
+        run: node -p "'version='+require('./package').version" >> $GITHUB_OUTPUT
 
       - name: Publish
         run: |
