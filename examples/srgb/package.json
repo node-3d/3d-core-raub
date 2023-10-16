@@ -5,13 +5,8 @@
     "scripts": {
         "start": "npx ts-node-esm main.ts"
     },
-    "dependencies": {
-        "sharp": "^0.32.6",
-        "typescript": "^5.2.2"
-    },
     "devDependencies": {
-        "@types/node": "^20.6.5",
-        "@types/three": "0.156.0",
+        "3d-core-raub": "file:../..",
         "ts-node": "^10.9.1"
     }
 }

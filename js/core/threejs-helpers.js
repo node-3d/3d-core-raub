@@ -1,14 +1,56 @@
 'use strict';
 
+const { Blob } = require('node:buffer');
+
+
+const finishLoad = (three, responseType, mimeType, onLoad, buffer) => {
+	if (responseType === 'arraybuffer') {
+		onLoad((new Uint8Array(buffer)).buffer);
+		return;
+	}
+	
+	if (responseType === 'blob') {
+		onLoad(new Blob([buffer]));
+		return;
+	}
+	
+	if (responseType === 'document') {
+		onLoad({});
+		return;
+	}
+	
+	if (responseType === 'json') {
+		try {
+			onLoad(JSON.parse(buffer.toString()));
+		} catch (e) {
+			onLoad({});
+		}
+		return;
+	}
+	
+	if (!mimeType) {
+		onLoad(buffer.toString());
+		return;
+	}
+	
+	// sniff encoding
+	const re = /charset="?([^;"\s]*)"?/i;
+	const exec = re.exec(mimeType);
+	const label = exec && exec[1] ? exec[1].toLowerCase() : undefined;
+	const decoder = new three.TextDecoder(label);
+	
+	onLoad(decoder.decode(buffer));
+};
+
 
 module.exports = (three, gl) => {
-	three.FileLoader.prototype.load = (url, onLoad, onProgress, onError) => {
+	three.FileLoader.prototype.load = function (url, onLoad, onProgress, onError) {
 		// Data URI
 		if (/^data:/.test(url)) {
 			const [head, body] = url.split(',');
 			const isBase64 = head.indexOf('base64') > -1;
 			const data = isBase64 ? Buffer.from(body, 'base64') : Buffer.from(unescape(body));
-			onLoad(data);
+			finishLoad(three, this.responseType, this.mimeType, onLoad, data);
 			return;
 		}
 		
@@ -17,7 +59,7 @@ module.exports = (three, gl) => {
 			const download = require('addon-tools-raub/download');
 			
 			download(url).then(
-				(data) => onLoad(data),
+				(data) => finishLoad(three, this.responseType, this.mimeType, onLoad, data),
 				(err) => typeof onError === 'function' ? onError(err) : console.error(err)
 			);
 			
@@ -25,11 +67,14 @@ module.exports = (three, gl) => {
 		}
 		
 		// Filesystem URI
+		if (this.path !== undefined) {
+			url = this.path + url;
+		}
 		require('fs').readFile(url, (err, data) => {
 			if (err) {
 				return typeof onError === 'function' ? onError(err) : console.error(err);
 			}
-			onLoad((new Uint8Array(data)).buffer);
+			finishLoad(three, this.responseType, this.mimeType, onLoad, data);
 		});
 	};
 	

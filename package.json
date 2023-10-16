@@ -1,7 +1,7 @@
 {
 	"author": "Luis Blanco <luisblanco1337@gmail.com>",
 	"name": "3d-core-raub",
-	"version": "4.0.0",
+	"version": "4.0.2",
 	"description": "An extensible Node3D core for desktop applications",
 	"license": "MIT",
 	"main": "index.js",
@@ -30,7 +30,7 @@
 	},
 	"scripts": {
 		"eslint": "eslint .",
-		"test": "node --test --watch",
+		"test": "node --test --watch .",
 		"test-ci": "node --test"
 	},
 	"repository": {
@@ -38,21 +38,23 @@
 		"url": "https://github.com/node-3d/3d-core-raub.git"
 	},
 	"peerDependencies": {
-		"three": "^0.157.0"
+		"three": "^0.152.0"
 	},
 	"peerDependenciesMeta": {
 		"three": { "optional": true }
 	},
 	"dependencies": {
-		"addon-tools-raub": "^7.2.0",
-		"image-raub": "^4.1.1",
-		"glfw-raub": "^5.2.0",
-		"webgl-raub": "^4.0.0"
+		"addon-tools-raub": "^7.4.0",
+		"image-raub": "^4.1.3",
+		"glfw-raub": "^5.2.2",
+		"webgl-raub": "^4.0.2"
 	},
 	"devDependencies": {
+		"@types/node": "^20.8.3",
+		"@types/three": "0.156.0",
 		"eslint-plugin-node": "^11.1.0",
-		"eslint": "^8.40.0",
+		"eslint": "^8.51.0",
 		"three": "0.157.0",
-		"typescript": "^5.0.4"
+		"typescript": "^5.2.2"
 	}
 }

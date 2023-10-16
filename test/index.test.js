@@ -165,12 +165,12 @@ describe('Node.js 3D Core', () => {
 			const instance = current.create({ screen });
 			
 			it('can be created', () => {
-				assert.strictEqual(instance instanceof inited[c], true);
+				assert.ok(instance instanceof inited[c]);
 			});
 			
 			current.props.forEach((prop) => {
 				it(`#${prop} property exposed`, () => {
-					assert.strictEqual(instance[prop] !== undefined, true);
+					assert.ok(instance[prop] !== undefined);
 				});
 			});
 			
@@ -196,7 +196,7 @@ describe('Node.js 3D Core', () => {
 			const instance = current.create();
 			
 			it('can be created', () => {
-				assert.strictEqual(instance instanceof inited[c], true);
+				assert.ok(instance instanceof inited[c]);
 			});
 		}));
 	});

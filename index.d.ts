@@ -1,12 +1,26 @@
-import glfw, { Document, Window } from 'glfw-raub';
-import webgl from 'webgl-raub';
-import { Image } from 'image-raub';
-
-import WebVRManager from './js/core/vr-manager';
-
-
 declare module "3d-core-raub" {
+	type Image = import('image-raub');
+	type TThree = typeof import('three');
+	type TWebgl = typeof import('webgl-raub');
+	type TGlfw = typeof import('glfw-raub');
+	type TDocumentOpts = import('glfw-raub').TDocumentOpts;
+	type Document = import('glfw-raub').Document;
+	type Window = import('glfw-raub').Window;
+	
+	
 	type TUnknownObject = Readonly<{ [id: string]: unknown }>;
+	
+	class WebVRManager {
+		readonly enabled: boolean;
+		
+		constructor();
+		
+		isPresenting(): boolean;
+		dispose(): void;
+		setAnimationLoop(): void;
+		getCamera(): TUnknownObject;
+		submitFrame(): void;
+	}
 	
 	type TLocation = Readonly<{
 		href: string,
@@ -28,7 +42,7 @@ declare module "3d-core-raub" {
 		bluetooth: TUnknownObject,
 		clipboard: TUnknownObject,
 		connection: {
-			onchange: null,
+			onchange: unknown,
 			effectiveType: string,
 			rtt: number,
 			downlink: number,
@@ -37,7 +51,7 @@ declare module "3d-core-raub" {
 		cookieEnabled: boolean,
 		credentials: TUnknownObject,
 		deviceMemory: number,
-		doNotTrack: null,
+		doNotTrack: unknown,
 		geolocation: TUnknownObject,
 		hardwareConcurrency: number,
 		keyboard: TUnknownObject,
@@ -46,25 +60,25 @@ declare module "3d-core-raub" {
 		locks: TUnknownObject,
 		maxTouchPoints: number,
 		mediaCapabilities: TUnknownObject,
-		mediaDevices: { ondevicechange: null },
+		mediaDevices: { ondevicechange: unknown },
 		mimeTypes: { length: number },
 		onLine: boolean,
 		permissions: TUnknownObject,
 		platform: string,
 		plugins: { length: number },
-		presentation: { defaultRequest: null, receiver: null },
+		presentation: { defaultRequest: unknown, receiver: unknown },
 		product: string,
 		productSub: string,
 		serviceWorker: {
 			ready: Promise<boolean>,
-			controller: null,
-			oncontrollerchange: null,
-			onmessage: null
+			controller: unknown,
+			oncontrollerchange: unknown,
+			onmessage: unknown
 		},
 		storage: TUnknownObject,
 		usb: {
-			onconnect: null,
-			ondisconnect: null,
+			onconnect: unknown,
+			ondisconnect: unknown,
 		},
 		userAgent: string,
 		vendor: string,
@@ -99,13 +113,13 @@ declare module "3d-core-raub" {
 		 * A WebGL context instance. This is **almost** the same as real WebGL stuff.
 		 * For more info see [webgl-raub](https://github.com/node-3d/webgl-raub#webgl-for-nodejs).
 		 */
-		gl: typeof webgl,
+		gl: TWebgl,
 		
 		/**
 		 * Low level GLFW interface.
 		 * For more info see glfw-raub](https://github.com/node-3d/glfw-raub#glfw-for-nodejs)
 		 */
-		glfw: typeof glfw,
+		glfw: TGlfw,
 		
 		/**
 		 * The default instance of Document - created automatically when `init()` is called.
@@ -139,7 +153,7 @@ declare module "3d-core-raub" {
 	
 	type TPluginDecl = string | ((core3d: TCore3D) => void) | Readonly<{ name: string, opts: TUnknownObject }>;
 	
-	type TInitOpts = ConstructorParameters<typeof Document>[0] & Readonly<{
+	type TInitOpts = TDocumentOpts & Readonly<{
 		/**
 		 * Use GLES 3.2 profile instead of default.
 		 *
@@ -162,9 +176,17 @@ declare module "3d-core-raub" {
 		isWebGL2?: boolean,
 		
 		/**
+		 * Is default window visible?
+		 *
+		 * For "headless" mode, use `false`. The window will be created in GLFW hidden mode
+		 * (this is how headless GL works anyway). The default value is `true` - visible window.
+		 */
+		isVisible?: boolean,
+		
+		/**
 		 * An override for WebGL implementation.
 		 */
-		webgl?: typeof webgl,
+		webgl?: TWebgl,
 		
 		/**
 		 * An override for Image implementation.
@@ -174,7 +196,7 @@ declare module "3d-core-raub" {
 		/**
 		 * An override for GLFW implementation.
 		 */
-		glfw?: typeof glfw,
+		glfw?: TGlfw,
 		
 		/**
 		 * An override for the `location` object.
@@ -203,5 +225,5 @@ declare module "3d-core-raub" {
 	 * Teaches `three.FileLoader.load` to work with Node `fs`. Additionally implements
 	 * `three.Texture.fromId` static method to create THREE textures from known GL resource IDs.
 	 */
-	export const addThreeHelpers: (three: TUnknownObject, gl: typeof webgl) => void;
+	export const addThreeHelpers: (three: TThree, gl: TWebgl) => void;
 }

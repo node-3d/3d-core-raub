@@ -3,7 +3,7 @@
 console.log('https://threejs.org/examples/#webgl_points_random');
 
 const three = require('three');
-const { init } = require('..');
+const { init } = require('../..');
 
 
 const { Screen, loop, gl } = init();

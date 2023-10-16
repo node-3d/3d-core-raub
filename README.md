@@ -6,7 +6,7 @@ This is a part of [Node3D](https://github.com/node-3d) project.
 [![ESLint](https://github.com/node-3d/3d-core-raub/actions/workflows/eslint.yml/badge.svg)](https://github.com/node-3d/3d-core-raub/actions/workflows/eslint.yml)
 [![Test](https://github.com/node-3d/3d-core-raub/actions/workflows/test.yml/badge.svg)](https://github.com/node-3d/3d-core-raub/actions/workflows/test.yml)
 
-```
+```console
 npm i -s 3d-core-raub
 ```
 

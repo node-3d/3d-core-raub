@@ -1,13 +1,13 @@
 
-import sharp from 'sharp';
 import {
     DataTexture, LinearSRGBColorSpace, NoToneMapping, SRGBColorSpace, Uniform, WebGLRenderer,
 } from 'three';
 
-import { init } from '../../js';
+import Img from 'image-raub';
+import { init } from '3d-core-raub';
 import { SimpleTextureProcessor } from './simple_texture_processor';
 
-(init as (opts: unknown) => void)({
+init({
     isGles3: true,
     isVisible: false,
 });
@@ -22,30 +22,6 @@ const renderer = new WebGLRenderer({
 renderer.shadowMap.autoUpdate = false;
 renderer.outputColorSpace = LinearSRGBColorSpace;
 renderer.toneMapping = NoToneMapping;
-
-renderer.debug.checkShaderErrors = true;
-renderer.debug.onShaderError  = (gl, _program, vs, fs) => {
-    const parseForErrors = (shader: WebGLShader, name: string) => {
-        const errors = (gl.getShaderInfoLog(shader) || '').trim();
-        const prefix = 'Errors in ' + name + ':' + '\n\n' + errors;
-        
-        if (errors !== '') {
-            const code = (gl.getShaderSource(shader) || '').replace(/\t/g, '  ');
-            const lines = code.split('\n');
-            var linedCode = '';
-            var i = 1;
-            for (var line of lines) {
-                linedCode += (i < 10 ? ' ' : '') + i + ':\t\t' + line + '\n';
-                i++;
-            }
-            
-            console.error(prefix + '\n' + linedCode);
-        }
-    }
-    
-    parseForErrors(vs, 'Vertex Shader');
-    parseForErrors(fs, 'Fragment Shader');
-};
 
 const processor = new SimpleTextureProcessor(512, renderer);
 
@@ -76,11 +52,8 @@ function processAndSave(savePath: string, texture: DataTexture) {
     });
     console.log(res.slice(0, 4));
     
-    sharp(Buffer.from(res), {
-        raw: { width: 512, height: 512, channels: 4 },
-    }).toFile(savePath, function (err: any) {
-        if (err) throw err;
-    });
+    const img = Img.fromPixels(512, 512, 32, Buffer.from(res));
+    img.save(savePath);
 }
 
 console.log('LinearSRGBColorSpace');
