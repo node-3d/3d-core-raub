@@ -95,19 +95,19 @@ declare module "3d-core-raub" {
 		 * does the same thing as `new Image()`. For more info see
 		 * [image-raub](https://github.com/node-3d/image-raub#image-for-nodejs).
 		 */
-		Image: typeof Image,
+		Image: Image,
 		
 		/**
 		 * This constructor spawns a new platform window **with a web-document like interface**.
 		 * For more info see [glfw-raub](https://github.com/node-3d/glfw-raub#class-document).
 		 */
-		Document: typeof Document,
+		Document: TGlfw['Document'],
 		
 		/**
 		 * This constructor spawns a new OS window.
 		 * For more info see [glfw-raub](https://github.com/node-3d/glfw-raub#class-window).
 		 */
-		Window: typeof Window,
+		Window: TGlfw['Window'],
 		
 		/**
 		 * A WebGL context instance. This is **almost** the same as real WebGL stuff.
