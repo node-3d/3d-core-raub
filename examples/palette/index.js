@@ -1,6 +1,7 @@
 
 const { read } = require('addon-tools-raub');
 const glfw = require('glfw-raub');
+const Image = require('image-raub');
 
 const { init, addThreeHelpers } = require('../../index');
 const { generatePalette } = require('./utils/palette');
@@ -14,28 +15,29 @@ const hueModes = [
 	'monochromatic', 'analagous', 'complementary', 'triadic', 'tetradic',
 ];
 
-const { Window } = glfw;
+const { extraCodes } = glfw;
+
+const {
+	doc, requestAnimationFrame, gl,
+} = init({
+	isGles3: true,
+	width: 1280,
+	height: 720,
+	autoEsc: true,
+	autoFullscreen: true,
+});
+
+const icon = new Image(__dirname + '/textures/icon.png');
+icon.on('load', () => { doc.icon = icon; });
+doc.title = 'Palette Swap';
 
 (async () => {
 	const THREE = await import('three');
 	const { OrbitControls } = await import('three/examples/jsm/controls/OrbitControls.js');
 	
-	const fragmentShader = await read(`${__dirname}/post.glsl`);
-	
-	const {
-		doc, requestAnimationFrame, gl,
-	} = init({ isGles3: true, width: 1280, height: 720 });
 	addThreeHelpers(THREE, gl);
 	
-	doc.setPointerCapture = () => {
-		doc.setInputMode(glfw.CURSOR, glfw.CURSOR_DISABLED);
-	};
-	doc.releasePointerCapture = () => {
-		doc.setInputMode(glfw.CURSOR, glfw.CURSOR_NORMAL);
-	};
-	doc.on('mousedown', (e) => { doc.emit('pointerdown', e); });
-	doc.on('mouseup', (e) => { doc.emit('pointerup', e); });
-	doc.on('mousemove', (e) => { doc.emit('pointermove', e); });
+	const fragmentShader = await read(`${__dirname}/post.glsl`);
 	
 	const cameraOrtho = new THREE.OrthographicCamera(
 		-doc.w / 2, doc.w / 2, doc.h / 2, -doc.h / 2, - 10, 10,
@@ -166,25 +168,24 @@ const { Window } = glfw;
 			setModeGrayscale((modeGrayscale + 1) % 4);
 			return;
 		}
-		if (e.keyCode === Window.extraCodes[glfw.KEY_EQUAL]) {
+		if (e.keyCode === extraCodes[glfw.KEY_EQUAL]) {
 			setNumColors(Math.min(16, numColors + 1));
 			return;
 		}
-		if (e.keyCode === Window.extraCodes[glfw.KEY_MINUS]) {
+		if (e.keyCode === extraCodes[glfw.KEY_MINUS]) {
 			setNumColors(Math.max(2, numColors - 1));
 			return;
 		}
-		if (e.keyCode === glfw.KEY_H || e.keyCode === Window.extraCodes[glfw.KEY_F1]) {
+		if (e.keyCode === glfw.KEY_H || e.keyCode === extraCodes[glfw.KEY_F1]) {
 			quadHelp.visible = !quadHelp.visible;
 			return;
 		}
-		// console.log('kk', e.keyCode, glfw.KEY_EQUAL, Window.extraCodes[glfw.KEY_EQUAL]);
 	});
 	
-	const renderer = new THREE.WebGLRenderer({ antialias: true });
+	const renderer = new THREE.WebGLRenderer();
 	renderer.setPixelRatio(doc.devicePixelRatio);
 	renderer.setSize(doc.w, doc.h);
-	debugShaders(renderer);
+	debugShaders(renderer, false);
 	
 	doc.on('resize', () => {
 		cameraPerspective.aspect = doc.w / doc.h;

@@ -40,7 +40,7 @@ This module exports 2 methods:
     `three.Texture.fromId` static method to create THREE textures from known GL resource IDs.
 
 
-See [TypeSctipt defenitions](/index.d.ts) for more details.
+See [TypeScript defenitions](/index.d.ts) for more details.
 
 Example (also see [here](/examples/crate-lean.js)):
 

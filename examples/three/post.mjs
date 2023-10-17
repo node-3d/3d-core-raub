@@ -27,12 +27,14 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 
 const {
-	window,
-	document,
-	requestAnimationFrame,
-	gl,
+	window, document, requestAnimationFrame, gl, Image,
 } = init();
 addThreeHelpers(THREE, gl);
+
+const icon = new Image();
+icon.src = __dirname + '/textures/three.png';
+icon.on('load', () => { document.icon = icon; });
+document.title = 'Postprocessing';
 
 let container;
 

@@ -1,6 +1,12 @@
-const debugShaders = (renderer) => {
-	renderer.debug.checkShaderErrors = true;
-	renderer.debug.onShaderError  = (gl, _program, vs, fs) => {
+const debugShaders = (renderer, isEnabled) => {
+	renderer.debug.checkShaderErrors = isEnabled;
+	
+	if (!isEnabled) {
+		renderer.debug.onShaderError = null;
+		return;
+	}
+	
+	renderer.debug.onShaderError = (gl, _program, vs, fs) => {
 		const parseForErrors = (shader, name) => {
 			const errors = (gl.getShaderInfoLog(shader) || '').trim();
 			const prefix = 'Errors in ' + name + ':' + '\n\n' + errors;

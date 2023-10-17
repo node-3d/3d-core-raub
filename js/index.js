@@ -4,6 +4,7 @@
 const _init = (_opts = {}) => {
 	const opts = {
 		mode: 'windowed',
+		vsync: true,
 		webgl: _opts.webgl || require('webgl-raub'),
 		Image: _opts.Image || require('image-raub'),
 		glfw: _opts.glfw || require('glfw-raub'),
@@ -77,8 +78,6 @@ const _init = (_opts = {}) => {
 	}
 	
 	const doc = new Document({ ...optsDoc, onBeforeWindow });
-	
-	webgl.init();
 	
 	global.self = global;
 	global.globalThis = global;
