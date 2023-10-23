@@ -6,7 +6,12 @@ const three = require('three');
 const { init } = require('../..');
 
 
-const { Screen, loop, gl } = init();
+const { Screen, loop, gl } = init({
+	isGles3: true,
+	isWebGL2: true,
+	autoEsc: true,
+	autoFullscreen: true,
+});
 
 const screen = new Screen({ three });
 

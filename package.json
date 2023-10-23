@@ -47,7 +47,7 @@
 		"addon-tools-raub": "^7.4.0",
 		"image-raub": "^4.2.0",
 		"glfw-raub": "^5.3.1",
-		"webgl-raub": "^4.0.3"
+		"webgl-raub": "^4.1.0"
 	},
 	"devDependencies": {
 		"@types/node": "^20.8.3",

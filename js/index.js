@@ -36,10 +36,7 @@ const _init = (_opts = {}) => {
 	}
 	
 	if (isWebGL2) {
-		// eslint-disable-next-line func-names
-		webgl.WebGL2RenderingContext = function WebGL2RenderingContext(_) { this._ = _; };
-		global.WebGL2RenderingContext = webgl.WebGL2RenderingContext;
-		Object.setPrototypeOf(webgl, webgl.WebGL2RenderingContext.prototype);
+		webgl.useWebGL2();
 	}
 	
 	const onBeforeWindow = (window, glfw) => {
@@ -85,6 +82,7 @@ const _init = (_opts = {}) => {
 	global.removeEventListener = doc.removeEventListener.bind(doc);
 	global.document = doc;
 	global.window = doc;
+	global.body = doc;
 	global.cwrap = null;
 	global.requestAnimationFrame = doc.requestAnimationFrame;
 	global.location = location;

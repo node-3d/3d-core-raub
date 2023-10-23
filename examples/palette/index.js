@@ -21,8 +21,7 @@ const {
 	doc, requestAnimationFrame, gl,
 } = init({
 	isGles3: true,
-	width: 1280,
-	height: 720,
+	isWebGL2: true,
 	autoEsc: true,
 	autoFullscreen: true,
 });

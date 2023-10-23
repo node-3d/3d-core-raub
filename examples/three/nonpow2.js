@@ -1,5 +1,10 @@
 const { init, addThreeHelpers } = require('../..');
-const { window, document, gl, requestAnimationFrame } = init();
+const { window, document, gl, requestAnimationFrame } = init({
+	isGles3: true,
+	isWebGL2: true,
+	autoEsc: true,
+	autoFullscreen: true,
+});
 
 const three = require('three');
 addThreeHelpers(three, gl);

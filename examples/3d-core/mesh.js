@@ -4,7 +4,12 @@ const three = require('three');
 const { init } = require('../..');
 
 
-const { Screen, loop, Image } = init();
+const { Screen, loop, Image } = init({
+	isGles3: true,
+	isWebGL2: true,
+	autoEsc: true,
+	autoFullscreen: true,
+});
 
 const screen = new Screen({ three });
 

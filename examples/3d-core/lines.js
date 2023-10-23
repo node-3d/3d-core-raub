@@ -4,7 +4,12 @@ const three = require('three');
 const { init } = require('../..');
 
 
-const { Screen, Lines, loop, gl } = init();
+const { Screen, Lines, loop, gl } = init({
+	isGles3: true,
+	isWebGL2: true,
+	autoEsc: true,
+	autoFullscreen: true,
+});
 
 const VBO_SIZE = 10;
 

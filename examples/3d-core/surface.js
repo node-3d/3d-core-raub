@@ -4,7 +4,12 @@ const three = require('three');
 const { init } = require('../..');
 
 
-const { Screen, Surface, Rect, Points, loop, gl } = init();
+const { Screen, Surface, Rect, Points, loop, gl } = init({
+	isGles3: true,
+	isWebGL2: true,
+	autoEsc: true,
+	autoFullscreen: true,
+});
 
 const VBO_SIZE = 10000;
 

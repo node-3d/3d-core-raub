@@ -9,6 +9,7 @@ import { SimpleTextureProcessor } from './simple_texture_processor';
 
 init({
     isGles3: true,
+    isWebGL2: true,
     isVisible: false,
 });
 

@@ -59,11 +59,8 @@ const camera = new three.PerspectiveCamera(70, doc.innerWidth / doc.innerHeight,
 camera.position.z = 2;
 const scene = new three.Scene();
 
-const texture = new three.TextureLoader().load(__dirname + '/three/textures/crate.gif');
-texture.colorSpace = three.SRGBColorSpace;
-
 const geometry = new three.BoxGeometry();
-const material = new three.MeshBasicMaterial({ map: texture });
+const material = new three.MeshBasicMaterial({ color: 0xFACE8D });
 const mesh = new three.Mesh( geometry, material );
 scene.add(mesh);
 

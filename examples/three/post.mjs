@@ -28,7 +28,12 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const {
 	window, document, requestAnimationFrame, gl, Image,
-} = init();
+} = init({
+	// isGles3: true,
+	// isWebGL2: true,
+	autoEsc: true,
+	autoFullscreen: true,
+});
 addThreeHelpers(THREE, gl);
 
 const icon = new Image();
