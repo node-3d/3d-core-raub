@@ -32,7 +32,7 @@ const shader = `
     
     void main() {
       vec2 vUv = gl_FragCoord.xy / resolution.xy;
-      gl_FragColor = texture2D( tex, vUv );
+      gl_FragColor = texture2D(tex, vUv);
     }
 `;
 

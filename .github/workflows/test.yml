@@ -34,6 +34,4 @@ jobs:
 
       - name: Run Unit Tests
         if: matrix.os == 'ubuntu-20.04'
-        uses: coactions/setup-xvfb@v1
-        with:
-          run: npm run test-ci
+        run: xvfb-run --auto-servernum npm run test-ci

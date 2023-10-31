@@ -62,7 +62,7 @@ function createShaderMaterial(
   const material = new ShaderMaterial({
     uniforms: uniforms,
     vertexShader: `
-      void main()	{
+      void main() {
         gl_Position = vec4( position, 1.0 );
       }`,
     fragmentShader: computeFragmentShader,
