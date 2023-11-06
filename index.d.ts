@@ -1,5 +1,5 @@
 declare module "3d-core-raub" {
-	type Image = import('image-raub');
+	type Img = typeof import('image-raub');
 	type TThree = typeof import('three');
 	type TWebgl = typeof import('webgl-raub');
 	type TGlfw = typeof import('glfw-raub');
@@ -95,7 +95,7 @@ declare module "3d-core-raub" {
 		 * does the same thing as `new Image()`. For more info see
 		 * [image-raub](https://github.com/node-3d/image-raub#image-for-nodejs).
 		 */
-		Image: Image,
+		Image: Img,
 		
 		/**
 		 * This constructor spawns a new platform window **with a web-document like interface**.
@@ -191,7 +191,7 @@ declare module "3d-core-raub" {
 		/**
 		 * An override for Image implementation.
 		 */
-		Image?: Image,
+		Image?: Img,
 		
 		/**
 		 * An override for GLFW implementation.
