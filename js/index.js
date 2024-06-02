@@ -85,7 +85,9 @@ const _init = (_opts = {}) => {
 	global.body = doc;
 	global.cwrap = null;
 	global.requestAnimationFrame = doc.requestAnimationFrame;
+	global.cancelAnimationFrame = doc.cancelAnimationFrame;
 	global.location = location;
+	doc.location = location;
 	global.navigator = navigator;
 	global.WebVRManager = WebVRManager;
 	global.Image = Image;

@@ -22,7 +22,7 @@ const finishLoad = (three, responseType, mimeType, onLoad, buffer) => {
 	if (responseType === 'json') {
 		try {
 			onLoad(JSON.parse(buffer.toString()));
-		} catch (e) {
+		} catch (_e) {
 			onLoad({});
 		}
 		return;

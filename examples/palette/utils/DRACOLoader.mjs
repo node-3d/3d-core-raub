@@ -412,7 +412,7 @@ function DRACOWorker() {
 
 	let decoderConfig;
 	let decoderPending;
-	// eslint-disable-next-line no-undef
+	
 	const { parentPort } = require('worker_threads');
 	global.self = global;
 	global.globalThis = global;

@@ -29,6 +29,7 @@ const {
 const icon = new Image(__dirname + '/textures/icon.png');
 icon.on('load', () => { doc.icon = icon; });
 doc.title = 'Palette Swap';
+doc.getRootNode = () => doc;
 
 (async () => {
 	const THREE = await import('three');

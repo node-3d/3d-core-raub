@@ -12,26 +12,26 @@ jobs:
   Test:
     strategy:
         matrix:
-          os: [ubuntu-20.04]
+          os: [ubuntu-22.04]
 
     runs-on: ${{ matrix.os }}
 
     steps:
 
       - name: Fetch Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
 
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18.16.0
+          node-version: 20.14.0
           cache: 'npm'
 
       - name: Install Modules
         run: npm ci
 
       - name: Run Unit Tests
-        if: matrix.os == 'ubuntu-20.04'
+        if: matrix.os == 'ubuntu-22.04'
         run: xvfb-run --auto-servernum npm run test-ci

@@ -29,7 +29,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const {
 	window, document, requestAnimationFrame, gl, Image,
 } = init({
-	// isGles3: true,
+	isGles3: true,
 	// isWebGL2: true,
 	autoEsc: true,
 	autoFullscreen: true,

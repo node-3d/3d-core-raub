@@ -3,10 +3,10 @@
     "version": "0.0.0",
     "type": "commonjs",
     "scripts": {
-        "start": "npx ts-node-esm main.ts"
+        "start": "npx tsx main.ts"
     },
     "devDependencies": {
         "3d-core-raub": "file:../..",
-        "ts-node": "^10.9.1"
+        "tsx": "^4.11.0"
     }
 }
