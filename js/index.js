@@ -76,19 +76,32 @@ const _init = (_opts = {}) => {
 	
 	const doc = new Document({ ...optsDoc, onBeforeWindow });
 	
-	global.self = global;
-	global.globalThis = global;
-	global.addEventListener = doc.addEventListener.bind(doc);
-	global.removeEventListener = doc.removeEventListener.bind(doc);
+	if (!global.self) {
+		global.self = global;
+	}
+	
+	if (!global.globalThis) {
+		global.globalThis = global;
+	}
+	
 	global.document = doc;
 	global.window = doc;
 	global.body = doc;
 	global.cwrap = null;
+	global.addEventListener = doc.addEventListener.bind(doc);
+	global.removeEventListener = doc.removeEventListener.bind(doc);
 	global.requestAnimationFrame = doc.requestAnimationFrame;
 	global.cancelAnimationFrame = doc.cancelAnimationFrame;
-	global.location = location;
-	doc.location = location;
-	global.navigator = navigator;
+	
+	if (!global.location) {
+		global.location = location;
+	}
+	doc.location = global.location;
+	
+	if (!global.navigator) {
+		global.navigator = navigator;
+	}
+	
 	global.WebVRManager = WebVRManager;
 	global.Image = Image;
 	global._gl = webgl;

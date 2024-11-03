@@ -21,16 +21,15 @@
 		"index.js",
 		"index.d.ts",
 		"LICENSE",
-		"package.json",
-		"README.md"
+		"package.json"
 	],
 	"engines": {
-		"node": ">=20.14.0",
-		"npm": ">=10.7.0"
+		"node": ">=22.9.0",
+		"npm": ">=10.8.3"
 	},
 	"scripts": {
 		"eslint": "eslint .",
-		"test": "node --test --watch .",
+		"test": "node --test --watch",
 		"test-ci": "node --test"
 	},
 	"repository": {
@@ -38,17 +37,17 @@
 		"url": "https://github.com/node-3d/3d-core-raub.git"
 	},
 	"dependencies": {
-		"addon-tools-raub": "^8.0.0",
-		"image-raub": "^4.3.0",
-		"glfw-raub": "^5.5.0",
-		"webgl-raub": "^4.2.0"
+		"addon-tools-raub": "^9.1.1",
+		"image-raub": "^5.0.0",
+		"glfw-raub": "^6.0.0",
+		"webgl-raub": "^5.0.0"
 	},
 	"devDependencies": {
-		"@types/node": "^20.12.13",
-		"@types/three": "0.165.0",
-		"@eslint/js": "^9.3.0",
-		"eslint": "^9.3.0",
-		"three": "0.165.0",
-		"typescript": "^5.4.5"
+		"@types/node": "^22.7.9",
+		"@eslint/js": "^9.13.0",
+		"eslint": "^9.13.0",
+		"node-addon-api": "^8.2.1",
+		"three": "0.170.0",
+		"typescript": "^5.6.3"
 	}
 }
