@@ -7,3 +7,4 @@
 node_modules/
 examples/3d-core/*.jpg
 *.log
+test/__diff__

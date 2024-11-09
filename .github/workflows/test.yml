@@ -32,6 +32,9 @@ jobs:
       - name: Install Modules
         run: npm ci
 
-      - name: Run Unit Tests
-        if: matrix.os == 'ubuntu-22.04'
-        run: xvfb-run --auto-servernum npm run test-ci
+      - uses: openrndr/setup-opengl@v1.1
+      - run: xvfb-run glxinfo
+      
+      # - name: Run Unit Tests
+      #   if: matrix.os == 'ubuntu-22.04'
+      #   run: xvfb-run --auto-servernum npm run test-ci

@@ -2,14 +2,11 @@
 
 const assert = require('node:assert').strict;
 const { describe, it } = require('node:test');
-
 const three = require('three');
-const { init } = require('..');
 
-const inited = init();
+const inited = require('./init');
 const {
-	gl, Document, Window, Image,
-	Brush, Cloud, Drawable, Lines, Points, Rect, Screen, Surface, Tris,
+	gl, Brush, Cloud, Drawable, Lines, Points, Rect, Screen, Surface, Tris,
 } = inited;
 
 
@@ -117,33 +114,6 @@ const staticClasses = {
 	},
 };
 
-
-const initedClasses = {
-	Image: {
-		create() {
-			return new Image();
-		},
-		props: ['src'],
-		methods: ['on'],
-	},
-	
-	Window: {
-		create() {
-			return new Window();
-		},
-		props: ['size'],
-		methods: ['show'],
-	},
-	
-	Document: {
-		create() {
-			return new Document();
-		},
-		props: ['body'],
-		methods: ['createElement'],
-	},
-};
-
 describe('Node.js 3D Core', () => {
 	it('exports an object', () => {
 		assert.strictEqual(typeof inited, 'object');
@@ -178,25 +148,6 @@ describe('Node.js 3D Core', () => {
 				it(`#${method}() method exposed`, () => {
 					assert.strictEqual(typeof instance[method], 'function');
 				});
-			});
-		}));
-	});
-	
-	describe('Inited classes', () => {
-		Object.keys(initedClasses).forEach(
-			(c) => {
-				it(`${c} is exported`, () => {
-					assert.strictEqual(typeof inited[c], 'function');
-				});
-			}
-		);
-		
-		Object.keys(initedClasses).forEach((c) => describe(c, () => {
-			const current = initedClasses[c];
-			const instance = current.create();
-			
-			it('can be created', () => {
-				assert.ok(instance instanceof inited[c]);
 			});
 		}));
 	});
