@@ -1,7 +1,7 @@
 {
 	"author": "Luis Blanco <luisblanco1337@gmail.com>",
 	"name": "3d-core-raub",
-	"version": "5.0.0",
+	"version": "5.1.0",
 	"description": "An extensible Node3D core for desktop applications",
 	"license": "MIT",
 	"main": "index.js",
@@ -37,18 +37,18 @@
 		"url": "https://github.com/node-3d/3d-core-raub.git"
 	},
 	"dependencies": {
-		"addon-tools-raub": "^9.1.1",
-		"image-raub": "^5.0.0",
-		"glfw-raub": "^6.0.0",
-		"webgl-raub": "^5.0.0"
+		"addon-tools-raub": "^9.2.0",
+		"image-raub": "^5.1.0",
+		"glfw-raub": "^6.3.0",
+		"webgl-raub": "^5.1.0"
 	},
 	"devDependencies": {
-		"@types/node": "^22.7.9",
-		"@eslint/js": "^9.13.0",
-		"eslint": "^9.13.0",
-		"node-addon-api": "^8.2.1",
+		"@types/node": "^22.10.5",
+		"@eslint/js": "^9.17.0",
+		"@types/three": "0.172.0",
+		"eslint": "^9.17.0",
 		"pixelmatch": "^6.0.0",
-		"three": "0.170.0",
-		"typescript": "^5.6.3"
+		"three": "0.172.0",
+		"typescript": "^5.7.2"
 	}
 }

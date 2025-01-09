@@ -1,11 +1,13 @@
-const PIXI = require('pixi.js');
-const { init } = require('../..');
+import * as PIXI from 'pixi.js';
+import node3d from '../../index.js';
+const { init } = node3d;
 
 const { canvas, doc, window } = init({
 	isGles3: true,
 	isWebGL2: true,
 	autoEsc: true,
-	autoFullscreen: true,
+	vsync: true,
+	title: 'PIXI',
 });
 
 const createOld = doc.createElement.bind(doc);
@@ -19,8 +21,6 @@ doc.createElement = (name) => {
 // based on https://pixijs.io/examples/#/demos-basic/container.js
 
 const app = new PIXI.Application({
-	// width: 800,
-	// height: 600,
 	backgroundColor: 0x1099bb,
 	resolution: window.devicePixelRatio || 1,
 	view: canvas,

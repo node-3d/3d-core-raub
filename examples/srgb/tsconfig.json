@@ -1,11 +1,20 @@
 {
+    "ts-node": {
+        "require": ["tsconfig-paths/register"]
+    },
     "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+            "3d-core-raub*": ["../../index"],
+        },
+        "target": "es2017",
+        "moduleResolution": "nodenext",
+        "module": "nodenext",
         "allowJs": true,
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,
-        "resolveJsonModule": true,
         "noEmit": true,
         "noImplicitOverride": true,
         "noPropertyAccessFromIndexSignature": true,

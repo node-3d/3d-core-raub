@@ -6,5 +6,6 @@
 .vscode
 node_modules/
 examples/3d-core/*.jpg
+examples/3d-core/*.png
 *.log
 test/__diff__

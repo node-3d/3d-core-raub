@@ -1,7 +1,7 @@
-'use strict';
+import * as three from 'three';
 
-const three = require('three');
-const { init } = require('../..');
+import node3d from '../../index.js';
+const { init } = node3d;
 
 
 const { Screen, Surface, Rect, Points, loop, gl } = init({
@@ -9,6 +9,8 @@ const { Screen, Surface, Rect, Points, loop, gl } = init({
 	isWebGL2: true,
 	autoEsc: true,
 	autoFullscreen: true,
+	vsync: true,
+	title: 'Surface',
 });
 
 const VBO_SIZE = 10000;
@@ -17,21 +19,6 @@ const screen = new Screen({ three });
 loop(() => screen.draw());
 
 screen.camera.position.z = 400;
-
-
-const F_KEY = 70;
-
-screen.on('keydown', (e) => {
-	if (e.keyCode === F_KEY && e.ctrlKey && e.shiftKey) {
-		screen.mode = 'windowed';
-	} else if (e.keyCode === F_KEY && e.ctrlKey && e.altKey) {
-		screen.mode = 'fullscreen';
-	} else if (e.keyCode === F_KEY && e.ctrlKey) {
-		screen.mode = 'borderless';
-	} else {
-		return;
-	}
-});
 
 const rect1 = new Rect({ screen, pos: [-500, -500], size: [1000, 1000] });
 rect1.mat.color.r = 1;

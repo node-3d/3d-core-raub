@@ -1,12 +1,13 @@
 {
     "name": "test",
     "version": "0.0.0",
-    "type": "commonjs",
+	"type": "module",
     "scripts": {
-        "start": "npx tsx main.ts"
+        "start": "tsx main.ts"
     },
     "devDependencies": {
         "3d-core-raub": "file:../..",
-        "tsx": "^4.11.0"
+		"tsconfig-paths": "^4.2.0",
+		"tsx": "^4.19.2"
     }
 }

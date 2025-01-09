@@ -1,25 +1,28 @@
-const three = require('three');
-const { init, addThreeHelpers } = require('../..');
+import * as three from 'three';
 
-const { window, document, gl, requestAnimationFrame } = init({
+import node3d from '../../index.js';
+const { init, addThreeHelpers } = node3d;
+
+const { window, document, gl, requestAnimationFrame, Screen } = init({
 	isGles3: true,
-	isWebGL2: true,
+	// isWebGL2: true,
 	autoEsc: true,
 	autoFullscreen: true,
+	vsync: true,
+	title: 'Crate',
 });
 addThreeHelpers(three, gl);
 
 var camera, scene, renderer, mesh;
 
 initExample();
-animate();
 
 function initExample() {
 	camera = new three.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
 	camera.position.z = 2;
 	scene = new three.Scene();
 	
-	var texture = new three.TextureLoader().load( __dirname + '/textures/crate.gif' );
+	var texture = new three.TextureLoader().load( 'textures/crate.gif' );
 	texture.colorSpace = three.SRGBColorSpace;
 	var geometry = new three.BoxGeometry();
 	var material = new three.MeshBasicMaterial( { map: texture } );
@@ -40,10 +43,14 @@ function onWindowResize() {
 	renderer.setSize( window.innerWidth, window.innerHeight );
 }
 
+const screen = new Screen({ three });
+
 function animate() {
-	requestAnimationFrame( animate );
 	const time = Date.now();
 	mesh.rotation.x = time * 0.0005;
 	mesh.rotation.y = time * 0.001;
-	renderer.render( scene, camera );
+	screen.renderer.render( scene, camera );
+	requestAnimationFrame( animate );
 }
+
+requestAnimationFrame( animate );

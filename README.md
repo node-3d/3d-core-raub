@@ -42,42 +42,41 @@ This module exports 2 methods:
 
 See [TypeScript defenitions](/index.d.ts) for more details.
 
-Example (also see [here](/examples/crate-lean.js)):
+Example (as in [crate-lean.mjs](/examples/crate-lean.mjs)):
 
 ```javascript
-const three = require('three');
-const { init, addThreeHelpers } = require('3d-core-raub');
+import * as THREE from 'three';
+import node3d from '../index.js';
+const { init, addThreeHelpers } = node3d;
 
-const { doc, gl, requestAnimationFrame } = init({ isGles3: true });
-addThreeHelpers(three, gl);
-
-const renderer = new three.WebGLRenderer();
-renderer.setPixelRatio( doc.devicePixelRatio );
-renderer.setSize( doc.innerWidth, doc.innerHeight );
-
-const camera = new three.PerspectiveCamera(70, doc.innerWidth / doc.innerHeight, 1, 1000);
-camera.position.z = 2;
-const scene = new three.Scene();
-
-const geometry = new three.BoxGeometry();
-const material = new three.MeshBasicMaterial({ color: 0xFACE8D });
-const mesh = new three.Mesh( geometry, material );
-scene.add(mesh);
-
-doc.addEventListener('resize', () => {
-	camera.aspect = doc.innerWidth / doc.innerHeight;
-	camera.updateProjectionMatrix();
-	renderer.setSize(doc.innerWidth, doc.innerHeight);
+const { gl, loop, Screen } = init({
+	isGles3: true, vsync: true, autoEsc: true, autoFullscreen: true, title: 'Crate',
 });
+addThreeHelpers(THREE, gl);
+const screen = new Screen({ three: THREE, fov: 70, z: 2 });
 
-const animate = () => {
-	requestAnimationFrame(animate);
+const texture = new THREE.TextureLoader().load('three/textures/crate.gif');
+texture.colorSpace = THREE.SRGBColorSpace;
+const geometry = new THREE.BoxGeometry();
+const material = new THREE.MeshBasicMaterial({ map: texture });
+const mesh = new THREE.Mesh(geometry, material);
+screen.scene.add(mesh);
+
+loop(() => {
 	const time = Date.now();
 	mesh.rotation.x = time * 0.0005;
 	mesh.rotation.y = time * 0.001;
-	
-	renderer.render(scene, camera);
-};
-
-animate();
+	screen.draw();
+});
 ```
+
+Example Notes:
+
+1. You can use **mjs**, **tsx** or commonjs with `require()`.
+1. `loop` is a convenience method, you can use `requestAnimationFrame` too.
+1. `autoFullscreen` option enables "CTRL+F", "CTRL+SHIFT+F", "CTRL+ALT+F" to switch
+	window modes.
+1. `Screen` helps with **three.js**-oriented resource management, but is not required.
+1. **three.js** uses VAO, so if not using `Screen`, handling the window mode changes
+	(creates a separate OpenGL context) is up to you. Basically, `doc.on('mode', () => {...})` -
+	here you should [re-create THREE.WebGLRenderer](/js/objects/screen.js).
