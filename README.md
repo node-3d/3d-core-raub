@@ -79,4 +79,4 @@ Example Notes:
 1. `Screen` helps with **three.js**-oriented resource management, but is not required.
 1. **three.js** uses VAO, so if not using `Screen`, handling the window mode changes
 	(creates a separate OpenGL context) is up to you. Basically, `doc.on('mode', () => {...})` -
-	here you should [re-create THREE.WebGLRenderer](/js/objects/screen.js).
+	here you should [re-create THREE.WebGLRenderer](/js/objects/screen.js#L127).
