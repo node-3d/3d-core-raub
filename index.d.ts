@@ -1,7 +1,12 @@
 declare module "3d-core-raub" {
+	type EventEmitter = import('node:events').EventEmitter;
 	type Img = typeof import('image-raub');
 	type TThree = typeof import('three');
+	type TScene = import('three').Scene;
+	type TRenderer = import('three').WebGLRenderer;
+	type TCamera = import('three').Camera;
 	type TWebgl = typeof import('webgl-raub');
+	type TImage = typeof import('image-raub');
 	type TGlfw = typeof import('glfw-raub');
 	type TDocumentOpts = import('glfw-raub').TDocumentOpts;
 	type Document = import('glfw-raub').Document;
@@ -87,7 +92,69 @@ declare module "3d-core-raub" {
 		webkitTemporaryStorage: TUnknownObject,
 	}>;
 	
-	type TLoop = (cb: (i: number) => void) => void;
+	type TScreenOpts = Readonly<{
+		three?: TThree,
+		THREE?: TThree,
+		gl?: TWebgl,
+		doc?: Document,
+		document?: Document,
+		Image?: TImage,
+		title?: string,
+		camera?: TCamera,
+		scene?: TScene,
+		renderer?: TRenderer,
+		fov?: number,
+		near?: number,
+		far?: number,
+		z?: number,
+	}>;
+	
+	export class Screen implements EventEmitter {
+		constructor(opts?: TScreenOpts);
+		
+		readonly context: TWebgl;
+		readonly three: TThree;
+		readonly renderer: TRenderer;
+		readonly scene: TScene;
+		readonly camera: TCamera;
+		
+		readonly document: Document;
+		readonly canvas: Document;
+		
+		readonly width: number;
+		readonly height: number;
+		readonly w: number;
+		readonly h: number;
+		readonly size: TThree['Vector2'];
+		
+		title: string;
+		icon: Document['icon'];
+		fov: number;
+		mode: Document['mode'];
+		
+		draw(): void;
+		snapshot(name?: string): void;
+		
+		
+		// ------ implements EventEmitter
+		
+		addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+		on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+		once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+		removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+		off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+		removeAllListeners(event?: string | symbol): this;
+		setMaxListeners(n: number): this;
+		getMaxListeners(): number;
+		listeners(eventName: string | symbol): Function[];
+		rawListeners(eventName: string | symbol): Function[];
+		emit(eventName: string | symbol, ...args: any[]): boolean;
+		listenerCount(eventName: string | symbol, listener?: Function): number;
+		prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+		prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+		eventNames(): Array<string | symbol>;
+	}
+
 	
 	type TCore3D = {
 		/**
@@ -142,13 +209,15 @@ declare module "3d-core-raub" {
 		/**
 		 * The default frame-loop helper, calls `requestAnimationFrame` automatically.
 		 */
-		loop: TLoop,
+		loop: (cb: () => void) => void,
 		
 		/**
 		 * Swaps GL buffers and calls the `cb` callback on next frame.
 		 * @alias doc.requestAnimationFrame
 		 */
 		requestAnimationFrame: (cb: (dateNow: number) => void) => number,
+		
+		Screen: typeof Screen,
 	};
 	
 	type TPluginDecl = string | ((core3d: TCore3D) => void) | Readonly<{ name: string, opts: TUnknownObject }>;
