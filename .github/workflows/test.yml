@@ -33,7 +33,7 @@ jobs:
         run: npm ci
 
       - name: Tests - Linux
-        if: matrix.os == 'ubuntu-22.04' || matrix.os == 'ubuntu-22.04'
+        if: matrix.os == 'ubuntu-22.04' || matrix.os == 'ubuntu-22.04-arm'
         run: xvfb-run --auto-servernum npm run test-ci
 
       # - name: Test - Windows
