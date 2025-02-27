@@ -1,13 +1,12 @@
 {
-    "name": "test",
-    "version": "0.0.0",
+	"name": "test",
+	"version": "0.0.0",
 	"type": "module",
-    "scripts": {
-        "start": "tsx main.ts"
-    },
-    "devDependencies": {
-        "3d-core-raub": "file:../..",
-		"tsconfig-paths": "^4.2.0",
-		"tsx": "^4.19.2"
-    }
+	"scripts": {
+		"start": "node --experimental-strip-types main.ts"
+	},
+	"devDependencies": {
+		"3d-core-raub": "file:../..",
+		"tsconfig-paths": "^4.2.0"
+	}
 }
