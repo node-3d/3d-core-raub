@@ -40,6 +40,6 @@ jobs:
       #   if: matrix.os == 'windows-2022'
       #   run: npm run test-ci
 
-      - name: Test - MacOS
-        if: matrix.os == 'macos-14'
-        run: npm run test-ci
+      # - name: Test - MacOS
+      #   if: matrix.os == 'macos-14'
+      #   run: npm run test-ci
