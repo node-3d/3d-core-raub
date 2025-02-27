@@ -23,6 +23,8 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { init, addThreeHelpers } from '../../index.js';
 
 
+const IS_PERF_MODE = true;
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 
@@ -33,7 +35,7 @@ const {
 	// isWebGL2: true,
 	autoEsc: true,
 	autoFullscreen: true,
-	vsync: true,
+	vsync: !IS_PERF_MODE,
 	title: 'Postprocessing',
 });
 addThreeHelpers(THREE, gl);
@@ -311,10 +313,13 @@ function createMesh(geometry, scene, scale) {
 }
 
 
-loop(() => {
-	const time = Date.now() * 0.0004;
+let prevTime = Date.now();
+let frames = 0;
 
-	if (mesh) mesh.rotation.y = - time;
+loop(() => {
+	const timedRotation = Date.now() * 0.0004;
+
+	if (mesh) mesh.rotation.y = -timedRotation;
 
 	renderer.setViewport(0, 0, halfWidth, halfHeight);
 	composerScene.render(delta);
@@ -330,4 +335,18 @@ loop(() => {
 
 	renderer.setViewport(halfWidth, halfHeight, halfWidth, halfHeight);
 	composer4.render(delta);
+	
+	if (!IS_PERF_MODE) {
+		return;
+	}
+	
+	frames++;
+	const time = Date.now();
+	if (time >= prevTime + 1000) {
+		console.log(
+			'FPS:', Math.floor((frames * 1000) / (time - prevTime)),
+		);
+		prevTime = time;
+		frames = 0;
+	}
 });

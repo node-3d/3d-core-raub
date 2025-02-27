@@ -106,17 +106,6 @@ const _init = (_opts = {}) => {
 	global.Image = Image;
 	global._gl = webgl;
 	
-	const loop = (cb) => {
-		let i = 0;
-		
-		const animation = () => {
-			cb(i++);
-			doc.requestAnimationFrame(animation);
-		};
-		
-		doc.requestAnimationFrame(animation);
-	};
-	
 	webgl.canvas = doc;
 	
 	const core3d = {
@@ -129,7 +118,7 @@ const _init = (_opts = {}) => {
 		canvas: doc,
 		document: doc,
 		window: doc,
-		loop,
+		loop: doc.loop,
 		requestAnimationFrame : doc.requestAnimationFrame,
 		addThreeHelpers,
 		...require('./math'),

@@ -14,6 +14,8 @@ import { createRenderTarget } from './utils/create-render-target.js';
 import { populateScene } from './utils/populate-scene.js';
 
 
+const IS_PERF_MODE = true;
+
 const hueModes = [
 	'monochromatic', 'analagous', 'complementary', 'triadic', 'tetradic',
 ];
@@ -27,7 +29,8 @@ const {
 	isWebGL2: true,
 	autoEsc: true,
 	autoFullscreen: true,
-	title: 'Palette Swap'
+	title: 'Palette Swap',
+	vsync: !IS_PERF_MODE,
 });
 addThreeHelpers(THREE, gl);
 
@@ -205,6 +208,9 @@ const render = () => {
 	screen.renderer.render(scenePost, cameraOrtho);
 };
 
+let prevTime = Date.now();
+let frames = 0;
+
 loop(() => {
 	controls.update();
 	
@@ -213,4 +219,18 @@ loop(() => {
 	}
 	
 	render();
+	
+	if (!IS_PERF_MODE) {
+		return;
+	}
+	
+	frames++;
+	const time = Date.now();
+	if (time >= prevTime + 2000) {
+		console.log(
+			'FPS:', Math.floor((frames * 1000) / (time - prevTime)),
+		);
+		prevTime = time;
+		frames = 0;
+	}
 });
