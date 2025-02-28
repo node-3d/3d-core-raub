@@ -36,12 +36,12 @@ jobs:
         if: matrix.os == 'ubuntu-22.04' || matrix.os == 'ubuntu-22.04-arm'
         run: xvfb-run --auto-servernum npm run test-ci
 
-      - uses: ssciwr/setup-mesa-dist-win@v2
-        if: matrix.os == 'windows-2022'
-        with:
-          version: '25.0.0'
-          build-type: 'release-msvc'
-          deployment-choice: '1'
+      # - uses: ssciwr/setup-mesa-dist-win@v2
+      #   if: matrix.os == 'windows-2022'
+      #   with:
+      #     version: '25.0.0'
+      #     build-type: 'release-msvc'
+      #     deployment-choice: '1'
 
       - name: Install Mesa windows
         if: matrix.os == 'windows-2022'
