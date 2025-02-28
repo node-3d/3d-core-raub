@@ -5,10 +5,12 @@ const glfw = require('glfw-raub');
 const { init, addThreeHelpers } = require('..');
 
 const initOptsLinux = {
+	width: 400, height: 400,
 	isGles3: true,
 	isWebGL2: true,
 };
 const initOpts = {
+	width: 400, height: 400,
 	isGles3: false,
 	major: 2,
 	minor: 1,
