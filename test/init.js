@@ -11,8 +11,8 @@ const initOptsLinux = {
 const initOpts = {
 	isGles3: false,
 	isWebGL2: false,
-	major: 2,
-	minor: 1,
+	major: 3,
+	minor: 2,
 };
 
 if (platform === 'darwin') {
