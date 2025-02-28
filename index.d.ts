@@ -207,12 +207,19 @@ declare module "3d-core-raub" {
 		window: Document,
 		
 		/**
-		 * The default frame-loop helper, calls `requestAnimationFrame` automatically.
-		 */
-		loop: (cb: () => void) => void,
+		 * Optimized loop method that will continuously generate frames with given `cb`.
+		 *
+		 * The returned function may be called to break the loop.
+		 * @alias doc.loop
+		*/
+		loop(cb: (dateNow: number) => void): (() => void);
 		
 		/**
-		 * Swaps GL buffers and calls the `cb` callback on next frame.
+		 * Similar to `requestAnimationFrame` on web. It uses `setImmediate`, and can
+		 * therefore be cancelled (with `doc.cancelAnimationFrame`).
+		 *
+		 * On immediate, it will process events (input), then call `cb`, then swap buffers.
+		 * Swap buffers is blocking when VSYNC is on - that's how FPS is sync'd.
 		 * @alias doc.requestAnimationFrame
 		 */
 		requestAnimationFrame: (cb: (dateNow: number) => void) => number,

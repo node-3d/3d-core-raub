@@ -10,23 +10,15 @@ This is a part of [Node3D](https://github.com/node-3d) project.
 npm i -s 3d-core-raub
 ```
 
-Run **WebGL** code on **Node.js**.
+> This package uses pre-compiled Node.js addons. **There is no compilation** during the `npm install`.
+The addons are compiled for: Win64, Linux64, Linux ARM64, MacOS ARM64.
 
 ![Example](examples/screenshot.png)
 
-> Note: Since version 4.0.0, [three.js](https://github.com/mrdoob/three.js) is a peer dependency.
-Please install your version of choise and call `addThreeHelpers` before drawing frames.
-
-* Multiple windows are supported, using [GLFW](http://www.glfw.org/) for window management.
-* WebGL implementation is not 100% accurate, but good enough to run three.js examples.
-* The C++ bindings use [GLEW](http://glew.sourceforge.net/) to access all the OpenGL functions.
-* Image loading uses [FreeImage](http://freeimage.sourceforge.net/) encoder/decoder.
-* Window icons are supported and both JS- and Image-friendly.
-
-> Note: this package uses a bunch of **N-API addons**, which are ABI-compatible across
-different Node.js versions. Addon binaries are precompiled and **there is no compilation**
-step during the `npm i` command.
-
+* WebGL/OpenGL on **Node.js** with support for web libs, such as **three.js**.
+* Multi-window apps, low-level window control with [glfw-raub](https://github.com/node-3d/glfw-raub).
+* Modern OpenGL functions also available, see [webgl-raub](https://github.com/node-3d/webgl-raub).
+* Image loading/saving in popular formats with [image-raub](https://github.com/node-3d/image-raub).
 
 This module exports 2 methods:
 1. `export const init: (opts?: TInitOpts) => TCore3D;`
@@ -40,9 +32,11 @@ This module exports 2 methods:
     `three.Texture.fromId` static method to create THREE textures from known GL resource IDs.
 
 
-See [TypeScript defenitions](/index.d.ts) for more details.
+See [TS declarations](/index.d.ts) for more details.
 
-Example (as in [crate-lean.mjs](/examples/crate-lean.mjs)):
+## Example
+
+(As in [crate-lean.mjs](/examples/crate-lean.mjs)):
 
 ```javascript
 import * as THREE from 'three';
@@ -78,5 +72,32 @@ Example Notes:
 	window modes.
 1. `Screen` helps with **three.js**-oriented resource management, but is not required.
 1. **three.js** uses VAO, so if not using `Screen`, handling the window mode changes
-	(creates a separate OpenGL context) is up to you. Basically, `doc.on('mode', () => {...})` -
+	(which creates a separate OpenGL context) is up to you.
+	Basically, `doc.on('mode', () => {...})` -
 	here you should [re-create THREE.WebGLRenderer](/js/objects/screen.js#L127).
+
+
+## OpenGL Features
+
+1. This is real native OpenGL, and you have direct access to GL resource IDs. This may be
+	useful for resource sharing and compute interop (such as
+	[CUDA-GL interop](https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__OPENGL.html)).
+1. The flag `isGles3` let's you use a GL ES 3 preset, which is closest to "real" WebGL.
+	If set to `false`, WebGL stuff (such as three.js) will still work, but now with some hacks.
+	However, if you are planning to use non-WebGL features (e.g. OpenGL 4.5 features),
+	you might want it off, and then select a specific context version manually.
+1. The flag `isWebGL2` impacts how web libraries recognize the WebGL version.
+	But it doesn't really change the capabilities of the engine.
+1. Offscreen rendering is possible on Windows and Linux, as demonstrated by the tests
+	running in GitHub Actions. There are test cases that generate and compare screenshots,
+	and they do work in headless mode.
+1. OpenGL context sharing is enabled. You can obtain `HDC, HWND, CTX` for Windows and whatever
+	those are called on Linux and MacOS. See [glfw-raub](https://github.com/node-3d/glfw-raub).
+
+
+## License
+
+You get this for free. Have fun!
+
+Some of the components have their separate licenses, but all of them may be used
+commercially, without royalty.
