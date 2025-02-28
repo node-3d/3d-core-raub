@@ -41,7 +41,7 @@ jobs:
         with:
           version: '25.0.0'
           build-type: 'release-msvc'
-          deployment-choice: '5'
+          deployment-choice: '1'
 
       - name: Test - Windows
         if: matrix.os == 'windows-2022'
