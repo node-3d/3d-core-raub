@@ -4,6 +4,7 @@ import node3d from '../index.js';
 const { init, addThreeHelpers } = node3d;
 const { doc, gl, loop, Screen } = init({
 	isGles3: true,
+	// isGles3: false, // - works too
 	vsync: true,
 	autoEsc: true,
 	autoFullscreen: true,

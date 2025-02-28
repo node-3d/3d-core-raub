@@ -10,9 +10,8 @@ const initOptsLinux = {
 };
 const initOpts = {
 	isGles3: false,
-	isWebGL2: false,
-	major: 3,
-	minor: 2,
+	major: 2,
+	minor: 1,
 };
 
 if (platform === 'darwin') {

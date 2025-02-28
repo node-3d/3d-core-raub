@@ -63,7 +63,11 @@ const _init = (_opts = {}) => {
 			code.replace(
 				/^\s*?(#version|precision).*?($|;)/gm, ''
 			).replace(
-				/^/, '#version 120\n'
+				/^/, '#extension GL_ARB_shading_language_420pack : require\n'
+			).replace(
+				/^/, '#extension GL_ARB_explicit_attrib_location : enable\n'
+			).replace(
+				/^/, '#version 140\n'
 			).replace(
 				/gl_FragDepthEXT/g, 'gl_FragDepth'
 			).replace(
