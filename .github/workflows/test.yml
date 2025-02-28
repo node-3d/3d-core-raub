@@ -47,9 +47,12 @@ jobs:
         shell: bash
         if: matrix.os == 'windows-2022'
         run: |
-          NODEPATH="$(where node)"
+          NODEPATH="$(where node | head -1)"
+          echo $NODEPATH
           NODEPATH="${NODEPATH//\\//}"
+          echo $NODEPATH
           NODEDIR=$(dirname "$NODEPATH")
+          echo $NODEDIR
           cd "$NODEDIR"
           curl -L --output mesa.7z --url https://github.com/pal1000/mesa-dist-win/releases/download/25.0.0/mesa3d-25.0.0-release-msvc.7z
           7z x mesa.7z
