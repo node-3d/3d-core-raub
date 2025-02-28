@@ -36,33 +36,13 @@ jobs:
         if: matrix.os == 'ubuntu-22.04' || matrix.os == 'ubuntu-22.04-arm'
         run: xvfb-run --auto-servernum npm run test-ci
 
-      # - uses: ssciwr/setup-mesa-dist-win@v2
-      #   if: matrix.os == 'windows-2022'
-      #   with:
-      #     version: '25.0.0'
-      #     build-type: 'release-msvc'
-      #     deployment-choice: '1'
-
-      - name: Install Mesa windows
-        shell: bash
+      - uses: ssciwr/setup-mesa-dist-win@v2
         if: matrix.os == 'windows-2022'
-        run: |
-          NODEPATH="$(where node | head -1)"
-          echo $NODEPATH
-          NODEPATH="${NODEPATH//\\//}"
-          echo $NODEPATH
-          NODEDIR=$(dirname "$NODEPATH")
-          echo $NODEDIR
-          cd "$NODEDIR"
-          curl -L --output mesa.7z --url https://github.com/pal1000/mesa-dist-win/releases/download/25.0.0/mesa3d-25.0.0-release-msvc.7z
-          7z x mesa.7z
 
       - name: Test - Windows
         shell: bash
         if: matrix.os == 'windows-2022'
-        run: |
-          GALLIUM_DRIVER=llvmpipe
-          npm run test-ci
+        run: npm run test-ci
 
       # - name: Test - MacOS
       #   if: matrix.os == 'macos-14'
