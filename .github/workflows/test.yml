@@ -44,6 +44,7 @@ jobs:
       #     deployment-choice: '1'
 
       - name: Install Mesa windows
+        shell: bash
         if: matrix.os == 'windows-2022'
         run: |
           NODEPATH="$(where node)"
@@ -54,6 +55,7 @@ jobs:
           7z x mesa.7z
 
       - name: Test - Windows
+        shell: bash
         if: matrix.os == 'windows-2022'
         run: |
           GALLIUM_DRIVER=llvmpipe
