@@ -43,9 +43,23 @@ jobs:
           build-type: 'release-msvc'
           deployment-choice: '1'
 
+      - name: Install Mesa windows
+        if: matrix.os == 'windows-2022'
+        shell: powershell
+        run: |
+          mkdir __mesa
+          cd __mesa
+          curl.exe -L --output mesa.7z --url https://github.com/pal1000/mesa-dist-win/releases/download/25.0.0/mesa3d-25.0.0-release-msvc.7z
+          C:\'Program Files'\7-Zip\7z.exe x mesa.7z
+          echo "GALLIUM_DRIVER=llvmpipe"| Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
       - name: Test - Windows
         if: matrix.os == 'windows-2022'
-        run: npm run test-ci
+        run: |
+          cp __mesa/x64/opengl32.dll node_modules/glfw-raub/bin-windows
+          cp __mesa/x64/libglapi.dll node_modules/glfw-raub/bin-windows
+          cp __mesa/x64/libgallium_wgl.dll node_modules/glfw-raub/bin-windows
+          npm run test-ci
 
       # - name: Test - MacOS
       #   if: matrix.os == 'macos-14'
