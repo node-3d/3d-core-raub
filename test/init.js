@@ -4,12 +4,11 @@ const glfw = require('glfw-raub');
 
 const { init, addThreeHelpers } = require('..');
 
-const initOpts = {
+const initOptsLinux = {
 	isGles3: true,
 	isWebGL2: true,
 };
-const initOptsMac = {
-	...initOpts,
+const initOpts = {
 	isGles3: false,
 	isWebGL2: false,
 	major: 2,
@@ -22,7 +21,7 @@ if (platform === 'darwin') {
 	// glfw.windowHint(glfw.CONTEXT_RENDERER, glfw.SOFTWARE_RENDERER);
 }
 
-const inited = init(platform === 'darwin' ? initOptsMac : initOpts);
+const inited = init(platform === 'linux' ? initOptsLinux : initOpts);
 addThreeHelpers(three, inited.gl);
 
 module.exports = inited;
