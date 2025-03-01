@@ -10,7 +10,7 @@ This is a part of [Node3D](https://github.com/node-3d) project.
 npm i -s 3d-core-raub
 ```
 
-> This package uses pre-compiled Node.js addons. **There is no compilation** during the `npm install`.
+> This package uses pre-compiled Node.js addons. **There is no compilation** during `npm i`.
 The addons are compiled for: Win64, Linux64, Linux ARM64, MacOS ARM64.
 
 ![Example](examples/screenshot.png)
