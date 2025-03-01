@@ -5,7 +5,7 @@ import {
 
 import Img from 'image-raub';
 import { init } from '3d-core-raub';
-import { SimpleTextureProcessor } from './simple_texture_processor';
+import { SimpleTextureProcessor } from './simple_texture_processor.ts';
 
 init({
     isGles3: true,

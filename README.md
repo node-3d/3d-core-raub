@@ -40,6 +40,7 @@ See [TS declarations](/index.d.ts) for more details.
 
 ```javascript
 import * as THREE from 'three';
+
 import node3d from '../index.js';
 const { init, addThreeHelpers } = node3d;
 
@@ -56,10 +57,9 @@ const material = new THREE.MeshBasicMaterial({ map: texture });
 const mesh = new THREE.Mesh(geometry, material);
 screen.scene.add(mesh);
 
-loop(() => {
-	const time = Date.now();
-	mesh.rotation.x = time * 0.0005;
-	mesh.rotation.y = time * 0.001;
+loop((now) => {
+	mesh.rotation.x = now * 0.0005;
+	mesh.rotation.y = now * 0.001;
 	screen.draw();
 });
 ```
@@ -79,25 +79,25 @@ Example Notes:
 
 ## OpenGL Features
 
-1. This is real native OpenGL, and you have direct access to GL resource IDs. This may be
+1. This is real **native OpenGL**, and you have direct access to GL resource IDs. This may be
 	useful for resource sharing and compute interop (such as
 	[CUDA-GL interop](https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__OPENGL.html)).
-1. The flag `isGles3` let's you use a GL ES 3 preset, which is closest to "real" WebGL.
+1. The flag `isGles3` lets you use a **GL ES 3** preset, which is closest to "real" WebGL.
 	If set to `false`, WebGL stuff (such as three.js) will still work, but now with some hacks.
-	However, if you are planning to use non-WebGL features (e.g. OpenGL 4.5 features),
+	However, if you are planning to use non-WebGL features (e.g. **OpenGL 4.5** features),
 	you might want it off, and then select a specific context version manually.
 1. The flag `isWebGL2` impacts how web libraries recognize the WebGL version.
 	But it doesn't really change the capabilities of the engine.
-1. Offscreen rendering is possible on Windows and Linux, as demonstrated by the tests
+1. **Offscreen rendering** is possible on Windows and Linux, as demonstrated by the tests
 	running in GitHub Actions. There are test cases that generate and compare screenshots,
 	and they do work in headless mode.
-1. OpenGL context sharing is enabled. You can obtain `HDC, HWND, CTX` for Windows and whatever
+1. OpenGL **context sharing** is enabled. You can obtain `HDC, HWND, CTX` for Windows and whatever
 	those are called on Linux and MacOS. See [glfw-raub](https://github.com/node-3d/glfw-raub).
 
 
 ## License
 
-You get this for free. Have fun!
+**You get this for free. Have fun!**
 
 Some of the components have their separate licenses, but all of them may be used
 commercially, without royalty.

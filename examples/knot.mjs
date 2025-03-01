@@ -38,9 +38,8 @@ const outlineMesh = new THREE.Mesh(outlineGeometry, outlineMaterial);
 knotMesh.add(outlineMesh);
 
 // Called repeatedly to render new frames
-loop(() => {
-	const time = Date.now();
-	knotMesh.rotation.x = time * 0.0005;
-	knotMesh.rotation.y = time * 0.001;
+loop((now) => {
+	knotMesh.rotation.x = now * 0.0005;
+	knotMesh.rotation.y = now * 0.001;
 	screen.draw();
 });

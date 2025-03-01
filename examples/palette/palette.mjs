@@ -211,11 +211,11 @@ const render = () => {
 let prevTime = Date.now();
 let frames = 0;
 
-loop(() => {
+loop((now) => {
 	controls.update();
 	
 	if (mesh) {
-		mesh.rotation.y = Date.now() * 0.00005;
+		mesh.rotation.y = now * 0.00005;
 	}
 	
 	render();
@@ -225,12 +225,11 @@ loop(() => {
 	}
 	
 	frames++;
-	const time = Date.now();
-	if (time >= prevTime + 2000) {
+	if (now >= prevTime + 2000) {
 		console.log(
-			'FPS:', Math.floor((frames * 1000) / (time - prevTime)),
+			'FPS:', Math.floor((frames * 1000) / (now - prevTime)),
 		);
-		prevTime = time;
+		prevTime = now;
 		frames = 0;
 	}
 });

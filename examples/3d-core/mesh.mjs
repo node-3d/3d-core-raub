@@ -35,9 +35,9 @@ pointLight.position.y = 20;
 pointLight.position.z = 5;
 
 
-loop(() => {
-	mesh.rotation.x = Date.now() * 0.0005;
-	mesh.rotation.y = Date.now() * 0.001;
-	mesh.rotation.z = Date.now() * 0.0007;
+loop((now) => {
+	mesh.rotation.x = now * 0.0005;
+	mesh.rotation.y = now * 0.001;
+	mesh.rotation.z = now * 0.0007;
 	screen.draw();
 });

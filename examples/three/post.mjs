@@ -316,8 +316,8 @@ function createMesh(geometry, scene, scale) {
 let prevTime = Date.now();
 let frames = 0;
 
-loop(() => {
-	const timedRotation = Date.now() * 0.0004;
+loop((now) => {
+	const timedRotation = now * 0.0004;
 
 	if (mesh) mesh.rotation.y = -timedRotation;
 
@@ -341,12 +341,11 @@ loop(() => {
 	}
 	
 	frames++;
-	const time = Date.now();
-	if (time >= prevTime + 1000) {
+	if (now >= prevTime + 2000) {
 		console.log(
-			'FPS:', Math.floor((frames * 1000) / (time - prevTime)),
+			'FPS:', Math.floor((frames * 1000) / (now - prevTime)),
 		);
-		prevTime = time;
+		prevTime = now;
 		frames = 0;
 	}
 });

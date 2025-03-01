@@ -3,7 +3,6 @@ import * as THREE from 'three';
 import node3d from '../index.js';
 const { init, addThreeHelpers } = node3d;
 
-
 const { gl, loop, Screen } = init({
 	isGles3: true, vsync: true, autoEsc: true, autoFullscreen: true, title: 'Crate',
 });
@@ -17,9 +16,8 @@ const material = new THREE.MeshBasicMaterial({ map: texture });
 const mesh = new THREE.Mesh(geometry, material);
 screen.scene.add(mesh);
 
-loop(() => {
-	const time = Date.now();
-	mesh.rotation.x = time * 0.0005;
-	mesh.rotation.y = time * 0.001;
+loop((now) => {
+	mesh.rotation.x = now * 0.0005;
+	mesh.rotation.y = now * 0.001;
 	screen.draw();
 });
