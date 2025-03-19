@@ -33,7 +33,7 @@ scene.add(knotMesh);
 
 // A slightly larger knot mesh, inside-out black - for outline
 const outlineGeometry = new THREE.TorusKnotGeometry(10, 2, 256, 20, 2, 7);
-const outlineMaterial = new THREE.MeshBasicMaterial({ color: 0, side: THREE.BackSide });;
+const outlineMaterial = new THREE.MeshBasicMaterial({ color: 0, side: THREE.BackSide });
 const outlineMesh = new THREE.Mesh(outlineGeometry, outlineMaterial);
 knotMesh.add(outlineMesh);
 

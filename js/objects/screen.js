@@ -19,15 +19,15 @@ class Screen extends EventEmitter {
 		if (!opts.camera) {
 			const { fov, near, far, z } = opts;
 			if (fov === 0) {
-				this._camera = new this.three.OrthographicCamera(
-					-this.width * 0.5, this.width * 0.5,
-					this.height * 0.5, -this.height * 0.5,
+				this._camera = new this._three.OrthographicCamera(
+					-this.w * 0.5, this.w * 0.5,
+					this.h * 0.5, -this.h * 0.5,
 					near ?? -10, far ?? 10,
 				);
 				this._camera.position.z = z ?? 5;
 			} else {
-				this._camera = new this.three.PerspectiveCamera(
-					fov ?? 90, this.width / this.height, near ?? 0.1, far ?? 200,
+				this._camera = new this._three.PerspectiveCamera(
+					fov ?? 90, this.w / this.h, near ?? 0.1, far ?? 200,
 				);
 				this._camera.position.z = z ?? 10;
 			}
@@ -36,40 +36,37 @@ class Screen extends EventEmitter {
 		}
 		
 		if (!opts.scene) {
-			this._scene = new this.three.Scene();
+			this._scene = new this._three.Scene();
 		} else {
 			this._scene = opts.scene;
 		}
 		
-		if (!opts.renderer) {
-			this._reinitRenderer();
-		} else {
+		if (opts.renderer) {
 			this._autoRenderer = false;
 			this._renderer = opts.renderer;
-			this.context.enable(0x8861); // GL_POINT_SPRITE 0x8861
-			this.context.enable(0x8642); // GL_VERTEX_PROGRAM_POINT_SIZE
-			this.context.enable(0x8862); // GL_COORD_REPLACE
 		}
+		this._reinitRenderer();
 		
-		this.renderer.setSize(this._doc.width, this._doc.height, false);
+		this._renderer.setSize(this._doc.width, this._doc.height, false);
 		
-		this.document.on('mode', () => {
+		this._doc.on('mode', (e) => {
 			this._reinitRenderer();
+			this.emit('mode', e);
 		});
 		
-		this.document.on('resize', ({ width, height }) => {
+		this._doc.on('resize', ({ width, height }) => {
 			width = width || 16;
 			height = height || 16;
 			
-			this.camera.aspect = width / height;
-			this.camera.updateProjectionMatrix();
-			this.renderer.setSize(width, height, false);
+			this._camera.aspect = width / height;
+			this._camera.updateProjectionMatrix();
+			this._renderer.setSize(width, height, false);
 			
 			this.emit('resize', { width, height });
 		});
 		
 		['keydown', 'keyup', 'mousedown', 'mouseup', 'mousemove','mousewheel'].forEach(
-			(type) => this.document.on(type, (e) => this.emit(type, e))
+			(type) => this._doc.on(type, (e) => this.emit(type, e))
 		);
 		
 		this.draw();
@@ -87,9 +84,9 @@ class Screen extends EventEmitter {
 	
 	get width() { return this._doc.width; }
 	get height() { return this._doc.height; }
-	get w() { return this.width; }
-	get h() { return this.height; }
-	get size() { return new this.three.Vector2(this.width, this.height); }
+	get w() { return this._doc.width; }
+	get h() { return this._doc.height; }
+	get size() { return new this._three.Vector2(this.w, this.h); }
 	
 	get title() { return this._doc.title; }
 	set title(v) { this._doc.title = v || 'Untitled'; }
@@ -103,11 +100,11 @@ class Screen extends EventEmitter {
 		this._camera.updateProjectionMatrix();
 	}
 	
-	get mode() { return this._doc._mode; }
+	get mode() { return this._doc.mode; }
 	set mode(v) { this._doc.mode = v; }
 	
 	draw() {
-		this._renderer.render(this.scene, this.camera);
+		this._renderer.render(this._scene, this._camera);
 	}
 	
 	
@@ -115,38 +112,70 @@ class Screen extends EventEmitter {
 		const memSize = this.w * this.h * 4; // estimated number of bytes
 		const storage = { data: Buffer.allocUnsafeSlow(memSize) };
 		
-		this.context.readPixels(
-			0, 0, this.w, this.h, this.context.RGBA, this.context.UNSIGNED_BYTE, storage,
+		this._gl.readPixels(
+			0, 0, this.w, this.h, this._gl.RGBA, this._gl.UNSIGNED_BYTE, storage,
 		);
 		
 		const img = this._Image.fromPixels(this.w, this.h, 32, storage.data);
 		img.save(name);
 	}
 	
+	static _deepAssign(src, dest) {
+		Object.entries(src).forEach(([k, v]) => {
+			if (v && typeof v === 'object') {
+				Screen._deepAssign(v, dest[k]);
+				return;
+			}
+			dest[k] = v;
+		});
+	}
+	
 	// When switching from fullscreen and back, reset renderer to update VAO/FBO objects
 	_reinitRenderer() {
+		const old = this._renderer;
+		
+		// Migrate renderer props
+		const renderProps = !old ? null : {
+			shadowMap: {
+				enabled: old.shadowMap.enabled,
+				type: old.shadowMap.type,
+			},
+			debug: {
+				checkShaderErrors: old.debug_checkShaderErrors,
+				onShaderError: old.debug_onShaderError,
+			},
+			autoClear: old.autoClear,
+			autoClearColor: old.autoClearColor,
+			autoClearDepth: old.autoClearDepth,
+			autoClearStencil: old.autoClearStencil,
+			clippingPlanes: old.clippingPlanes,
+			outputColorSpace: old.outputColorSpace,
+			sortObjects: old.sortObjects,
+			toneMapping: old.toneMapping,
+			toneMappingExposure: old.toneMappingExposure,
+			transmissionResolutionScale: old.transmissionResolutionScale,
+		};
 		if (this._autoRenderer) {
-			this._renderer.dispose();
+			old.dispose();
 		}
 		
 		this._autoRenderer = true;
-		this._renderer = new this.three.WebGLRenderer({
-			context: this.context,
-			antialias: true,
+		this._renderer = new this._three.WebGLRenderer({
+			context: this._gl,
 			canvas: this.canvas,
-			alpha: true,
-			
-			premultipliedAlpha: true,
-			preserveDrawingBuffer: true,
-			logarithmicDepthBuffer: true,
 		});
 		
-		this._camera.aspect = this.width / this.height;
+		this._camera.aspect = this.w / this.h;
 		this._camera.updateProjectionMatrix();
-		this._renderer.setSize(this.width, this.height, false);
-		this.context.enable(0x8861); // GL_POINT_SPRITE 0x8861
-		this.context.enable(0x8642); // GL_VERTEX_PROGRAM_POINT_SIZE
-		this.context.enable(0x8862); // GL_COORD_REPLACE
+		this._renderer.setSize(this.w, this.h, false);
+		
+		if (renderProps) {
+			Screen._deepAssign(renderProps, this._renderer);
+		}
+		
+		this._gl.enable(0x8861); // GL_POINT_SPRITE 0x8861
+		this._gl.enable(0x8642); // GL_VERTEX_PROGRAM_POINT_SIZE
+		this._gl.enable(0x8862); // GL_COORD_REPLACE
 	}
 }
 

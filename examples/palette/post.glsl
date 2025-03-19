@@ -34,7 +34,7 @@ float toGrayscale(vec3 rgb) {
 }
 
 void main() {
-	vec4 rgba = texture(t, tc);
+	vec4 rgba = sRGBTransferOETF(texture(t, tc));
 	float gray = toGrayscale(rgba.rgb);
 	vec3 finalColor = rgba.rgb;
 	if (modeGrayscale > 0) {

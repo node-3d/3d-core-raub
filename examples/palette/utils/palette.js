@@ -97,7 +97,7 @@ const createSettings = (colorCount) => {
 const generatePalette = (hueMode, colorCount) => {
 	let paletteSettings = createSettings(colorCount);
 	let lch = generateOKLCH(hueMode, paletteSettings);
-	console.log('generated', hueMode, lch);
+	console.log('New palette:', hueMode, lch);
 	return lch;
 };
 

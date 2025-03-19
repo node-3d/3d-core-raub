@@ -14,7 +14,7 @@ import { createRenderTarget } from './utils/create-render-target.js';
 import { populateScene } from './utils/populate-scene.js';
 
 
-const IS_PERF_MODE = true;
+const IS_PERF_MODE = !true;
 
 const hueModes = [
 	'monochromatic', 'analagous', 'complementary', 'triadic', 'tetradic',
@@ -37,16 +37,16 @@ addThreeHelpers(THREE, gl);
 const icon = new Image('textures/icon.png');
 icon.on('load', () => { doc.icon = icon; });
 
-const cameraPerspective = new THREE.PerspectiveCamera(50, doc.w / doc.h, 1, 1000);
-cameraPerspective.position.z = 9;
-const screen = new Screen({ three: THREE, camera: cameraPerspective });
+const screen = new Screen({ three: THREE, fov: 50, near: 1, far: 1000 });
+screen.renderer.shadowMap.enabled = true;
+screen.camera.position.z = 9;
 
 const cameraOrtho = new THREE.OrthographicCamera(
 	-doc.w * 0.5, doc.w * 0.5, doc.h * 0.5, -doc.h * 0.5, - 10, 10,
 );
 cameraOrtho.position.z = 5;
 
-const controls = new OrbitControls(cameraPerspective, doc);
+const controls = new OrbitControls(screen.camera, doc);
 controls.update();
 
 let mesh;
@@ -105,14 +105,29 @@ const setModeGrayscale = (newValue) => {
 		newValue = 1;
 	}
 	modeGrayscale = newValue;
+	
+	if (modeGrayscale == 1) {
+		console.log('Grayscale mode: Luminosity.');
+	} else if (modeGrayscale == 2) {
+		console.log('Grayscale mode: Lightness.');
+	} else if (modeGrayscale == 3) {
+		console.log('Grayscale mode: Average.');
+	} else {
+		console.log('Grayscale mode: OFF.');
+	}
+	
 	materialPost.uniforms.modeGrayscale.value = modeGrayscale;
 };
 
 const setIsSwap = (newValue) => {
+	isSwap = newValue;
+	
 	if (isSwap && !modeGrayscale) {
 		setModeGrayscale(1);
+	} else if (!isSwap) {
+		setModeGrayscale(0);
 	}
-	isSwap = newValue;
+	
 	materialPost.uniforms.isSwap.value = isSwap;
 	palette.forEach((color, i) => {
 		colorQuads[i].visible = isSwap;

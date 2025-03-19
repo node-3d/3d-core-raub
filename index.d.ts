@@ -224,6 +224,19 @@ declare module "3d-core-raub" {
 		 */
 		requestAnimationFrame: (cb: (dateNow: number) => void) => number,
 		
+		/**
+		 * A wrapper for `document` that automates some common operations.
+		 *
+		 * * Pass `three`, or `THREE`. If not, it will refer to `global.THREE`
+		 * * Pass your own `camera`, or it will create a new one - with default parameters, or yours.
+		 * * Pass your `scene`, or it will create a new one.
+		 * * Pass a `renderer`, or don't - that's just fine.
+		 * * Call `screen.draw()` - equivalent of `renderer.render(scene, camera)`.
+		 *
+		 * It will also propagate the `document` input events and handle the `'mode'` event.
+		 * The latter is important to correctly update any VAO-based geometry. The `'mode'`
+		 * event will be propagated after necessary handling (re-creation of `renderer`).
+		 */
 		Screen: typeof Screen,
 	};
 	

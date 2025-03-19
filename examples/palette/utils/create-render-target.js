@@ -6,6 +6,7 @@ const createRenderTarget = (THREE, materialPost, w, h) => {
 			minFilter: THREE.LinearFilter,
 			magFilter: THREE.NearestFilter,
 			format: THREE.RGBAFormat,
+			colorSpace: THREE.LinearSRGBColorSpace,
 		}
 	);
 	
