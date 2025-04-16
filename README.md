@@ -80,8 +80,10 @@ Example Notes:
 ## OpenGL Features
 
 1. This is real **native OpenGL**, and you have direct access to GL resource IDs. This may be
-	useful for resource sharing and compute interop (such as
-	[CUDA-GL interop](https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__OPENGL.html)).
+	useful for resource sharing and compute interop:
+	* [CUDA-GL interop](https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__OPENGL.html)).
+	* [OpenCL-GL interop](https://registry.khronos.org/OpenCL/sdk/3.0/docs/man/html/clEnqueueAcquireGLObjects.html) - see [example](/examples/boids).
+	* [Context sharing](https://www.glfw.org/docs/latest/context_guide.html#context_sharing).
 1. The flag `isGles3` lets you use a **GL ES 3** preset, which is closest to "real" WebGL.
 	If set to `false`, WebGL stuff (such as three.js) will still work, but now with some hacks.
 	However, if you are planning to use non-WebGL features (e.g. **OpenGL 4.5** features),
@@ -89,8 +91,7 @@ Example Notes:
 1. The flag `isWebGL2` impacts how web libraries recognize the WebGL version.
 	But it doesn't really change the capabilities of the engine.
 1. **Offscreen rendering** is possible on Windows and Linux, as demonstrated by the tests
-	running in GitHub Actions. There are test cases that generate and compare screenshots,
-	and they do work in headless mode.
+	running in GitHub Actions. There are test cases that generate and compare screenshots.
 1. OpenGL **context sharing** is enabled. You can obtain `HDC, HWND, CTX` for Windows and whatever
 	those are called on Linux and MacOS. See [glfw-raub](https://github.com/node-3d/glfw-raub).
 

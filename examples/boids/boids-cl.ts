@@ -10,7 +10,7 @@ import { loopCommon } from './utils/loop-common.ts';
 import { BirdMeshCl } from './cl/bird-mesh-cl.ts';
 import { fillPositionAndPhase, fillVelocity } from './utils/fill-data.ts';
 
-const BIRDS: number = 128 * 128;
+const BIRDS: number = 128 * 128; // 16384
 const BOUNDS: number = 800;
 const IS_PERF_MODE: boolean = true;
 
