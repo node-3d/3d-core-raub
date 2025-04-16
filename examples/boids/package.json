@@ -1,0 +1,13 @@
+{
+	"name": "example",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"boids-gl": "node --no-warnings=ExperimentalWarning --experimental-strip-types boids-gl.ts",
+		"boids-cl": "node --no-warnings=ExperimentalWarning --experimental-strip-types boids-cl.ts"
+	},
+	"dependencies": {
+		"opencl-raub": "^2.0.1"
+	}
+}

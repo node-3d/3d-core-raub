@@ -1,4 +1,4 @@
-declare module "3d-core-raub" {
+declare namespace node3d {
 	type EventEmitter = import('node:events').EventEmitter;
 	type Img = typeof import('image-raub');
 	type TThree = typeof import('three');
@@ -315,4 +315,8 @@ declare module "3d-core-raub" {
 	 * `three.Texture.fromId` static method to create THREE textures from known GL resource IDs.
 	 */
 	export const addThreeHelpers: (three: TThree, gl: TWebgl) => void;
+
 }
+
+export = node3d;
+
