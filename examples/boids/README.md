@@ -64,5 +64,6 @@ kernel.
 1. For each iteration of the outer loop, the workgroup threads synchronize and
 copy 256 entries into local memory (1 entry per thread).
 1. Threads synchronize again, and each thread does 256 iterations,
-but only reading from shared (and not global) memory.
-1. Hence we use (the order of) N global reads, instead of N\*N. If N is **16384**, N\*N is **268,435,456**.
+but only reading from shared (and not **global**) memory.
+1. Hence we use (the order of) N **global** reads, instead of N\*N. If N is **16384**, N\*N is **268,435,456**.
+Although, we still do that amount of calculations either way.

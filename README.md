@@ -81,7 +81,7 @@ Example Notes:
 
 1. This is real **native OpenGL**, and you have direct access to GL resource IDs. This may be
 	useful for resource sharing and compute interop:
-	* [CUDA-GL interop](https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__OPENGL.html)).
+	* [CUDA-GL interop](https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__OPENGL.html).
 	* [OpenCL-GL interop](https://registry.khronos.org/OpenCL/sdk/3.0/docs/man/html/clEnqueueAcquireGLObjects.html) - see [example](/examples/boids).
 	* [Context sharing](https://www.glfw.org/docs/latest/context_guide.html#context_sharing).
 1. The flag `isGles3` lets you use a **GL ES 3** preset, which is closest to "real" WebGL.
